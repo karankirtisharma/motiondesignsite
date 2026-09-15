@@ -64,15 +64,6 @@
       "materials": 21
     },
     {
-      "id": "meeting",
-      "uri": "/assets/meeting.76d749d89c94.glb",
-      "sha256": "76d749d89c94637397ae2aaf679544e9608fbcd02aaf55dab0ddf30de150a084",
-      "byteLength": 2780092,
-      "triangles": 225300,
-      "primitives": 9,
-      "materials": 9
-    },
-    {
       "id": "lounge",
       "uri": "/assets/lounge.2b3a694526bb.glb",
       "sha256": "2b3a694526bb449cc5c966b1d7c71d5856603cb43a0d259bfb07c3e7ddbe9429",
@@ -82,31 +73,40 @@
       "materials": 15
     },
     {
-      "id": "lab",
-      "uri": "/assets/lab.f1d68fe7ae02.glb",
-      "sha256": "f1d68fe7ae0219fb3f13d8c96a761a0522e0978d6be4bd02c74a22643fcf4e90",
-      "byteLength": 8813144,
-      "triangles": 474060,
-      "primitives": 21,
-      "materials": 21
-    },
-    {
-      "id": "motion-floor",
-      "uri": "/assets/motion-floor.af5e65455564.glb",
-      "sha256": "af5e65455564691ea3840d1308b994e6cedbcaab74d024292bd62bf450e549c7",
-      "byteLength": 30007572,
-      "triangles": 1708739,
-      "primitives": 24,
-      "materials": 24
-    },
-    {
       "id": "render-hall",
-      "uri": "/assets/render-hall.0b17273fc3df.glb",
-      "sha256": "0b17273fc3df284826a93a1a25117afa2525ea8d9eeda462df51898e6e0c66ca",
-      "byteLength": 1741728,
+      "uri": "/assets/render-hall.5567b25c7b55.glb",
+      "sha256": "5567b25c7b55fd81eb3f3c78d0656d1a5183ebdaa8c7fc0cb7345b1e1d00ae53",
+      "byteLength": 1741732,
       "triangles": 61452,
       "primitives": 15,
       "materials": 15
+    },
+    {
+      "id": "meeting",
+      "uri": "/assets/meeting.d781171c43d6.glb",
+      "sha256": "d781171c43d606c9cc9ad030adfd84609522b94234635693aebb1ef01054bd1b",
+      "byteLength": 2786300,
+      "triangles": 225300,
+      "primitives": 13,
+      "materials": 13
+    },
+    {
+      "id": "lab",
+      "uri": "/assets/lab.4b1abd03bdb8.glb",
+      "sha256": "4b1abd03bdb82adc58316bf0e0f64458c9ab3600160c31684f7f2307988a14cb",
+      "byteLength": 9865740,
+      "triangles": 474060,
+      "primitives": 31,
+      "materials": 31
+    },
+    {
+      "id": "motion-floor",
+      "uri": "/assets/motion-floor.4c1b8dadf7d1.glb",
+      "sha256": "4c1b8dadf7d1809ec76c4f1873093cf00a94d42a1ad7f11521393d3cbbdede90",
+      "byteLength": 32249536,
+      "triangles": 1708739,
+      "primitives": 35,
+      "materials": 35
     }
   ],
   "status": "local-review"

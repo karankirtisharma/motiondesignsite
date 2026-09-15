@@ -16,6 +16,14 @@ for(const zone of (requested.length?requested:['exterior','reception','spine','f
  // Blender includes an unused source scene. Remove it before serializing the derivative.
  for(const scene of doc.getRoot().listScenes())if(!scene.listChildren().length)scene.dispose();
  for(const node of doc.getRoot().listNodes())if(node.getName().includes('ENV_GROUND'))node.dispose();
+ // The metal stem intersects both letters with exactly coplanar front/back
+ // and end caps. Recess this internal joint 8 mm in depth and 6 mm at each
+ // end before quantization; leave the stone M, curved D and gold inlay intact.
+ if(zone==='render-hall'){
+   const stem=doc.getRoot().listNodes().find(n=>n.getName()==='WEB_SCULPTURE_RENDER_MD_D_stem');
+   if(!stem)throw Error('Missing render sculpture stem');
+   const [x,y,z]=stem.getScale();stem.setScale([x,y*(2.1-.012)/2.1,z*(.26-.016)/.26]);
+ }
  // The runtime supplies atlas or reference detail maps for these materials.
  for(const material of doc.getRoot().listMaterials())if(material.getName().includes('__baked')){
    material.setBaseColorTexture(null).setNormalTexture(null).setMetallicRoughnessTexture(null);

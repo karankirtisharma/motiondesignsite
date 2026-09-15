@@ -25,5 +25,14 @@
     "backend": "WebGL2",
     "sourceReceptionRendered": true,
     "runtimeErrors": 0
+  },
+  "chairAndSculptureFix": {
+    "checkedAt": "2026-09-15",
+    "meeting": "WebGPU: black upholstery and separate chrome hardware verified",
+    "lab": "WebGPU: black mesh, seats and frames verified",
+    "motionFloor": "WebGL2: black mesh, seats and frames verified; no console errors",
+    "sculpture": "WebGPU: recessed metal joint verified from front and oblique scroll positions; no seam speckling observed",
+    "build": "passed",
+    "assetValidation": "9 GLBs pass; source chair material groups present in all 3 affected rooms"
   }
 }

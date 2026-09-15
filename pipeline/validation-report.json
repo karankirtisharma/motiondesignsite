@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-15T15:44:41.202Z",
+  "checkedAt": "2026-09-15T15:57:09.963Z",
   "assets": [
     {
       "room": "exterior",
@@ -34,14 +34,6 @@
       "warnings": 0
     },
     {
-      "room": "meeting",
-      "bytes": 2780092,
-      "triangles": 225300,
-      "bakedPrimitives": 7,
-      "glTFErrors": 0,
-      "warnings": 0
-    },
-    {
       "room": "lounge",
       "bytes": 6178132,
       "triangles": 346480,
@@ -50,8 +42,24 @@
       "warnings": 0
     },
     {
+      "room": "render-hall",
+      "bytes": 1741732,
+      "triangles": 61452,
+      "bakedPrimitives": 6,
+      "glTFErrors": 0,
+      "warnings": 0
+    },
+    {
+      "room": "meeting",
+      "bytes": 2786300,
+      "triangles": 225300,
+      "bakedPrimitives": 7,
+      "glTFErrors": 0,
+      "warnings": 0
+    },
+    {
       "room": "lab",
-      "bytes": 8813144,
+      "bytes": 9865740,
       "triangles": 474060,
       "bakedPrimitives": 11,
       "glTFErrors": 0,
@@ -59,17 +67,9 @@
     },
     {
       "room": "motion-floor",
-      "bytes": 30007572,
+      "bytes": 32249536,
       "triangles": 1708739,
       "bakedPrimitives": 11,
-      "glTFErrors": 0,
-      "warnings": 0
-    },
-    {
-      "room": "render-hall",
-      "bytes": 1741728,
-      "triangles": 61452,
-      "bakedPrimitives": 6,
       "glTFErrors": 0,
       "warnings": 0
     }

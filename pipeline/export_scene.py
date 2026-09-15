@@ -149,8 +149,13 @@ for r in evidence:
    while len(mesh.uv_layers)>1:mesh.uv_layers.remove(mesh.uv_layers[-1])
    layer=mesh.uv_layers.new(name='LightUV');layer.data.foreach_set('uv',np.array(light_uv[o.name],dtype=np.float32).flatten());mesh.uv_layers.active_index=0;mesh.uv_layers[0].active_render=True
    copy['baked_diffuse']=True
+  # Clearing Blender material slots resets polygon material_index to zero.
+  # Keep the evaluated face assignments before replacing source slots.
+  material_indices=np.array([p.material_index for p in mesh.polygons],dtype=np.int32)
   original_mats=list(mesh.materials);mesh.materials.clear()
   for m in original_mats:mesh.materials.append(material(m,zone+('__baked' if baked else '')) if m else material(bpy.data.materials['STONE'],zone))
+  mesh.polygons.foreach_set('material_index',material_indices)
+  assert all(p.material_index==material_indices[p.index] for p in mesh.polygons)
   triangles=sum(len(p.vertices)-2 for p in mesh.polygons)
   limit=22000 if zone=='motion-floor' else 35000 if zone in ['lab','meeting'] else 120000 if zone in ['founder','lounge'] else 160000
   if triangles>limit and not baked:

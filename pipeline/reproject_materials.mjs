@@ -6,7 +6,8 @@ const recipes=JSON.parse(await fs.readFile('public/materials/source-materials.js
 const matrices=JSON.parse(await fs.readFile('work/source-object-matrices.json','utf8'));
 const io=new NodeIO().registerExtensions(ALL_EXTENSIONS);await fs.mkdir('work/geometry-source',{recursive:true});
 const blender=v=>new Vector3(v.x,-v.z,v.y);
-for(const zone of ['exterior','reception','spine','founder','meeting','lounge','lab','motion-floor','render-hall']){
+const requested=process.argv.slice(2);
+for(const zone of (requested.length?requested:['exterior','reception','spine','founder','meeting','lounge','lab','motion-floor','render-hall'])){
  const doc=await io.read(`work/geometry/${zone}.glb`);let count=0;
  for(const node of doc.getRoot().listNodes()){
   const mesh=node.getMesh();if(!mesh)continue;
