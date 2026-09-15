@@ -1,50 +1,50 @@
 {
-  "checkedAt": "2026-09-15T16:11:57.604Z",
+  "checkedAt": "2026-09-15T16:16:39.869Z",
   "results": [
     {
       "fps": 30,
       "target": 0.005,
-      "settleSeconds": 0.8666666666666666
+      "settleSeconds": 1.0333333333333332
     },
     {
       "fps": 30,
       "target": 0.03,
-      "settleSeconds": 1.0666666666666667
+      "settleSeconds": 1.2666666666666673
     },
     {
       "fps": 30,
       "target": 1,
-      "settleSeconds": 6.866666666666652
+      "settleSeconds": 6.999999999999985
     },
     {
       "fps": 60,
       "target": 0.005,
-      "settleSeconds": 0.850000000000001
+      "settleSeconds": 1.0333333333333345
     },
     {
       "fps": 60,
       "target": 0.03,
-      "settleSeconds": 1.0500000000000012
+      "settleSeconds": 1.266666666666667
     },
     {
       "fps": 60,
       "target": 1,
-      "settleSeconds": 6.649999999999982
+      "settleSeconds": 6.799999999999981
     },
     {
       "fps": 120,
       "target": 0.005,
-      "settleSeconds": 0.8499999999999994
+      "settleSeconds": 1.0166666666666655
     },
     {
       "fps": 120,
       "target": 0.03,
-      "settleSeconds": 1.0499999999999987
+      "settleSeconds": 1.2583333333333313
     },
     {
       "fps": 120,
       "target": 1,
-      "settleSeconds": 6.533333333333448
+      "settleSeconds": 6.700000000000123
     }
   ]
 }

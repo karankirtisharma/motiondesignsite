@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-09-15T16:16:07.297Z",
+  "routePositionsUnchanged": true,
+  "results": [
+    {
+      "fps": 30,
+      "maxRawTurnRadiansPerSecond": 45.798789919847216,
+      "maxSmoothedTurnRadiansPerSecond": 17.895292586391143
+    },
+    {
+      "fps": 60,
+      "maxRawTurnRadiansPerSecond": 58.32683520684741,
+      "maxSmoothedTurnRadiansPerSecond": 18.84859002392685
+    },
+    {
+      "fps": 120,
+      "maxRawTurnRadiansPerSecond": 64.98160791149175,
+      "maxSmoothedTurnRadiansPerSecond": 18.84869139760073
+    }
+  ]
+}

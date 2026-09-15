@@ -16,6 +16,7 @@ export class Experience {
   private engine!:AbstractEngine;private scene!:Scene;private camera!:UniversalCamera;private assets!:AssetRegistry;
   private scrollRange=1;private velocity=0;private phase=0;private target=0;private ready=false;private receptionReady=false;private paused=false;private exploring=false;private seeking=false;private anchor=0;
   private loadLimit=receptionPhase+.005;private waitingForRooms=false;
+  private viewYaw=0;private viewPitch=0;private viewFov=0;private viewSettling=false;
   private saved={phase:0,scroll:0};private lastTime=0;private pointer:{x:number;y:number;id:number}|null=null;private yaw=0;private pitch=0;
   private moving?:{from:Pose;to:Pose;elapsed:number;duration:number};private currentPose=poseAt(0);private mirror?:MirrorTexture;private pipeline?:ArchitecturalFinish;
   private looping=false;private renderFrame=()=>this.tick();private warmupFrames=8;private invalidated=true;private frameTimes:number[]=[];private slowFrames=0;private recovery=0;
@@ -117,27 +118,39 @@ export class Experience {
   }
   private wake(){if(!this.ready||this.paused||document.hidden||this.looping)return;this.looping=true;this.lastTime=performance.now();this.engine.runRenderLoop(this.renderFrame);}
   private sleep(){this.engine.stopRenderLoop(this.renderFrame);this.looping=false;}
-  private applyPose(pose:Pose){this.currentPose=pose;this.camera.position.copyFrom(pose.position);this.camera.rotationQuaternion=null;this.camera.setTarget(pose.target);this.camera.fov=pose.fov;this.invalidated=true;this.wake();}
+  private applyPose(pose:Pose,dt?:number){
+    this.currentPose=pose;this.camera.position.copyFrom(pose.position);
+    const direction=pose.target.subtract(pose.position).normalize();
+    const yaw=Math.atan2(direction.x,direction.z),pitch=Math.asin(direction.y);
+    const deltaYaw=Math.atan2(Math.sin(yaw-this.viewYaw),Math.cos(yaw-this.viewYaw));
+    const blend=dt!==undefined&&!this.options.reduced?1-Math.exp(-dt/.12):1;
+    this.viewYaw+=deltaYaw*blend;this.viewPitch+=(pitch-this.viewPitch)*blend;this.viewFov+=(pose.fov-this.viewFov)*blend;
+    this.viewSettling=blend<1&&(Math.abs(deltaYaw)>.0001||Math.abs(pitch-this.viewPitch)>.0001||Math.abs(pose.fov-this.viewFov)>.0001);
+    this.camera.rotationQuaternion=null;
+    this.camera.setTarget(pose.position.add(new Vector3(Math.sin(this.viewYaw)*Math.cos(this.viewPitch),Math.sin(this.viewPitch),Math.cos(this.viewYaw)*Math.cos(this.viewPitch)).scale(5)));
+    this.camera.fov=this.viewFov;this.invalidated=true;this.wake();
+  }
   private bindInputs(){
     this.scrollRange=Math.max(1,document.documentElement.scrollHeight-innerHeight);
     addEventListener('scroll',()=>{if(this.exploring||this.paused)return;this.target=scrollY/this.scrollRange;this.seeking=false;this.wake();},{passive:true});
     addEventListener('resize',()=>{this.scrollRange=Math.max(1,document.documentElement.scrollHeight-innerHeight);this.engine.resize();this.applyPose(this.currentPose)});
     document.addEventListener('visibilitychange',()=>{this.lastTime=0;if(document.hidden)this.sleep();else{this.invalidated=true;this.wake();}});
     this.canvas.addEventListener('pointerdown',e=>{if(!this.exploring)return;this.pointer={x:e.clientX,y:e.clientY,id:e.pointerId};this.canvas.setPointerCapture(e.pointerId);this.canvas.focus()});
-    this.canvas.addEventListener('pointermove',e=>{if(!this.pointer||!this.exploring)return;this.yaw=Math.max(-1.22,Math.min(1.22,this.yaw-(e.clientX-this.pointer.x)*.003));this.pitch=Math.max(-.436,Math.min(.436,this.pitch+(e.clientY-this.pointer.y)*.003));this.pointer={x:e.clientX,y:e.clientY,id:e.pointerId};this.applyLook()});
+    this.canvas.addEventListener('pointermove',e=>{if(!this.pointer||!this.exploring)return;this.yaw=Math.max(-1.22,Math.min(1.22,this.yaw-(e.clientX-this.pointer.x)*.0018));this.pitch=Math.max(-.436,Math.min(.436,this.pitch+(e.clientY-this.pointer.y)*.0018));this.pointer={x:e.clientX,y:e.clientY,id:e.pointerId};this.applyLook()});
     this.canvas.addEventListener('pointerup',()=>this.pointer=null);this.canvas.addEventListener('pointercancel',()=>this.pointer=null);
-    this.canvas.addEventListener('keydown',e=>{if(!this.exploring||!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key))return;e.preventDefault();if(e.key==='ArrowLeft')this.yaw+=.07;if(e.key==='ArrowRight')this.yaw-=.07;if(e.key==='ArrowUp')this.pitch-=.05;if(e.key==='ArrowDown')this.pitch+=.05;this.yaw=Math.max(-1.22,Math.min(1.22,this.yaw));this.pitch=Math.max(-.436,Math.min(.436,this.pitch));this.applyLook()});
+    this.canvas.addEventListener('keydown',e=>{if(!this.exploring||!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key))return;e.preventDefault();if(e.key==='ArrowLeft')this.yaw+=.045;if(e.key==='ArrowRight')this.yaw-=.045;if(e.key==='ArrowUp')this.pitch-=.03;if(e.key==='ArrowDown')this.pitch+=.03;this.yaw=Math.max(-1.22,Math.min(1.22,this.yaw));this.pitch=Math.max(-.436,Math.min(.436,this.pitch));this.applyLook()});
     this.canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.paused=true;document.body.classList.remove('gpu-ready');this.options.onStatus('Restoring the view')});
     this.canvas.addEventListener('webglcontextrestored',()=>{if(this.recovery++===0){this.setQuality('mobile');this.paused=false;this.invalidated=true;document.body.classList.add('gpu-ready');this.options.onStatus('')}else this.options.onFail('Repeated graphics reset')});
   }
-  private viewPose():Pose{return {...this.currentPose,position:this.camera.position.clone(),target:this.camera.position.add(this.camera.getForwardRay().direction.scale(5))};}
+  private viewPose():Pose{return {...this.currentPose,fov:this.camera.fov,position:this.camera.position.clone(),target:this.camera.position.add(this.camera.getForwardRay().direction.scale(5))};}
   private applyLook(){this.camera.rotationQuaternion=null;this.camera.setTarget(this.currentPose.target);this.camera.rotation.y+=this.yaw;this.camera.rotation.x+=this.pitch;this.camera.rotation.z=0;this.invalidated=true;this.wake();}
   private tick(){const now=performance.now(),dt=Math.min(.05,Math.max(0,(now-this.lastTime)/1000||0));this.lastTime=now;if(document.hidden||this.paused||!this.ready)return;let changing=false;
     if(this.moving){const m=this.moving;m.elapsed+=dt;const t=Math.min(1,m.elapsed/m.duration),e=t*t*(3-2*t);this.applyPose({position:Vector3.Lerp(m.from.position,m.to.position,e),target:Vector3.Lerp(m.from.target,m.to.target,e),fov:m.from.fov+(m.to.fov-m.from.fov)*e,exposure:m.to.exposure});if(t===1)this.moving=undefined;changing=true}
     else if(!this.exploring&&!this.seeking&&Math.abs(Math.min(this.target,this.loadLimit)-this.phase)>.000001){
       const response=advanceScroll(this.phase,Math.min(this.target,this.loadLimit),this.velocity,dt);this.velocity=response.velocity;
-      this.phase=response.value;this.applyPose(poseAt(this.phase));this.emit();changing=true;
+      this.phase=response.value;this.applyPose(poseAt(this.phase),dt);this.emit();changing=true;
     }
+    if(!changing&&!this.exploring&&!this.seeking&&this.viewSettling){this.applyPose(this.currentPose,dt);changing=true;}
     const waiting=this.target>this.loadLimit&&this.phase>=this.loadLimit-.001;
     if(waiting!==this.waitingForRooms){this.waitingForRooms=waiting;this.options.onStatus(waiting?'Preparing the next rooms':'');}
     this.environment.update(dt,this.camera.position,this.options.reduced);
@@ -146,12 +159,12 @@ export class Experience {
     if(!changing&&!this.invalidated&&!lightsSettling&&this.warmupFrames<=0&&(this.options.reduced||this.environment.inside>=.999))this.sleep();
   }
   async seek(phase:number,scroll=true){phase=Math.max(0,Math.min(1,phase));if(this.exploring)this.returnToPath();this.target=phase;this.seeking=false;if(scroll)window.scrollTo({top:phase*(document.documentElement.scrollHeight-innerHeight),behavior:'instant'});this.wake();}
-  enter(){if(this.phase<receptionPhase*.8){void this.seek(receptionPhase);return;}this.saved={phase:this.phase,scroll:scrollY};this.exploring=true;document.body.style.overflow='hidden';this.canvas.tabIndex=0;this.canvas.focus();this.yaw=this.pitch=0;this.emit();}
+  enter(){if(this.phase<receptionPhase*.8){void this.seek(receptionPhase);return;}this.saved={phase:this.phase,scroll:scrollY};this.currentPose=this.viewPose();this.viewSettling=false;this.exploring=true;document.body.style.overflow='hidden';this.canvas.tabIndex=0;this.canvas.focus();this.yaw=this.pitch=0;this.emit();}
   travelToRoom(id:string){const chapter=chapters.find(c=>c.id===id);if(chapter)void this.seek(id==='render-hall'?1:chapter.phase);}
   getChapters(){return chapters;}
   private inReceptionApron(){const p=this.currentPose.position;return roomAt(this.phase)==='reception'&&p.x>=-4.5&&p.x<=4.6&&-p.z>=2&&-p.z<=4.15;}
 
-  async exploreAnchor(id:string){const index=anchors.findIndex(a=>a.id===id);if(index<0||!this.receptionReady||!this.inReceptionApron())return;try{await this.navigationTask;const to=anchorPose(index);const route=this.navigation?.path(this.currentPose.position,to.position);if(!route?.length)return;if(!this.exploring){this.saved={phase:this.phase,scroll:scrollY};this.exploring=true;document.body.style.overflow='hidden';this.canvas.tabIndex=0;}
+  async exploreAnchor(id:string){const index=anchors.findIndex(a=>a.id===id);if(index<0||!this.receptionReady||!this.inReceptionApron())return;try{await this.navigationTask;const to=anchorPose(index);const route=this.navigation?.path(this.currentPose.position,to.position);if(!route?.length)return;if(!this.exploring){this.saved={phase:this.phase,scroll:scrollY};this.currentPose=this.viewPose();this.viewSettling=false;this.exploring=true;document.body.style.overflow='hidden';this.canvas.tabIndex=0;}
     this.anchor=index;this.yaw=0;this.pitch=0;to.position=route[route.length-1];this.moving={from:this.viewPose(),to,elapsed:0,duration:this.options.reduced?.01:Math.max(1.5,Vector3.Distance(this.currentPose.position,to.position)/1.2)};this.wake();this.emit();}catch(e){this.options.onStatus('This viewpoint is not available. Return to the path to continue.');console.error(e)}}
   cycleAnchor(direction:number){this.exploreAnchor(anchors[(this.anchor+direction+anchors.length)%anchors.length].id)}
   returnToPath(){if(!this.exploring)return;const from=this.viewPose();this.exploring=false;document.body.style.overflow='';window.scrollTo({top:this.saved.scroll,behavior:'instant'});this.phase=this.target=this.saved.phase;this.velocity=0;this.canvas.tabIndex=-1;this.yaw=this.pitch=0;this.moving={from,to:poseAt(this.saved.phase),elapsed:0,duration:this.options.reduced?.01:Math.max(.45,Vector3.Distance(this.currentPose.position,poseAt(this.saved.phase).position)/2)};this.wake();this.emit();}

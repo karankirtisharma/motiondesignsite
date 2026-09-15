@@ -34,5 +34,17 @@
     "sculpture": "WebGPU: recessed metal joint verified from front and oblique scroll positions; no seam speckling observed",
     "build": "passed",
     "assetValidation": "9 GLBs pass; source chair material groups present in all 3 affected rooms"
+  },
+  "subtleCameraAndFinale": {
+    "checkedAt": "2026-09-15",
+    "desktop": "Coming soon title visible over final sculpture",
+    "phoneViewport": [
+      390,
+      844
+    ],
+    "phone": "Title fits without horizontal overflow; controls remain available",
+    "reverseScroll": "Title hides before leaving final view",
+    "lookAround": "Title hides on entry and returns with Return to path; arrow controls verified",
+    "cameraTests": "30/60/120 Hz peak-turn reduction, final convergence and exact route positions passed"
   }
 }
