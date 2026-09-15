@@ -1,0 +1,21 @@
+* text=auto
+*.ts text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.json text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.md text eol=lf
+*.py text eol=lf
+*.cmd text eol=crlf
+*.glb binary
+*.hdr binary
+*.exr binary
+*.bin binary
+*.pack binary
+*.wasm binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.woff2 binary

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#b5afa3" />
+    <meta name="description" content="MOTION DESIGN. An architectural journey through every room of the studio. Coming soon." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>MOTION DESIGN — Coming Soon</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#experience-controls">Skip to experience controls</a>
+    <div class="stage">
+      <picture id="poster"><img src="/posters/exterior.webp" width="1600" height="900" alt="" fetchpriority="high" /></picture>
+      <canvas id="scene" tabindex="-1" aria-label="Studio exploration. Pause the journey to look around, or use the reception viewpoints."></canvas>
+      
+    </div>
+    <header class="masthead">
+      <a class="brand" href="#arrival" aria-label="Motion Design, back to arrival"><h1>MOTION DESIGN</h1></a>
+      <div class="header-actions"><button id="rooms-button" class="text-button rooms-button">The spaces <span aria-hidden="true">↗</span></button><span class="mode-label" id="mode-label">AN ARCHITECTURAL EXPERIENCE</span><button id="settings-button" class="icon-button" aria-label="Experience settings" title="Experience settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.5" fill="var(--control-bg)"/><circle cx="15" cy="17" r="2.5" fill="var(--control-bg)"/></svg></button></div>
+    </header>
+    <main id="chapters">
+      <section id="arrival" class="chapter"><h2 class="sr-only">Arrival</h2><p class="sr-only">Cream limestone, bronze frames and warm architectural lighting. Approach the headquarters beside the reflecting water at dusk.</p></section>
+      <section id="entrance" class="chapter"><h2 class="sr-only">The entrance</h2><p class="sr-only">Pass through the building's open central entrance into reception.</p></section>
+      <section id="reception" class="chapter"><h2 class="sr-only">Reception</h2><p class="sr-only">Six exhibits, a solid limestone MD logo, a bronze reception counter and sweeping ceiling lights.</p></section>
+<section class="chapter"><h2 class="sr-only">The spine and meeting room</h2></section><section class="chapter"><h2 class="sr-only">Founder’s studio</h2></section><section class="chapter"><h2 class="sr-only">The lounge</h2></section><section class="chapter"><h2 class="sr-only">The lab</h2></section><section class="chapter"><h2 class="sr-only">Motion floor</h2></section><section class="chapter"><h2 class="sr-only">The upper gallery</h2></section><section class="chapter"><h2 class="sr-only">Render hall</h2></section>
+    </main>
+    <aside class="progress-rail" aria-label="Journey progress"><span id="phase-number">01</span><div class="progress-track"><div id="progress-fill"></div></div><span>10</span></aside>
+    <footer class="bottom-bar" id="experience-controls">
+      <div class="identity-status"><div class="coming-soon"><span class="status-dot"></span>COMING SOON</div><div id="room-label">&nbsp;</div></div>
+      <div class="journey-action"><button id="enter-button" class="enter-button"><span id="enter-label">Scroll to enter</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 4v15m-5-5 5 5 5-5"/></svg></button><button id="return-button" class="text-button" hidden>Return to path <span aria-hidden="true">↗</span></button></div>
+      <button id="lightweight-button" class="text-button utility-link">View without 3D <span aria-hidden="true">↗</span></button>
+    </footer>
+    <div id="loading-status" role="status" class="loading-status"><span class="loading-dot"></span><span id="loading-copy">Preparing the building</span><button id="retry-button" class="text-button" hidden>Retry</button></div>
+    <section id="exploration-panel" class="exploration-panel" aria-label="Explore the studio" hidden>
+      <div class="panel-heading"><span id="exploration-heading">RECEPTION</span><span class="panel-hint">Drag to look around</span></div>
+      <div class="viewpoints"><button data-anchor="room" aria-pressed="true"><span>01</span> Room view</button><button data-anchor="exhibits"><span>02</span> The exhibits</button><button data-anchor="identity"><span>03</span> MD identity</button><button data-anchor="counter"><span>04</span> The counter</button></div>
+      <p id="exhibit-description">Limestone, bronze and six studies in motion.</p>
+      <div class="viewpoint-arrows"><button id="previous-anchor" aria-label="Previous viewpoint">←</button><span>VIEWPOINTS</span><button id="next-anchor" aria-label="Next viewpoint">→</button></div>
+    </section>
+    <section id="lightweight-panel" class="lightweight-panel" aria-label="Lightweight views" hidden>
+      <div><span class="eyebrow">LIGHTWEIGHT VIEW</span><h2 id="still-title">The exterior</h2><p id="still-description">Cream limestone, bronze framing and a quiet approach.</p></div>
+      <div class="still-navigation"><button id="previous-view" class="circle-button" aria-label="Previous view">←</button><span id="still-count">01 / 04</span><button id="next-view" class="circle-button" aria-label="Next view">→</button></div>
+    </section>
+    <dialog id="rooms-dialog" aria-labelledby="rooms-title"><div class="dialog-heading"><h2 id="rooms-title">The spaces</h2><button id="close-rooms" class="icon-button" aria-label="Close spaces">×</button></div><p>One continuous journey through the studio.</p><div id="room-list"></div></dialog>
+    <dialog id="settings-dialog" aria-labelledby="settings-title">
+      <div class="dialog-heading"><h2 id="settings-title">Your experience</h2><button id="close-settings" class="icon-button" aria-label="Close settings">×</button></div>
+      <p>Choose how you move through the building.</p>
+      <label for="quality">Image quality</label><select id="quality"><option value="balanced">Balanced</option><option value="high">High detail</option><option value="mobile">Reduced detail</option></select>
+      <label class="check-label"><input type="checkbox" id="reduce-motion" /> Reduce camera motion</label>
+      <button id="settings-lightweight" class="dialog-action">View without 3D <span>↗</span></button>
+      <p class="settings-note">The lightweight view uses stills rendered from the actual building.</p>
+    </dialog>
+    <div id="announcer" role="status" aria-live="polite" class="sr-only"></div>
+    <noscript><style>.loading-status,.journey-action,.header-actions,.utility-link,.progress-rail{display:none}#chapters{height:auto}.lightweight-panel{display:flex!important}</style><section class="noscript-content"><h2>Reception</h2><img src="/posters/reception.webp" width="1600" height="900" alt="Reception with a limestone MD logo, bronze counter, six exhibits and curved ceiling lights."/><p>Explore the architecture through these still views. Enable JavaScript for the guided 3D journey.</p></section></noscript>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

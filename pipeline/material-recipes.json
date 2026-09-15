@@ -1,0 +1,1595 @@
+{
+  "WEB__exterior__baked__STONE": {
+    "source": "STONE",
+    "zone": "exterior__baked",
+    "material": "WEB__exterior__baked__STONE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "approximation": "Procedural color uses ramp average in review derivative; source-scale texture bake pending.",
+    "metallic": 0.0,
+    "roughness": 0.4300000071525574
+  },
+  "WEB__motion-floor__baked__V03_PATINA": {
+    "source": "V03_PATINA",
+    "zone": "motion-floor__baked",
+    "material": "WEB__motion-floor__baked__V03_PATINA",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8799999952316284,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__motion-floor__baked__V07_DISPLAY_SATIN_ALUMINIUM": {
+    "source": "V07_DISPLAY_SATIN_ALUMINIUM",
+    "zone": "motion-floor__baked",
+    "material": "WEB__motion-floor__baked__V07_DISPLAY_SATIN_ALUMINIUM",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8999999761581421,
+    "roughness": 0.25
+  },
+  "WEB__motion-floor__baked__GRAPHITE": {
+    "source": "GRAPHITE",
+    "zone": "motion-floor__baked",
+    "material": "WEB__motion-floor__baked__GRAPHITE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.6499999761581421,
+    "roughness": 0.28999999165534973
+  },
+  "WEB__exterior__LIGHT": {
+    "source": "LIGHT",
+    "zone": "exterior",
+    "material": "WEB__exterior__LIGHT",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__motion-floor__baked__V03_LEATHER": {
+    "source": "V03_LEATHER",
+    "zone": "motion-floor__baked",
+    "material": "WEB__motion-floor__baked__V03_LEATHER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.4300000071525574
+  },
+  "WEB__motion-floor__baked__V03_BRONZE": {
+    "source": "V03_BRONZE",
+    "zone": "motion-floor__baked",
+    "material": "WEB__motion-floor__baked__V03_BRONZE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8999999761581421,
+    "roughness": 0.27000001072883606
+  },
+  "WEB__motion-floor__baked__V07_DISPLAY_CERAMIC_BLACK": {
+    "source": "V07_DISPLAY_CERAMIC_BLACK",
+    "zone": "motion-floor__baked",
+    "material": "WEB__motion-floor__baked__V07_DISPLAY_CERAMIC_BLACK",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.2199999988079071,
+    "roughness": 0.25999999046325684
+  },
+  "WEB__motion-floor__V07_SCREEN_1": {
+    "source": "V07_SCREEN_1",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V07_SCREEN_1",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_V07_SCREEN_1_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.20000000298023224
+  },
+  "WEB__motion-floor__LIGHT": {
+    "source": "LIGHT",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__LIGHT",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__motion-floor__V07_SCREEN_2": {
+    "source": "V07_SCREEN_2",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V07_SCREEN_2",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_V07_SCREEN_2_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.20000000298023224
+  },
+  "WEB__motion-floor__V07_SCREEN_3": {
+    "source": "V07_SCREEN_3",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V07_SCREEN_3",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_V07_SCREEN_3_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.20000000298023224
+  },
+  "WEB__motion-floor__V07_SCREEN_4": {
+    "source": "V07_SCREEN_4",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V07_SCREEN_4",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_V07_SCREEN_4_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.20000000298023224
+  },
+  "WEB__motion-floor__V07_SCREEN_5": {
+    "source": "V07_SCREEN_5",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V07_SCREEN_5",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_V07_SCREEN_5_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.20000000298023224
+  },
+  "WEB__motion-floor__V07_SCREEN_0": {
+    "source": "V07_SCREEN_0",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V07_SCREEN_0",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_V07_SCREEN_0_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.20000000298023224
+  },
+  "WEB__founder__baked__V06_WALNUT_PBR_4K": {
+    "source": "V06_WALNUT_PBR_4K",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__V06_WALNUT_PBR_4K",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.35,
+    "image": "WEB_V06_WALNUT_PBR_4K_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__founder__baked__V07_DISPLAY_SATIN_ALUMINIUM": {
+    "source": "V07_DISPLAY_SATIN_ALUMINIUM",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__V07_DISPLAY_SATIN_ALUMINIUM",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8999999761581421,
+    "roughness": 0.25
+  },
+  "WEB__founder__baked__GRAPHITE": {
+    "source": "GRAPHITE",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__GRAPHITE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.6499999761581421,
+    "roughness": 0.28999999165534973
+  },
+  "WEB__founder__baked__V03_LEATHER": {
+    "source": "V03_LEATHER",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__V03_LEATHER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.4300000071525574
+  },
+  "WEB__founder__baked__V07_DISPLAY_CERAMIC_BLACK": {
+    "source": "V07_DISPLAY_CERAMIC_BLACK",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__V07_DISPLAY_CERAMIC_BLACK",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.2199999988079071,
+    "roughness": 0.25999999046325684
+  },
+  "WEB__founder__V07_DASHBOARD": {
+    "source": "V07_DASHBOARD",
+    "zone": "founder",
+    "material": "WEB__founder__V07_DASHBOARD",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_V07_DASHBOARD_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.20000000298023224
+  },
+  "WEB__lab__baked__V03_PATINA": {
+    "source": "V03_PATINA",
+    "zone": "lab__baked",
+    "material": "WEB__lab__baked__V03_PATINA",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8799999952316284,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__lab__baked__V07_DISPLAY_SATIN_ALUMINIUM": {
+    "source": "V07_DISPLAY_SATIN_ALUMINIUM",
+    "zone": "lab__baked",
+    "material": "WEB__lab__baked__V07_DISPLAY_SATIN_ALUMINIUM",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8999999761581421,
+    "roughness": 0.25
+  },
+  "WEB__lab__baked__GRAPHITE": {
+    "source": "GRAPHITE",
+    "zone": "lab__baked",
+    "material": "WEB__lab__baked__GRAPHITE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.6499999761581421,
+    "roughness": 0.28999999165534973
+  },
+  "WEB__lab__baked__V03_LEATHER": {
+    "source": "V03_LEATHER",
+    "zone": "lab__baked",
+    "material": "WEB__lab__baked__V03_LEATHER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.4300000071525574
+  },
+  "WEB__lab__baked__V03_BRONZE": {
+    "source": "V03_BRONZE",
+    "zone": "lab__baked",
+    "material": "WEB__lab__baked__V03_BRONZE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8999999761581421,
+    "roughness": 0.27000001072883606
+  },
+  "WEB__lab__baked__V07_DISPLAY_CERAMIC_BLACK": {
+    "source": "V07_DISPLAY_CERAMIC_BLACK",
+    "zone": "lab__baked",
+    "material": "WEB__lab__baked__V07_DISPLAY_CERAMIC_BLACK",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.2199999988079071,
+    "roughness": 0.25999999046325684
+  },
+  "WEB__lab__V07_SCREEN_0": {
+    "source": "V07_SCREEN_0",
+    "zone": "lab",
+    "material": "WEB__lab__V07_SCREEN_0",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_V07_SCREEN_0_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.20000000298023224
+  },
+  "WEB__lab__LIGHT": {
+    "source": "LIGHT",
+    "zone": "lab",
+    "material": "WEB__lab__LIGHT",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__lab__V07_SCREEN_1": {
+    "source": "V07_SCREEN_1",
+    "zone": "lab",
+    "material": "WEB__lab__V07_SCREEN_1",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_V07_SCREEN_1_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.20000000298023224
+  },
+  "WEB__lab__V07_SCREEN_2": {
+    "source": "V07_SCREEN_2",
+    "zone": "lab",
+    "material": "WEB__lab__V07_SCREEN_2",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_V07_SCREEN_2_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.20000000298023224
+  },
+  "WEB__lab__V07_SCREEN_3": {
+    "source": "V07_SCREEN_3",
+    "zone": "lab",
+    "material": "WEB__lab__V07_SCREEN_3",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_V07_SCREEN_3_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.20000000298023224
+  },
+  "WEB__lab__V07_SCREEN_4": {
+    "source": "V07_SCREEN_4",
+    "zone": "lab",
+    "material": "WEB__lab__V07_SCREEN_4",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_V07_SCREEN_4_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.20000000298023224
+  },
+  "WEB__lab__V07_SCREEN_5": {
+    "source": "V07_SCREEN_5",
+    "zone": "lab",
+    "material": "WEB__lab__V07_SCREEN_5",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_V07_SCREEN_5_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.20000000298023224
+  },
+  "WEB__exterior__baked__GRAPHITE": {
+    "source": "GRAPHITE",
+    "zone": "exterior__baked",
+    "material": "WEB__exterior__baked__GRAPHITE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.6499999761581421,
+    "roughness": 0.28999999165534973
+  },
+  "WEB__exterior__GLASS": {
+    "source": "GLASS",
+    "zone": "exterior",
+    "material": "WEB__exterior__GLASS",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "glass": "Thin tinted transparency; refraction qualification pending.",
+    "metallic": 0.0,
+    "roughness": 0.054999999701976776
+  },
+  "WEB__exterior__baked__BRONZE": {
+    "source": "BRONZE",
+    "zone": "exterior__baked",
+    "material": "WEB__exterior__baked__BRONZE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8500000238418579,
+    "roughness": 0.3400000035762787
+  },
+  "WEB__exterior__baked__TREE_BARK": {
+    "source": "TREE_BARK",
+    "zone": "exterior__baked",
+    "material": "WEB__exterior__baked__TREE_BARK",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.800000011920929
+  },
+  "WEB__exterior__baked__OLIVE_LEAF": {
+    "source": "OLIVE_LEAF",
+    "zone": "exterior__baked",
+    "material": "WEB__exterior__baked__OLIVE_LEAF",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.75
+  },
+  "WEB__exterior__baked__DARK_BRONZE": {
+    "source": "DARK_BRONZE",
+    "zone": "exterior__baked",
+    "material": "WEB__exterior__baked__DARK_BRONZE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.800000011920929,
+    "roughness": 0.3199999928474426
+  },
+  "WEB__exterior__baked__PAVING": {
+    "source": "PAVING",
+    "zone": "exterior__baked",
+    "material": "WEB__exterior__baked__PAVING",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "approximation": "Procedural color uses ramp average in review derivative; source-scale texture bake pending.",
+    "metallic": 0.0,
+    "roughness": 0.47999998927116394
+  },
+  "WEB__founder__baked__TREE_BARK": {
+    "source": "TREE_BARK",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__TREE_BARK",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.800000011920929
+  },
+  "WEB__founder__baked__OLIVE_LEAF": {
+    "source": "OLIVE_LEAF",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__OLIVE_LEAF",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.75
+  },
+  "WEB__founder__baked__V03_PATINA": {
+    "source": "V03_PATINA",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__V03_PATINA",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8799999952316284,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__founder__baked__V03_BRONZE": {
+    "source": "V03_BRONZE",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__V03_BRONZE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8999999761581421,
+    "roughness": 0.27000001072883606
+  },
+  "WEB__exterior__baked__STONE_JOINT": {
+    "source": "STONE_JOINT",
+    "zone": "exterior__baked",
+    "material": "WEB__exterior__baked__STONE_JOINT",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.5
+  },
+  "WEB__lab__baked__V05_CARVED_STONE": {
+    "source": "V05_CARVED_STONE",
+    "zone": "lab__baked",
+    "material": "WEB__lab__baked__V05_CARVED_STONE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.4545454680919647,
+    "image": "WEB_V05_CARVED_STONE_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.3799999952316284
+  },
+  "WEB__reception__Laptop | active studio display": {
+    "source": "Laptop | active studio display",
+    "zone": "reception",
+    "material": "WEB__reception__Laptop | active studio display",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_Laptop___active_studio_display_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.2800000011920929
+  },
+  "WEB__reception__baked__Laptop | soft black keycaps": {
+    "source": "Laptop | soft black keycaps",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__Laptop | soft black keycaps",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.05000000074505806,
+    "roughness": 0.4300000071525574
+  },
+  "WEB__reception__baked__Laptop | key legends": {
+    "source": "Laptop | key legends",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__Laptop | key legends",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.10000000149011612,
+    "roughness": 0.41999998688697815
+  },
+  "WEB__reception__baked__Laptop | black polymer": {
+    "source": "Laptop | black polymer",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__Laptop | black polymer",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.05000000074505806,
+    "roughness": 0.3799999952316284
+  },
+  "WEB__reception__baked__Laptop | display black glass": {
+    "source": "Laptop | display black glass",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__Laptop | display black glass",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.05000000074505806,
+    "roughness": 0.1899999976158142
+  },
+  "WEB__reception__baked__Laptop | machined edge": {
+    "source": "Laptop | machined edge",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__Laptop | machined edge",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.9200000166893005,
+    "roughness": 0.20999999344348907
+  },
+  "WEB__reception__baked__Laptop | etched glass trackpad": {
+    "source": "Laptop | etched glass trackpad",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__Laptop | etched glass trackpad",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.44999998807907104,
+    "roughness": 0.3400000035762787
+  },
+  "WEB__reception__baked__Laptop | satin graphite aluminium": {
+    "source": "Laptop | satin graphite aluminium",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__Laptop | satin graphite aluminium",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8799999952316284,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__reception__baked__Laptop | webcam optical glass": {
+    "source": "Laptop | webcam optical glass",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__Laptop | webcam optical glass",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.4000000059604645,
+    "roughness": 0.11999999731779099
+  },
+  "WEB__lounge__baked__V03_PATINA": {
+    "source": "V03_PATINA",
+    "zone": "lounge__baked",
+    "material": "WEB__lounge__baked__V03_PATINA",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8799999952316284,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__lounge__baked__V03_BRONZE": {
+    "source": "V03_BRONZE",
+    "zone": "lounge__baked",
+    "material": "WEB__lounge__baked__V03_BRONZE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8999999761581421,
+    "roughness": 0.27000001072883606
+  },
+  "WEB__lounge__baked__V05_TABLE_EMPERADOR": {
+    "source": "V05_TABLE_EMPERADOR",
+    "zone": "lounge__baked",
+    "material": "WEB__lounge__baked__V05_TABLE_EMPERADOR",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.3571428656578064,
+    "image": "WEB_V05_TABLE_EMPERADOR_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.125
+  },
+  "WEB__meeting__baked__V03_PATINA": {
+    "source": "V03_PATINA",
+    "zone": "meeting__baked",
+    "material": "WEB__meeting__baked__V03_PATINA",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8799999952316284,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__meeting__baked__V03_BRONZE": {
+    "source": "V03_BRONZE",
+    "zone": "meeting__baked",
+    "material": "WEB__meeting__baked__V03_BRONZE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8999999761581421,
+    "roughness": 0.27000001072883606
+  },
+  "WEB__render-hall__ART_0": {
+    "source": "ART_0",
+    "zone": "render-hall",
+    "material": "WEB__render-hall__ART_0",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_ART_0_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.6499999761581421
+  },
+  "WEB__render-hall__ART_1": {
+    "source": "ART_1",
+    "zone": "render-hall",
+    "material": "WEB__render-hall__ART_1",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_ART_1_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.6499999761581421
+  },
+  "WEB__render-hall__ART_2": {
+    "source": "ART_2",
+    "zone": "render-hall",
+    "material": "WEB__render-hall__ART_2",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_ART_2_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.6499999761581421
+  },
+  "WEB__render-hall__ART_3": {
+    "source": "ART_3",
+    "zone": "render-hall",
+    "material": "WEB__render-hall__ART_3",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_ART_3_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.6499999761581421
+  },
+  "WEB__render-hall__ART_4": {
+    "source": "ART_4",
+    "zone": "render-hall",
+    "material": "WEB__render-hall__ART_4",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_ART_4_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.6499999761581421
+  },
+  "WEB__render-hall__ART_5": {
+    "source": "ART_5",
+    "zone": "render-hall",
+    "material": "WEB__render-hall__ART_5",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_ART_5_Emission_Color",
+    "metallic": 0.0,
+    "roughness": 0.6499999761581421
+  },
+  "WEB__render-hall__baked__V03_BRONZE": {
+    "source": "V03_BRONZE",
+    "zone": "render-hall__baked",
+    "material": "WEB__render-hall__baked__V03_BRONZE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8999999761581421,
+    "roughness": 0.27000001072883606
+  },
+  "WEB__render-hall__baked__V03_LIMESTONE": {
+    "source": "V03_LIMESTONE",
+    "zone": "render-hall__baked",
+    "material": "WEB__render-hall__baked__V03_LIMESTONE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.4545454680919647,
+    "image": "WEB_V03_LIMESTONE_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.3799999952316284
+  },
+  "WEB__render-hall__V03_SCULPTURE_NICKEL": {
+    "source": "V03_SCULPTURE_NICKEL",
+    "zone": "render-hall",
+    "material": "WEB__render-hall__V03_SCULPTURE_NICKEL",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 1.0,
+    "roughness": 0.11999999731779099
+  },
+  "WEB__render-hall__baked__V06_WALNUT_PBR_4K": {
+    "source": "V06_WALNUT_PBR_4K",
+    "zone": "render-hall__baked",
+    "material": "WEB__render-hall__baked__V06_WALNUT_PBR_4K",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.35,
+    "image": "WEB_V06_WALNUT_PBR_4K_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__exterior__baked__FLOOR_STONE": {
+    "source": "FLOOR_STONE",
+    "zone": "exterior__baked",
+    "material": "WEB__exterior__baked__FLOOR_STONE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "approximation": "Procedural color uses ramp average in review derivative; source-scale texture bake pending.",
+    "metallic": 0.0,
+    "roughness": 0.23999999463558197
+  },
+  "WEB__motion-floor__baked__V03_EMPERADOR": {
+    "source": "V03_EMPERADOR",
+    "zone": "motion-floor__baked",
+    "material": "WEB__motion-floor__baked__V03_EMPERADOR",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.14705882966518402,
+    "image": "WEB_V03_EMPERADOR_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.125
+  },
+  "WEB__founder__baked__V03_EMPERADOR": {
+    "source": "V03_EMPERADOR",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__V03_EMPERADOR",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.14705882966518402,
+    "image": "WEB_V03_EMPERADOR_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.125
+  },
+  "WEB__reception__baked__V03_EMPERADOR": {
+    "source": "V03_EMPERADOR",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__V03_EMPERADOR",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.14705882966518402,
+    "image": "WEB_V03_EMPERADOR_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.125
+  },
+  "WEB__lab__baked__V03_EMPERADOR": {
+    "source": "V03_EMPERADOR",
+    "zone": "lab__baked",
+    "material": "WEB__lab__baked__V03_EMPERADOR",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.14705882966518402,
+    "image": "WEB_V03_EMPERADOR_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.125
+  },
+  "WEB__render-hall__baked__V03_EMPERADOR": {
+    "source": "V03_EMPERADOR",
+    "zone": "render-hall__baked",
+    "material": "WEB__render-hall__baked__V03_EMPERADOR",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.14705882966518402,
+    "image": "WEB_V03_EMPERADOR_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.125
+  },
+  "WEB__spine__baked__V03_EMPERADOR": {
+    "source": "V03_EMPERADOR",
+    "zone": "spine__baked",
+    "material": "WEB__spine__baked__V03_EMPERADOR",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.14705882966518402,
+    "image": "WEB_V03_EMPERADOR_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.125
+  },
+  "WEB__founder__V04_Chair_OriginalPBR": {
+    "source": "V04_Chair_OriginalPBR",
+    "zone": "founder",
+    "material": "WEB__founder__V04_Chair_OriginalPBR",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_V04_Chair_OriginalPBR_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__lounge__V04_Sofa_OriginalPBR": {
+    "source": "V04_Sofa_OriginalPBR",
+    "zone": "lounge",
+    "material": "WEB__lounge__V04_Sofa_OriginalPBR",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_V04_Sofa_OriginalPBR_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__motion-floor__baked__V07_DISPLAY_PORT_RECESS": {
+    "source": "V07_DISPLAY_PORT_RECESS",
+    "zone": "motion-floor__baked",
+    "material": "WEB__motion-floor__baked__V07_DISPLAY_PORT_RECESS",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.5600000023841858
+  },
+  "WEB__motion-floor__baked__V07_DISPLAY_GRAPHITE_ALLOY": {
+    "source": "V07_DISPLAY_GRAPHITE_ALLOY",
+    "zone": "motion-floor__baked",
+    "material": "WEB__motion-floor__baked__V07_DISPLAY_GRAPHITE_ALLOY",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.800000011920929,
+    "roughness": 0.27000001072883606
+  },
+  "WEB__motion-floor__V07_DISPLAY_STATUS_LED": {
+    "source": "V07_DISPLAY_STATUS_LED",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V07_DISPLAY_STATUS_LED",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__founder__baked__V07_DISPLAY_PORT_RECESS": {
+    "source": "V07_DISPLAY_PORT_RECESS",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__V07_DISPLAY_PORT_RECESS",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.5600000023841858
+  },
+  "WEB__founder__baked__V07_DISPLAY_GRAPHITE_ALLOY": {
+    "source": "V07_DISPLAY_GRAPHITE_ALLOY",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__V07_DISPLAY_GRAPHITE_ALLOY",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.800000011920929,
+    "roughness": 0.27000001072883606
+  },
+  "WEB__founder__V07_DISPLAY_STATUS_LED": {
+    "source": "V07_DISPLAY_STATUS_LED",
+    "zone": "founder",
+    "material": "WEB__founder__V07_DISPLAY_STATUS_LED",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__lab__baked__V07_DISPLAY_PORT_RECESS": {
+    "source": "V07_DISPLAY_PORT_RECESS",
+    "zone": "lab__baked",
+    "material": "WEB__lab__baked__V07_DISPLAY_PORT_RECESS",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.5600000023841858
+  },
+  "WEB__lab__baked__V07_DISPLAY_GRAPHITE_ALLOY": {
+    "source": "V07_DISPLAY_GRAPHITE_ALLOY",
+    "zone": "lab__baked",
+    "material": "WEB__lab__baked__V07_DISPLAY_GRAPHITE_ALLOY",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.800000011920929,
+    "roughness": 0.27000001072883606
+  },
+  "WEB__lab__V07_DISPLAY_STATUS_LED": {
+    "source": "V07_DISPLAY_STATUS_LED",
+    "zone": "lab",
+    "material": "WEB__lab__V07_DISPLAY_STATUS_LED",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__reception__RC Brass | brushed champagne accents.002": {
+    "source": "RC Brass | brushed champagne accents.002",
+    "zone": "reception",
+    "material": "WEB__reception__RC Brass | brushed champagne accents.002",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.800000011920929,
+    "roughness": 0.23999999463558197
+  },
+  "WEB__reception__baked__RC Metal | blackened bronze.002": {
+    "source": "RC Metal | blackened bronze.002",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__RC Metal | blackened bronze.002",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.6499999761581421,
+    "roughness": 0.3100000023841858
+  },
+  "WEB__reception__baked__RC Stone | honed ivory limestone scan.002": {
+    "source": "RC Stone | honed ivory limestone scan.002",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__RC Stone | honed ivory limestone scan.002",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.2631579041481018,
+    "image": "WEB_RC_Stone___honed_ivory_limestone_scan_002_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.3199999928474426
+  },
+  "WEB__reception__RC Chrome | polished neutral steel": {
+    "source": "RC Chrome | polished neutral steel",
+    "zone": "reception",
+    "material": "WEB__reception__RC Chrome | polished neutral steel",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 1.0,
+    "roughness": 0.12999999523162842
+  },
+  "WEB__reception__RC Exhibit | warm porcelain": {
+    "source": "RC Exhibit | warm porcelain",
+    "zone": "reception",
+    "material": "WEB__reception__RC Exhibit | warm porcelain",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.11999999731779099,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__reception__baked__RC Bronze | satin architectural bronze.002": {
+    "source": "RC Bronze | satin architectural bronze.002",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__RC Bronze | satin architectural bronze.002",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8199999928474426,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__reception__baked__RC Brass | brushed champagne accents.002": {
+    "source": "RC Brass | brushed champagne accents.002",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__RC Brass | brushed champagne accents.002",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.800000011920929,
+    "roughness": 0.23999999463558197
+  },
+  "WEB__reception__baked__RC Metal | camera graphite.002": {
+    "source": "RC Metal | camera graphite.002",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__RC Metal | camera graphite.002",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.6600000262260437,
+    "roughness": 0.3199999928474426
+  },
+  "WEB__reception__baked__RC Optics | multilayer lens": {
+    "source": "RC Optics | multilayer lens",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__RC Optics | multilayer lens",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.6499999761581421,
+    "roughness": 0.07500000298023224
+  },
+  "WEB__reception__baked__RC Exhibit | warm porcelain": {
+    "source": "RC Exhibit | warm porcelain",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__RC Exhibit | warm porcelain",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.11999999731779099,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__reception__RC LED | 3000K opal diffuser.002": {
+    "source": "RC LED | 3000K opal diffuser.002",
+    "zone": "reception",
+    "material": "WEB__reception__RC LED | 3000K opal diffuser.002",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.25
+  },
+  "WEB__reception__RC Brass | brushed champagne accents.001": {
+    "source": "RC Brass | brushed champagne accents.001",
+    "zone": "reception",
+    "material": "WEB__reception__RC Brass | brushed champagne accents.001",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.800000011920929,
+    "roughness": 0.23999999463558197
+  },
+  "WEB__reception__baked__RC Stone | honed ivory limestone scan": {
+    "source": "RC Stone | honed ivory limestone scan",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__RC Stone | honed ivory limestone scan",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.2631579041481018,
+    "image": "WEB_RC_Stone___honed_ivory_limestone_scan_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.3199999928474426
+  },
+  "WEB__reception__RC LED | concealed MD halo D": {
+    "source": "RC LED | concealed MD halo D",
+    "zone": "reception",
+    "material": "WEB__reception__RC LED | concealed MD halo D",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.25
+  },
+  "WEB__reception__RC LED | concealed MD halo M": {
+    "source": "RC LED | concealed MD halo M",
+    "zone": "reception",
+    "material": "WEB__reception__RC LED | concealed MD halo M",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.25
+  },
+  "WEB__reception__baked__rock_09": {
+    "source": "rock_09",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__rock_09",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "image": "WEB_rock_09_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__reception__baked__RC Ceiling | warm fine mineral finish": {
+    "source": "RC Ceiling | warm fine mineral finish",
+    "zone": "reception__baked",
+    "material": "WEB__reception__baked__RC Ceiling | warm fine mineral finish",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.25,
+    "image": "WEB_RC_Ceiling___warm_fine_mineral_finish_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__render-hall__V03_NICKEL": {
+    "source": "V03_NICKEL",
+    "zone": "render-hall",
+    "material": "WEB__render-hall__V03_NICKEL",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 1.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__founder__baked__V03_BLACK": {
+    "source": "V03_BLACK",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__V03_BLACK",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.25,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__founder__baked__V03_LIMESTONE": {
+    "source": "V03_LIMESTONE",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__V03_LIMESTONE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.4545454680919647,
+    "image": "WEB_V03_LIMESTONE_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.3799999952316284
+  },
+  "WEB__founder__baked__V03_STITCH": {
+    "source": "V03_STITCH",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__V03_STITCH",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.800000011920929
+  },
+  "WEB__motion-floor__baked__V03_LIMESTONE": {
+    "source": "V03_LIMESTONE",
+    "zone": "motion-floor__baked",
+    "material": "WEB__motion-floor__baked__V03_LIMESTONE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.4545454680919647,
+    "image": "WEB_V03_LIMESTONE_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.3799999952316284
+  },
+  "WEB__motion-floor__V03_WALNUT": {
+    "source": "V03_WALNUT",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V03_WALNUT",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.35,
+    "image": "WEB_V03_WALNUT_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.3199999928474426
+  },
+  "WEB__motion-floor__V03_BLACK": {
+    "source": "V03_BLACK",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V03_BLACK",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.25,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__motion-floor__V03_RUBBER": {
+    "source": "V03_RUBBER",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V03_RUBBER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.75
+  },
+  "WEB__motion-floor__V03_PATINA": {
+    "source": "V03_PATINA",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V03_PATINA",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8799999952316284,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__motion-floor__V03_NICKEL": {
+    "source": "V03_NICKEL",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V03_NICKEL",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 1.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__motion-floor__V03_LIMESTONE": {
+    "source": "V03_LIMESTONE",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V03_LIMESTONE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.4545454680919647,
+    "image": "WEB_V03_LIMESTONE_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.3799999952316284
+  },
+  "WEB__motion-floor__V03_STITCH": {
+    "source": "V03_STITCH",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V03_STITCH",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.800000011920929
+  },
+  "WEB__motion-floor__V03_LEATHER": {
+    "source": "V03_LEATHER",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V03_LEATHER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.4300000071525574
+  },
+  "WEB__motion-floor__baked__V03_BARK": {
+    "source": "V03_BARK",
+    "zone": "motion-floor__baked",
+    "material": "WEB__motion-floor__baked__V03_BARK",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.8600000143051147
+  },
+  "WEB__founder__baked__V05_BOOK_PAPER": {
+    "source": "V05_BOOK_PAPER",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__V05_BOOK_PAPER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.8299999833106995
+  },
+  "WEB__founder__baked__V05_BOOK_TYPE": {
+    "source": "V05_BOOK_TYPE",
+    "zone": "founder__baked",
+    "material": "WEB__founder__baked__V05_BOOK_TYPE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.6000000238418579
+  },
+  "WEB__lab__V03_WALNUT": {
+    "source": "V03_WALNUT",
+    "zone": "lab",
+    "material": "WEB__lab__V03_WALNUT",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.35,
+    "image": "WEB_V03_WALNUT_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.3199999928474426
+  },
+  "WEB__lab__V03_BLACK": {
+    "source": "V03_BLACK",
+    "zone": "lab",
+    "material": "WEB__lab__V03_BLACK",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.25,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__lab__V03_RUBBER": {
+    "source": "V03_RUBBER",
+    "zone": "lab",
+    "material": "WEB__lab__V03_RUBBER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.75
+  },
+  "WEB__lab__V03_PATINA": {
+    "source": "V03_PATINA",
+    "zone": "lab",
+    "material": "WEB__lab__V03_PATINA",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8799999952316284,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__lab__V03_NICKEL": {
+    "source": "V03_NICKEL",
+    "zone": "lab",
+    "material": "WEB__lab__V03_NICKEL",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 1.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__lab__V03_LIMESTONE": {
+    "source": "V03_LIMESTONE",
+    "zone": "lab",
+    "material": "WEB__lab__V03_LIMESTONE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.4545454680919647,
+    "image": "WEB_V03_LIMESTONE_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.3799999952316284
+  },
+  "WEB__lab__V03_STITCH": {
+    "source": "V03_STITCH",
+    "zone": "lab",
+    "material": "WEB__lab__V03_STITCH",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.800000011920929
+  },
+  "WEB__lab__V03_LEATHER": {
+    "source": "V03_LEATHER",
+    "zone": "lab",
+    "material": "WEB__lab__V03_LEATHER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.4300000071525574
+  },
+  "WEB__lab__baked__V03_LIMESTONE": {
+    "source": "V03_LIMESTONE",
+    "zone": "lab__baked",
+    "material": "WEB__lab__baked__V03_LIMESTONE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.4545454680919647,
+    "image": "WEB_V03_LIMESTONE_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.3799999952316284
+  },
+  "WEB__lounge__baked__V03_BLACK": {
+    "source": "V03_BLACK",
+    "zone": "lounge__baked",
+    "material": "WEB__lounge__baked__V03_BLACK",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.25,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__lounge__baked__V05_BOOK_PAPER": {
+    "source": "V05_BOOK_PAPER",
+    "zone": "lounge__baked",
+    "material": "WEB__lounge__baked__V05_BOOK_PAPER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.8299999833106995
+  },
+  "WEB__lounge__baked__V03_STITCH": {
+    "source": "V03_STITCH",
+    "zone": "lounge__baked",
+    "material": "WEB__lounge__baked__V03_STITCH",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.800000011920929
+  },
+  "WEB__lounge__baked__V05_IVORY_LINEN": {
+    "source": "V05_IVORY_LINEN",
+    "zone": "lounge__baked",
+    "material": "WEB__lounge__baked__V05_IVORY_LINEN",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.7599999904632568
+  },
+  "WEB__lounge__baked__V03_LIMESTONE": {
+    "source": "V03_LIMESTONE",
+    "zone": "lounge__baked",
+    "material": "WEB__lounge__baked__V03_LIMESTONE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.4545454680919647,
+    "image": "WEB_V03_LIMESTONE_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.3799999952316284
+  },
+  "WEB__lounge__baked__V03_EMPERADOR": {
+    "source": "V03_EMPERADOR",
+    "zone": "lounge__baked",
+    "material": "WEB__lounge__baked__V03_EMPERADOR",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.14705882966518402,
+    "image": "WEB_V03_EMPERADOR_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.125
+  },
+  "WEB__lounge__baked__V03_BARK": {
+    "source": "V03_BARK",
+    "zone": "lounge__baked",
+    "material": "WEB__lounge__baked__V03_BARK",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.8600000143051147
+  },
+  "WEB__lounge__baked__V03_RUG": {
+    "source": "V03_RUG",
+    "zone": "lounge__baked",
+    "material": "WEB__lounge__baked__V03_RUG",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "approximation": "Procedural color uses ramp average in review derivative; source-scale texture bake pending.",
+    "metallic": 0.0,
+    "roughness": 0.949999988079071
+  },
+  "WEB__meeting__baked__V05_FIGURED_WALNUT": {
+    "source": "V05_FIGURED_WALNUT",
+    "zone": "meeting__baked",
+    "material": "WEB__meeting__baked__V05_FIGURED_WALNUT",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.35,
+    "image": "WEB_V05_FIGURED_WALNUT_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.2800000011920929
+  },
+  "WEB__meeting__baked__V03_BLACK": {
+    "source": "V03_BLACK",
+    "zone": "meeting__baked",
+    "material": "WEB__meeting__baked__V03_BLACK",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.25,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__meeting__baked__V03_LIMESTONE": {
+    "source": "V03_LIMESTONE",
+    "zone": "meeting__baked",
+    "material": "WEB__meeting__baked__V03_LIMESTONE",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.4545454680919647,
+    "image": "WEB_V03_LIMESTONE_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.3799999952316284
+  },
+  "WEB__meeting__baked__V03_EMPERADOR": {
+    "source": "V03_EMPERADOR",
+    "zone": "meeting__baked",
+    "material": "WEB__meeting__baked__V03_EMPERADOR",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 0.14705882966518402,
+    "image": "WEB_V03_EMPERADOR_Base_Color",
+    "metallic": 0.0,
+    "roughness": 0.125
+  },
+  "WEB__meeting__baked__V03_STITCH": {
+    "source": "V03_STITCH",
+    "zone": "meeting__baked",
+    "material": "WEB__meeting__baked__V03_STITCH",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.800000011920929
+  },
+  "WEB__render-hall__V03_ORB_CHROME": {
+    "source": "V03_ORB_CHROME",
+    "zone": "render-hall",
+    "material": "WEB__render-hall__V03_ORB_CHROME",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 1.0,
+    "roughness": 0.05999999865889549
+  },
+  "WEB__render-hall__baked__V03_BLACK": {
+    "source": "V03_BLACK",
+    "zone": "render-hall__baked",
+    "material": "WEB__render-hall__baked__V03_BLACK",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.25,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__render-hall__baked__V05_INLAY_GOLD": {
+    "source": "V05_INLAY_GOLD",
+    "zone": "render-hall__baked",
+    "material": "WEB__render-hall__baked__V05_INLAY_GOLD",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.8999999761581421,
+    "roughness": 0.1899999976158142
+  },
+  "WEB__founder__V03_NICKEL": {
+    "source": "V03_NICKEL",
+    "zone": "founder",
+    "material": "WEB__founder__V03_NICKEL",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 1.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__motion-floor__V05_CHROME": {
+    "source": "V05_CHROME",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V05_CHROME",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 1.0,
+    "roughness": 0.12999999523162842
+  },
+  "WEB__motion-floor__V05_FRAME": {
+    "source": "V05_FRAME",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V05_FRAME",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.11999999731779099,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__motion-floor__V05_CHAIR_LEATHER": {
+    "source": "V05_CHAIR_LEATHER",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V05_CHAIR_LEATHER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.3199999928474426
+  },
+  "WEB__motion-floor__V05_MESH_FIBER": {
+    "source": "V05_MESH_FIBER",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V05_MESH_FIBER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.5299999713897705
+  },
+  "WEB__motion-floor__V03_BARK": {
+    "source": "V03_BARK",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V03_BARK",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.8600000143051147
+  },
+  "WEB__motion-floor__V05_OLIVE_UPPER": {
+    "source": "V05_OLIVE_UPPER",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V05_OLIVE_UPPER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.5
+  },
+  "WEB__motion-floor__V05_OLIVE_SILVER": {
+    "source": "V05_OLIVE_SILVER",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V05_OLIVE_SILVER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.6100000143051147
+  },
+  "WEB__motion-floor__V05_OLIVE_YOUNG": {
+    "source": "V05_OLIVE_YOUNG",
+    "zone": "motion-floor",
+    "material": "WEB__motion-floor__V05_OLIVE_YOUNG",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.5099999904632568
+  },
+  "WEB__lab__V05_CHROME": {
+    "source": "V05_CHROME",
+    "zone": "lab",
+    "material": "WEB__lab__V05_CHROME",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 1.0,
+    "roughness": 0.12999999523162842
+  },
+  "WEB__lab__V05_FRAME": {
+    "source": "V05_FRAME",
+    "zone": "lab",
+    "material": "WEB__lab__V05_FRAME",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.11999999731779099,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__lab__V05_CHAIR_LEATHER": {
+    "source": "V05_CHAIR_LEATHER",
+    "zone": "lab",
+    "material": "WEB__lab__V05_CHAIR_LEATHER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.3199999928474426
+  },
+  "WEB__lab__V05_MESH_FIBER": {
+    "source": "V05_MESH_FIBER",
+    "zone": "lab",
+    "material": "WEB__lab__V05_MESH_FIBER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.5299999713897705
+  },
+  "WEB__lounge__LIGHT": {
+    "source": "LIGHT",
+    "zone": "lounge",
+    "material": "WEB__lounge__LIGHT",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__lounge__V03_BARK": {
+    "source": "V03_BARK",
+    "zone": "lounge",
+    "material": "WEB__lounge__V03_BARK",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.8600000143051147
+  },
+  "WEB__lounge__V05_OLIVE_UPPER": {
+    "source": "V05_OLIVE_UPPER",
+    "zone": "lounge",
+    "material": "WEB__lounge__V05_OLIVE_UPPER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.5
+  },
+  "WEB__lounge__V05_OLIVE_SILVER": {
+    "source": "V05_OLIVE_SILVER",
+    "zone": "lounge",
+    "material": "WEB__lounge__V05_OLIVE_SILVER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.6100000143051147
+  },
+  "WEB__lounge__V05_OLIVE_YOUNG": {
+    "source": "V05_OLIVE_YOUNG",
+    "zone": "lounge",
+    "material": "WEB__lounge__V05_OLIVE_YOUNG",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.5099999904632568
+  },
+  "WEB__meeting__V05_CHROME": {
+    "source": "V05_CHROME",
+    "zone": "meeting",
+    "material": "WEB__meeting__V05_CHROME",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 1.0,
+    "roughness": 0.12999999523162842
+  },
+  "WEB__meeting__V03_BLACK": {
+    "source": "V03_BLACK",
+    "zone": "meeting",
+    "material": "WEB__meeting__V03_BLACK",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.25,
+    "roughness": 0.30000001192092896
+  },
+  "WEB__meeting__V03_RUBBER": {
+    "source": "V03_RUBBER",
+    "zone": "meeting",
+    "material": "WEB__meeting__V03_RUBBER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.75
+  },
+  "WEB__meeting__V05_CHAIR_LEATHER": {
+    "source": "V05_CHAIR_LEATHER",
+    "zone": "meeting",
+    "material": "WEB__meeting__V05_CHAIR_LEATHER",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.3199999928474426
+  },
+  "WEB__meeting__V05_BLACK_WELT": {
+    "source": "V05_BLACK_WELT",
+    "zone": "meeting",
+    "material": "WEB__meeting__V05_BLACK_WELT",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.4000000059604645
+  },
+  "WEB__meeting__LIGHT": {
+    "source": "LIGHT",
+    "zone": "meeting",
+    "material": "WEB__meeting__LIGHT",
+    "method": "glTF PBR, assigned source maps and connected color adjustments",
+    "textureScale": 1.0,
+    "metallic": 0.0,
+    "roughness": 0.30000001192092896
+  }
+}

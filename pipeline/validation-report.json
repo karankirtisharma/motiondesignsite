@@ -1,0 +1,95 @@
+{
+  "checkedAt": "2026-09-15T15:44:41.202Z",
+  "assets": [
+    {
+      "room": "exterior",
+      "bytes": 1231216,
+      "triangles": 59760,
+      "bakedPrimitives": 9,
+      "glTFErrors": 0,
+      "warnings": 0
+    },
+    {
+      "room": "reception",
+      "bytes": 19948012,
+      "triangles": 1516577,
+      "bakedPrimitives": 19,
+      "glTFErrors": 0,
+      "warnings": 0
+    },
+    {
+      "room": "spine",
+      "bytes": 6820,
+      "triangles": 108,
+      "bakedPrimitives": 1,
+      "glTFErrors": 0,
+      "warnings": 0
+    },
+    {
+      "room": "founder",
+      "bytes": 5110348,
+      "triangles": 219940,
+      "bakedPrimitives": 17,
+      "glTFErrors": 0,
+      "warnings": 0
+    },
+    {
+      "room": "meeting",
+      "bytes": 2780092,
+      "triangles": 225300,
+      "bakedPrimitives": 7,
+      "glTFErrors": 0,
+      "warnings": 0
+    },
+    {
+      "room": "lounge",
+      "bytes": 6178132,
+      "triangles": 346480,
+      "bakedPrimitives": 11,
+      "glTFErrors": 0,
+      "warnings": 0
+    },
+    {
+      "room": "lab",
+      "bytes": 8813144,
+      "triangles": 474060,
+      "bakedPrimitives": 11,
+      "glTFErrors": 0,
+      "warnings": 0
+    },
+    {
+      "room": "motion-floor",
+      "bytes": 30007572,
+      "triangles": 1708739,
+      "bakedPrimitives": 11,
+      "glTFErrors": 0,
+      "warnings": 0
+    },
+    {
+      "room": "render-hall",
+      "bytes": 1741728,
+      "triangles": 61452,
+      "bakedPrimitives": 6,
+      "glTFErrors": 0,
+      "warnings": 0
+    }
+  ],
+  "route": {
+    "chapters": [
+      "The approach",
+      "Reception",
+      "The spine",
+      "Meeting room",
+      "Founder’s studio",
+      "The lounge",
+      "The lab",
+      "Motion floor",
+      "The upper gallery",
+      "Render hall"
+    ],
+    "durationSeconds": 116.61418078160075,
+    "samples": 100001,
+    "maxStepMetres": 0.0027987403387930267,
+    "maxTurnRadians": 0.006622935658347174
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "sourceSha256": "8ae6ccdeb28674be7692aecc1f8fcc6d4f57c04247e406d107233f9c8487b9c7",
+  "sampleSpacingMetres": 0.05,
+  "radiusMetres": 0.25,
+  "testedSamples": 29550,
+  "colliderFaces": 33402,
+  "failures": [],
+  "failureCount": 0,
+  "minimumSampleClearance": null,
+  "scope": "Continuous rail sampled at 14,001 positions; spherical body sections against evaluated architectural and reception furniture surfaces. Full continuous capsule and projection-corner certification remains separate."
+}

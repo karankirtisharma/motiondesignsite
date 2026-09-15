@@ -1,0 +1,13 @@
+{
+  "reference": "D:\\Claude\\Motion Design Site\\web",
+  "technique": [
+    "procedural dusk sky",
+    "warm indoor reflection environment",
+    "fixed fading light pool",
+    "separate material detail maps",
+    "planar water reflection"
+  ],
+  "materialCount": 29,
+  "visibleLightCount": 88,
+  "geometry": "Current frozen master, unchanged"
+}

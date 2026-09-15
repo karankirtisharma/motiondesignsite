@@ -1,0 +1,824 @@
+[
+  {
+    "position": [
+      30,
+      -45,
+      5.2
+    ],
+    "target": [
+      0,
+      3.4,
+      3.65
+    ],
+    "room": "exterior",
+    "lens": 41,
+    "chapter": "The approach"
+  },
+  {
+    "position": [
+      12,
+      -24,
+      3
+    ],
+    "target": [
+      0,
+      3.4,
+      2.35
+    ],
+    "room": "exterior",
+    "lens": 38
+  },
+  {
+    "position": [
+      0,
+      -5,
+      1.6
+    ],
+    "target": [
+      0,
+      4,
+      1.65
+    ],
+    "room": "exterior",
+    "lens": 30
+  },
+  {
+    "position": [
+      0,
+      -1.2,
+      1.6
+    ],
+    "target": [
+      0,
+      5,
+      1.65
+    ],
+    "room": "exterior",
+    "lens": 30
+  },
+  {
+    "position": [
+      0,
+      2.5,
+      1.6
+    ],
+    "target": [
+      0,
+      5.9,
+      1.85
+    ],
+    "room": "reception",
+    "lens": 26,
+    "chapter": "Reception"
+  },
+  {
+    "position": [
+      3.5,
+      2.5,
+      1.6
+    ],
+    "target": [
+      -0.2,
+      5,
+      1.85
+    ],
+    "room": "reception",
+    "lens": 21
+  },
+  {
+    "position": [
+      4.5,
+      2.5,
+      1.6
+    ],
+    "target": [
+      -0.758,
+      5.045,
+      1.87
+    ],
+    "room": "reception",
+    "lens": 17
+  },
+  {
+    "position": [
+      3.5,
+      2.5,
+      1.6
+    ],
+    "target": [
+      0,
+      5.8,
+      1.8
+    ],
+    "room": "reception",
+    "lens": 24
+  },
+  {
+    "position": [
+      3.5,
+      2.5,
+      1.6
+    ],
+    "target": [
+      3.5,
+      8,
+      1.65
+    ],
+    "room": "reception",
+    "lens": 27
+  },
+  {
+    "position": [
+      3.5,
+      6.4,
+      1.6
+    ],
+    "target": [
+      3.5,
+      10,
+      1.65
+    ],
+    "room": "reception",
+    "lens": 27
+  },
+  {
+    "position": [
+      3.5,
+      8,
+      1.6
+    ],
+    "target": [
+      9,
+      8,
+      1.65
+    ],
+    "room": "spine",
+    "lens": 25,
+    "chapter": "The spine"
+  },
+  {
+    "position": [
+      9,
+      8,
+      1.6
+    ],
+    "target": [
+      9,
+      5,
+      1.65
+    ],
+    "room": "spine",
+    "lens": 26
+  },
+  {
+    "position": [
+      9,
+      6,
+      1.6
+    ],
+    "target": [
+      9,
+      3.5,
+      1.45
+    ],
+    "room": "meeting",
+    "lens": 24,
+    "chapter": "Meeting room"
+  },
+  {
+    "position": [
+      11.8,
+      6,
+      1.6
+    ],
+    "target": [
+      8.7,
+      3.4,
+      1.4
+    ],
+    "room": "meeting",
+    "lens": 24
+  },
+  {
+    "position": [
+      11.8,
+      1.1,
+      1.6
+    ],
+    "target": [
+      9,
+      3.6,
+      1.5
+    ],
+    "room": "meeting",
+    "lens": 24
+  },
+  {
+    "position": [
+      6,
+      1.1,
+      1.6
+    ],
+    "target": [
+      9,
+      3.6,
+      1.5
+    ],
+    "room": "meeting",
+    "lens": 24
+  },
+  {
+    "position": [
+      6,
+      6,
+      1.6
+    ],
+    "target": [
+      9,
+      4,
+      1.5
+    ],
+    "room": "meeting",
+    "lens": 24
+  },
+  {
+    "position": [
+      9,
+      6,
+      1.6
+    ],
+    "target": [
+      9,
+      8,
+      1.65
+    ],
+    "room": "meeting",
+    "lens": 26
+  },
+  {
+    "position": [
+      9,
+      8,
+      1.6
+    ],
+    "target": [
+      14,
+      8,
+      1.65
+    ],
+    "room": "spine",
+    "lens": 26
+  },
+  {
+    "position": [
+      13.65,
+      8,
+      1.6
+    ],
+    "target": [
+      16,
+      8.5,
+      1.65
+    ],
+    "room": "founder",
+    "lens": 24,
+    "chapter": "Founder\u2019s studio"
+  },
+  {
+    "position": [
+      13.65,
+      6.2,
+      1.6
+    ],
+    "target": [
+      16,
+      9.5,
+      1.45
+    ],
+    "room": "founder",
+    "lens": 22
+  },
+  {
+    "position": [
+      13.65,
+      6.2,
+      1.6
+    ],
+    "target": [
+      14,
+      10,
+      1.65
+    ],
+    "room": "founder",
+    "lens": 24
+  },
+  {
+    "position": [
+      13.65,
+      10.5,
+      1.6
+    ],
+    "target": [
+      16,
+      8,
+      1.45
+    ],
+    "room": "founder",
+    "lens": 24
+  },
+  {
+    "position": [
+      13.65,
+      8,
+      1.6
+    ],
+    "target": [
+      10,
+      8,
+      1.65
+    ],
+    "room": "founder",
+    "lens": 26
+  },
+  {
+    "position": [
+      10,
+      8,
+      1.6
+    ],
+    "target": [
+      -9,
+      8,
+      1.65
+    ],
+    "room": "spine",
+    "lens": 25
+  },
+  {
+    "position": [
+      -9,
+      8,
+      1.6
+    ],
+    "target": [
+      -9,
+      4,
+      1.65
+    ],
+    "room": "spine",
+    "lens": 26
+  },
+  {
+    "position": [
+      -9,
+      5.4,
+      1.6
+    ],
+    "target": [
+      -9,
+      3.5,
+      1.25
+    ],
+    "room": "lounge",
+    "lens": 24,
+    "chapter": "The lounge"
+  },
+  {
+    "position": [
+      -9,
+      4.4,
+      1.6
+    ],
+    "target": [
+      -12.5,
+      4.4,
+      1.65
+    ],
+    "room": "lounge",
+    "lens": 24
+  },
+  {
+    "position": [
+      -12.5,
+      4.4,
+      1.6
+    ],
+    "target": [
+      -9,
+      3.5,
+      1.25
+    ],
+    "room": "lounge",
+    "lens": 24
+  },
+  {
+    "position": [
+      -12.5,
+      1.1,
+      1.6
+    ],
+    "target": [
+      -9,
+      3.5,
+      1.4
+    ],
+    "room": "lounge",
+    "lens": 25
+  },
+  {
+    "position": [
+      -5.5,
+      1.1,
+      1.6
+    ],
+    "target": [
+      -9,
+      3.5,
+      1.4
+    ],
+    "room": "lounge",
+    "lens": 25
+  },
+  {
+    "position": [
+      -5.5,
+      5.4,
+      1.6
+    ],
+    "target": [
+      -9,
+      3.5,
+      1.3
+    ],
+    "room": "lounge",
+    "lens": 24
+  },
+  {
+    "position": [
+      -9,
+      5.4,
+      1.6
+    ],
+    "target": [
+      -9,
+      8,
+      1.65
+    ],
+    "room": "lounge",
+    "lens": 26
+  },
+  {
+    "position": [
+      -9,
+      8,
+      1.6
+    ],
+    "target": [
+      -16,
+      8,
+      1.65
+    ],
+    "room": "spine",
+    "lens": 26
+  },
+  {
+    "position": [
+      -16,
+      8,
+      1.6
+    ],
+    "target": [
+      -16,
+      4,
+      1.65
+    ],
+    "room": "lab",
+    "lens": 25,
+    "chapter": "The lab"
+  },
+  {
+    "position": [
+      -16,
+      3.6,
+      1.6
+    ],
+    "target": [
+      -16,
+      10,
+      1.65
+    ],
+    "room": "lab",
+    "lens": 23
+  },
+  {
+    "position": [
+      -16,
+      10.8,
+      1.6
+    ],
+    "target": [
+      -16,
+      4,
+      1.65
+    ],
+    "room": "lab",
+    "lens": 23
+  },
+  {
+    "position": [
+      -16,
+      8,
+      1.6
+    ],
+    "target": [
+      -9,
+      8,
+      1.65
+    ],
+    "room": "lab",
+    "lens": 26
+  },
+  {
+    "position": [
+      -7,
+      8,
+      1.6
+    ],
+    "target": [
+      -7,
+      12,
+      1.8
+    ],
+    "room": "spine",
+    "lens": 26
+  },
+  {
+    "position": [
+      -7,
+      9.5,
+      1.6
+    ],
+    "target": [
+      -6.8,
+      16.5,
+      4.5
+    ],
+    "room": "motion-floor",
+    "lens": 21,
+    "chapter": "Motion floor"
+  },
+  {
+    "position": [
+      -12,
+      9.5,
+      1.6
+    ],
+    "target": [
+      -5,
+      14.5,
+      3.1
+    ],
+    "room": "motion-floor",
+    "lens": 18
+  },
+  {
+    "position": [
+      -7,
+      9.5,
+      1.6
+    ],
+    "target": [
+      -0.65,
+      9.5,
+      1.65
+    ],
+    "room": "motion-floor",
+    "lens": 24
+  },
+  {
+    "position": [
+      -0.65,
+      9.5,
+      1.6
+    ],
+    "target": [
+      0.8,
+      10.5,
+      2.2
+    ],
+    "room": "motion-floor",
+    "lens": 25
+  },
+  {
+    "position": [
+      0.8,
+      9.5,
+      1.775
+    ],
+    "target": [
+      0.8,
+      16,
+      5.8
+    ],
+    "room": "motion-floor",
+    "lens": 26
+  },
+  {
+    "position": [
+      0.8,
+      16,
+      5.8
+    ],
+    "target": [
+      0.8,
+      17,
+      5.825
+    ],
+    "room": "motion-floor",
+    "lens": 26
+  },
+  {
+    "position": [
+      0.8,
+      17,
+      5.825
+    ],
+    "target": [
+      -1,
+      17,
+      5.825
+    ],
+    "room": "upper",
+    "lens": 26,
+    "chapter": "The upper gallery"
+  },
+  {
+    "position": [
+      -1,
+      17,
+      5.825
+    ],
+    "target": [
+      -1,
+      6.2,
+      5.825
+    ],
+    "room": "upper",
+    "lens": 26
+  },
+  {
+    "position": [
+      -1,
+      10,
+      5.825
+    ],
+    "target": [
+      -7,
+      13,
+      2.5
+    ],
+    "room": "upper",
+    "lens": 24
+  },
+  {
+    "position": [
+      -1,
+      6.2,
+      5.825
+    ],
+    "target": [
+      -1,
+      17,
+      5.825
+    ],
+    "room": "upper",
+    "lens": 26
+  },
+  {
+    "position": [
+      -1,
+      17,
+      5.825
+    ],
+    "target": [
+      0.8,
+      17,
+      5.825
+    ],
+    "room": "upper",
+    "lens": 26
+  },
+  {
+    "position": [
+      0.8,
+      17,
+      5.825
+    ],
+    "target": [
+      0.8,
+      9.5,
+      1.775
+    ],
+    "room": "motion-floor",
+    "lens": 26
+  },
+  {
+    "position": [
+      0.8,
+      16,
+      5.8
+    ],
+    "target": [
+      0.8,
+      9.5,
+      1.775
+    ],
+    "room": "motion-floor",
+    "lens": 26
+  },
+  {
+    "position": [
+      0.8,
+      9.5,
+      1.775
+    ],
+    "target": [
+      -0.65,
+      9.5,
+      1.6
+    ],
+    "room": "motion-floor",
+    "lens": 26
+  },
+  {
+    "position": [
+      -0.65,
+      9.5,
+      1.6
+    ],
+    "target": [
+      -0.65,
+      17,
+      1.65
+    ],
+    "room": "motion-floor",
+    "lens": 25
+  },
+  {
+    "position": [
+      -0.65,
+      17,
+      1.6
+    ],
+    "target": [
+      4,
+      17,
+      1.65
+    ],
+    "room": "motion-floor",
+    "lens": 25
+  },
+  {
+    "position": [
+      4,
+      17,
+      1.6
+    ],
+    "target": [
+      4,
+      11,
+      1.65
+    ],
+    "room": "render-hall",
+    "lens": 24,
+    "chapter": "Render hall"
+  },
+  {
+    "position": [
+      4,
+      9.8,
+      1.6
+    ],
+    "target": [
+      7.5,
+      9.8,
+      1.65
+    ],
+    "room": "render-hall",
+    "lens": 24
+  },
+  {
+    "position": [
+      7.5,
+      9.8,
+      1.6
+    ],
+    "target": [
+      7.5,
+      17,
+      2
+    ],
+    "room": "render-hall",
+    "lens": 19
+  }
+]

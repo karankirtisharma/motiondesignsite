@@ -1,0 +1,2388 @@
+{
+  "sourceSha256": "8ae6ccdeb28674be7692aecc1f8fcc6d4f57c04247e406d107233f9c8487b9c7",
+  "materials": {
+    "ART_0": {
+      "name": "ART_0",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.6499999761581421,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.44999998807907104,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "canvas_0.png",
+      "albedo": "/materials/8d7a7d18aa32-color.png",
+      "emissionMap": "/materials/8d7a7d18aa32-emission.png"
+    },
+    "ART_1": {
+      "name": "ART_1",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.6499999761581421,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.44999998807907104,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "canvas_1.png",
+      "albedo": "/materials/f523f44df69c-color.png",
+      "emissionMap": "/materials/f523f44df69c-emission.png"
+    },
+    "ART_2": {
+      "name": "ART_2",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.6499999761581421,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.44999998807907104,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "canvas_2.png",
+      "albedo": "/materials/0f51b035370f-color.png",
+      "emissionMap": "/materials/0f51b035370f-emission.png"
+    },
+    "ART_3": {
+      "name": "ART_3",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.6499999761581421,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.44999998807907104,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "canvas_3.png",
+      "albedo": "/materials/a469f164db2a-color.png",
+      "emissionMap": "/materials/a469f164db2a-emission.png"
+    },
+    "ART_4": {
+      "name": "ART_4",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.6499999761581421,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.44999998807907104,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "canvas_4.png",
+      "albedo": "/materials/c62f37a18eb7-color.png",
+      "emissionMap": "/materials/c62f37a18eb7-emission.png"
+    },
+    "ART_5": {
+      "name": "ART_5",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.6499999761581421,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.44999998807907104,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "canvas_5.png",
+      "albedo": "/materials/392b0ba7ca30-color.png",
+      "emissionMap": "/materials/392b0ba7ca30-emission.png"
+    },
+    "BRONZE": {
+      "name": "BRONZE",
+      "color": [
+        0.2199999988079071,
+        0.13500000536441803,
+        0.06800000369548798,
+        1.0
+      ],
+      "metallic": 0.8500000238418579,
+      "roughness": 0.3400000035762787,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "DARK_BRONZE": {
+      "name": "DARK_BRONZE",
+      "color": [
+        0.054999999701976776,
+        0.0430000014603138,
+        0.03099999949336052,
+        1.0
+      ],
+      "metallic": 0.800000011920929,
+      "roughness": 0.3199999928474426,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "FLOOR_STONE": {
+      "name": "FLOOR_STONE",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.23999999463558197,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "BOX",
+      "mapping": {
+        "kind": "Object",
+        "anchor": null,
+        "steps": []
+      },
+      "compiledProcedural": true,
+      "albedo": "/materials/692eaa9657a6-color.png",
+      "normal": "/materials/692eaa9657a6-normal.png"
+    },
+    "GLASS": {
+      "name": "GLASS",
+      "color": [
+        0.8199999928474426,
+        0.8700000047683716,
+        0.8700000047683716,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.054999999701976776,
+      "ior": 1.4500000476837158,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "GRAPHITE": {
+      "name": "GRAPHITE",
+      "color": [
+        0.03200000151991844,
+        0.03700000047683716,
+        0.04100000113248825,
+        1.0
+      ],
+      "metallic": 0.6499999761581421,
+      "roughness": 0.28999999165534973,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "Laptop | active studio display": {
+      "name": "Laptop | active studio display",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.2800000011920929,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.5,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "creative_screen_0.png",
+      "albedo": "/materials/65f96f4ecd49-color.png",
+      "emissionMap": "/materials/65f96f4ecd49-emission.png"
+    },
+    "Laptop | black polymer": {
+      "name": "Laptop | black polymer",
+      "color": [
+        0.00800000037997961,
+        0.010999999940395355,
+        0.014000000432133675,
+        1.0
+      ],
+      "metallic": 0.05000000074505806,
+      "roughness": 0.3799999952316284,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "Laptop | display black glass": {
+      "name": "Laptop | display black glass",
+      "color": [
+        0.004000000189989805,
+        0.007000000216066837,
+        0.010999999940395355,
+        1.0
+      ],
+      "metallic": 0.05000000074505806,
+      "roughness": 0.1899999976158142,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "Laptop | etched glass trackpad": {
+      "name": "Laptop | etched glass trackpad",
+      "color": [
+        0.12999999523162842,
+        0.14499999582767487,
+        0.16599999368190765,
+        1.0
+      ],
+      "metallic": 0.44999998807907104,
+      "roughness": 0.3400000035762787,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "Laptop | key legends": {
+      "name": "Laptop | key legends",
+      "color": [
+        0.5699999928474426,
+        0.6100000143051147,
+        0.6499999761581421,
+        1.0
+      ],
+      "metallic": 0.10000000149011612,
+      "roughness": 0.41999998688697815,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "Laptop | machined edge": {
+      "name": "Laptop | machined edge",
+      "color": [
+        0.3199999928474426,
+        0.3400000035762787,
+        0.3700000047683716,
+        1.0
+      ],
+      "metallic": 0.9200000166893005,
+      "roughness": 0.20999999344348907,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "Laptop | satin graphite aluminium": {
+      "name": "Laptop | satin graphite aluminium",
+      "color": [
+        0.18000000715255737,
+        0.19499999284744263,
+        0.2150000035762787,
+        1.0
+      ],
+      "metallic": 0.8799999952316284,
+      "roughness": 0.30000001192092896,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "Laptop | soft black keycaps": {
+      "name": "Laptop | soft black keycaps",
+      "color": [
+        0.017999999225139618,
+        0.023000000044703484,
+        0.028999999165534973,
+        1.0
+      ],
+      "metallic": 0.05000000074505806,
+      "roughness": 0.4300000071525574,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "Laptop | webcam optical glass": {
+      "name": "Laptop | webcam optical glass",
+      "color": [
+        0.003000000026077032,
+        0.012000000104308128,
+        0.019999999552965164,
+        1.0
+      ],
+      "metallic": 0.4000000059604645,
+      "roughness": 0.11999999731779099,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "LIGHT": {
+      "name": "LIGHT",
+      "color": [
+        1.0,
+        0.6700000166893005,
+        0.3199999928474426,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.30000001192092896,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        0.4699999988079071,
+        0.12999999523162842,
+        1.0
+      ],
+      "emissionStrength": 4.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "OLIVE_LEAF": {
+      "name": "OLIVE_LEAF",
+      "color": [
+        0.12999999523162842,
+        0.1899999976158142,
+        0.07999999821186066,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.75,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "PAVING": {
+      "name": "PAVING",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.47999998927116394,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "BOX",
+      "mapping": {
+        "kind": "Object",
+        "anchor": null,
+        "steps": []
+      },
+      "compiledProcedural": true,
+      "albedo": "/materials/76eab3f9fc38-color.png",
+      "normal": "/materials/76eab3f9fc38-normal.png"
+    },
+    "RC Brass | brushed champagne accents.001": {
+      "name": "RC Brass | brushed champagne accents.001",
+      "color": [
+        0.49000000953674316,
+        0.3199999928474426,
+        0.12999999523162842,
+        1.0
+      ],
+      "metallic": 0.800000011920929,
+      "roughness": 0.23999999463558197,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "RC Brass | brushed champagne accents.002": {
+      "name": "RC Brass | brushed champagne accents.002",
+      "color": [
+        0.49000000953674316,
+        0.3199999928474426,
+        0.12999999523162842,
+        1.0
+      ],
+      "metallic": 0.800000011920929,
+      "roughness": 0.23999999463558197,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "RC Bronze | satin architectural bronze.002": {
+      "name": "RC Bronze | satin architectural bronze.002",
+      "color": [
+        0.1599999964237213,
+        0.11100000143051147,
+        0.05999999865889549,
+        1.0
+      ],
+      "metallic": 0.8199999928474426,
+      "roughness": 0.3199999928474426,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "RC Ceiling | warm fine mineral finish": {
+      "name": "RC Ceiling | warm fine mineral finish",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 1,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "BOX",
+      "mapping": {
+        "kind": "Object",
+        "anchor": "V09 | World metres texture anchor",
+        "steps": [
+          {
+            "type": "scale",
+            "value": 0.25
+          }
+        ]
+      },
+      "sourceImage": "Travertine009_2K-JPG_Color.jpg",
+      "albedo": "/materials/917366ed27bf-color.png",
+      "roughnessMap": "/materials/917366ed27bf-rough.png",
+      "normal": "/materials/917366ed27bf-normal.png"
+    },
+    "RC Chrome | polished neutral steel": {
+      "name": "RC Chrome | polished neutral steel",
+      "color": [
+        0.6800000071525574,
+        0.699999988079071,
+        0.7200000286102295,
+        1.0
+      ],
+      "metallic": 1.0,
+      "roughness": 0.12999999523162842,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "RC Exhibit | warm porcelain": {
+      "name": "RC Exhibit | warm porcelain",
+      "color": [
+        0.6100000143051147,
+        0.550000011920929,
+        0.41999998688697815,
+        1.0
+      ],
+      "metallic": 0.11999999731779099,
+      "roughness": 0.30000001192092896,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "RC LED | 3000K opal diffuser.002": {
+      "name": "RC LED | 3000K opal diffuser.002",
+      "color": [
+        0.949999988079071,
+        0.7200000286102295,
+        0.38999998569488525,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.25,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 12.0,
+      "procedural": false,
+      "normalStrength": 1,
+      "temperature": 3000.0
+    },
+    "RC LED | concealed MD halo D": {
+      "name": "RC LED | concealed MD halo D",
+      "color": [
+        0.949999988079071,
+        0.7200000286102295,
+        0.38999998569488525,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.25,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 23.0,
+      "procedural": false,
+      "normalStrength": 1,
+      "temperature": 3000.0
+    },
+    "RC LED | concealed MD halo M": {
+      "name": "RC LED | concealed MD halo M",
+      "color": [
+        0.949999988079071,
+        0.7200000286102295,
+        0.38999998569488525,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.25,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 23.0,
+      "procedural": false,
+      "normalStrength": 1,
+      "temperature": 3000.0
+    },
+    "RC Metal | blackened bronze.002": {
+      "name": "RC Metal | blackened bronze.002",
+      "color": [
+        0.02800000086426735,
+        0.024000000208616257,
+        0.017999999225139618,
+        1.0
+      ],
+      "metallic": 0.6499999761581421,
+      "roughness": 0.3100000023841858,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "RC Metal | camera graphite.002": {
+      "name": "RC Metal | camera graphite.002",
+      "color": [
+        0.013000000268220901,
+        0.01600000075995922,
+        0.017999999225139618,
+        1.0
+      ],
+      "metallic": 0.6600000262260437,
+      "roughness": 0.3199999928474426,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "RC Optics | multilayer lens": {
+      "name": "RC Optics | multilayer lens",
+      "color": [
+        0.017999999225139618,
+        0.03500000014901161,
+        0.04399999976158142,
+        1.0
+      ],
+      "metallic": 0.6499999761581421,
+      "roughness": 0.07500000298023224,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "RC Stone | honed ivory limestone scan": {
+      "name": "RC Stone | honed ivory limestone scan",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 1,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "BOX",
+      "mapping": {
+        "kind": "Object",
+        "anchor": "V09 | World metres texture anchor",
+        "steps": [
+          {
+            "type": "scale",
+            "value": 0.2631579041481018
+          }
+        ]
+      },
+      "sourceImage": "Marble014_2K-JPG_Color.jpg",
+      "albedo": "/materials/44b7b9df933d-color.png",
+      "roughnessMap": "/materials/44b7b9df933d-rough.png",
+      "normal": "/materials/44b7b9df933d-normal.png"
+    },
+    "RC Stone | honed ivory limestone scan.002": {
+      "name": "RC Stone | honed ivory limestone scan.002",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 1,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "BOX",
+      "mapping": {
+        "kind": "Object",
+        "anchor": "V09 | World metres texture anchor",
+        "steps": [
+          {
+            "type": "scale",
+            "value": 0.2631579041481018
+          }
+        ]
+      },
+      "sourceImage": "Marble014_2K-JPG_Color.jpg",
+      "albedo": "/materials/ade0a4f96ac7-color.png",
+      "roughnessMap": "/materials/ade0a4f96ac7-rough.png",
+      "normal": "/materials/ade0a4f96ac7-normal.png"
+    },
+    "rock_09": {
+      "name": "rock_09",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 1,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "rock_09_diff",
+      "albedo": "/materials/f6f34a4fa25f-color.png",
+      "roughnessMap": "/materials/f6f34a4fa25f-rough.png",
+      "normal": "/materials/f6f34a4fa25f-normal.png"
+    },
+    "STONE": {
+      "name": "STONE",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.4300000071525574,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "BOX",
+      "mapping": {
+        "kind": "Object",
+        "anchor": null,
+        "steps": []
+      },
+      "compiledProcedural": true,
+      "albedo": "/materials/d217e1d39a7a-color.png",
+      "normal": "/materials/d217e1d39a7a-normal.png"
+    },
+    "STONE_JOINT": {
+      "name": "STONE_JOINT",
+      "color": [
+        0.20999999344348907,
+        0.1899999976158142,
+        0.1599999964237213,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "TREE_BARK": {
+      "name": "TREE_BARK",
+      "color": [
+        0.08500000089406967,
+        0.057999998331069946,
+        0.027000000700354576,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.800000011920929,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V03_BARK": {
+      "name": "V03_BARK",
+      "color": [
+        0.08500000089406967,
+        0.06599999964237213,
+        0.03799999877810478,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.8600000143051147,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V03_BLACK": {
+      "name": "V03_BLACK",
+      "color": [
+        0.014999999664723873,
+        0.017999999225139618,
+        0.020999999716877937,
+        1.0
+      ],
+      "metallic": 0.25,
+      "roughness": 0.28999999165534973,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V03_BRONZE": {
+      "name": "V03_BRONZE",
+      "color": [
+        0.2199999988079071,
+        0.1599999964237213,
+        0.10499999672174454,
+        1.0
+      ],
+      "metallic": 0.8999999761581421,
+      "roughness": 0.27000001072883606,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V03_EMPERADOR": {
+      "name": "V03_EMPERADOR",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.125,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.25,
+      "coatRoughness": 0.1599999964237213,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "BOX",
+      "mapping": {
+        "kind": "Object",
+        "anchor": "V03_TEXTURE_METRES",
+        "steps": [
+          {
+            "type": "scale",
+            "value": 0.14705882966518402
+          }
+        ]
+      },
+      "sourceImage": "emperador_basecolor.png",
+      "albedo": "/materials/083ff36e89c2-color.png",
+      "normal": "/materials/083ff36e89c2-normal.png"
+    },
+    "V03_LEATHER": {
+      "name": "V03_LEATHER",
+      "color": [
+        0.02199999988079071,
+        0.02500000037252903,
+        0.026000000536441803,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.4300000071525574,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.11999999731779099,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V03_LIMESTONE": {
+      "name": "V03_LIMESTONE",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.3799999952316284,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "BOX",
+      "mapping": {
+        "kind": "Object",
+        "anchor": "V03_TEXTURE_METRES",
+        "steps": [
+          {
+            "type": "scale",
+            "value": 0.4545454680919647
+          }
+        ]
+      },
+      "sourceImage": "limestone_basecolor.png",
+      "albedo": "/materials/05e2a42e15a0-color.png",
+      "normal": "/materials/05e2a42e15a0-normal.png"
+    },
+    "V03_NICKEL": {
+      "name": "V03_NICKEL",
+      "color": [
+        0.5600000023841858,
+        0.5799999833106995,
+        0.5699999928474426,
+        1.0
+      ],
+      "metallic": 1.0,
+      "roughness": 0.1899999976158142,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V03_ORB_CHROME": {
+      "name": "V03_ORB_CHROME",
+      "color": [
+        0.6499999761581421,
+        0.6800000071525574,
+        0.7099999785423279,
+        1.0
+      ],
+      "metallic": 1.0,
+      "roughness": 0.05999999865889549,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V03_PATINA": {
+      "name": "V03_PATINA",
+      "color": [
+        0.10999999940395355,
+        0.07800000160932541,
+        0.052000001072883606,
+        1.0
+      ],
+      "metallic": 0.8799999952316284,
+      "roughness": 0.30000001192092896,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V03_RUBBER": {
+      "name": "V03_RUBBER",
+      "color": [
+        0.008999999612569809,
+        0.010999999940395355,
+        0.012000000104308128,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.75,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V03_RUG": {
+      "name": "V03_RUG",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.949999988079071,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "BOX",
+      "mapping": {
+        "kind": "Object",
+        "anchor": null,
+        "steps": []
+      },
+      "compiledProcedural": true,
+      "albedo": "/materials/fdff9b67aa53-color.png",
+      "normal": "/materials/fdff9b67aa53-normal.png"
+    },
+    "V03_SCULPTURE_NICKEL": {
+      "name": "V03_SCULPTURE_NICKEL",
+      "color": [
+        0.23999999463558197,
+        0.25,
+        0.27000001072883606,
+        1.0
+      ],
+      "metallic": 1.0,
+      "roughness": 0.11999999731779099,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V03_STITCH": {
+      "name": "V03_STITCH",
+      "color": [
+        0.23000000417232513,
+        0.2199999988079071,
+        0.1899999976158142,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.800000011920929,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V03_WALNUT": {
+      "name": "V03_WALNUT",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.3199999928474426,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "BOX",
+      "mapping": {
+        "kind": "Object",
+        "anchor": null,
+        "steps": [
+          {
+            "type": "mapping",
+            "location": [
+              0.3700000047683716,
+              0.47999998927116394,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.699999988079071,
+              1.2999999523162842,
+              0.699999988079071
+            ]
+          }
+        ]
+      },
+      "sourceImage": "walnut_basecolor.png",
+      "albedo": "/materials/50c5ce1531b2-color.png"
+    },
+    "V04_Chair_OriginalPBR": {
+      "name": "V04_Chair_OriginalPBR",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 1,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "office+chair+3d+model_basecolor.jpg",
+      "albedo": "/materials/45fcd68ba5c7-color.png",
+      "roughnessMap": "/materials/45fcd68ba5c7-rough.png",
+      "normal": "/materials/45fcd68ba5c7-normal.png"
+    },
+    "V04_Sofa_OriginalPBR": {
+      "name": "V04_Sofa_OriginalPBR",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 1,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "sofa+3d+model_basecolor.jpg",
+      "albedo": "/materials/1554fdf9949c-color.png",
+      "roughnessMap": "/materials/1554fdf9949c-rough.png",
+      "normal": "/materials/1554fdf9949c-normal.png"
+    },
+    "V05_BLACK_WELT": {
+      "name": "V05_BLACK_WELT",
+      "color": [
+        0.017000000923871994,
+        0.017999999225139618,
+        0.01899999938905239,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.4000000059604645,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V05_BOOK_PAPER": {
+      "name": "V05_BOOK_PAPER",
+      "color": [
+        0.6000000238418579,
+        0.5699999928474426,
+        0.5099999904632568,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.8299999833106995,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V05_BOOK_TYPE": {
+      "name": "V05_BOOK_TYPE",
+      "color": [
+        0.6800000071525574,
+        0.6399999856948853,
+        0.5400000214576721,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.6000000238418579,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V05_CARVED_STONE": {
+      "name": "V05_CARVED_STONE",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.3799999952316284,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "BOX",
+      "mapping": {
+        "kind": "Object",
+        "anchor": "V03_TEXTURE_METRES",
+        "steps": [
+          {
+            "type": "scale",
+            "value": 0.4545454680919647
+          }
+        ]
+      },
+      "sourceImage": "limestone_basecolor.png",
+      "albedo": "/materials/d798dd1e8873-color.png",
+      "normal": "/materials/d798dd1e8873-normal.png"
+    },
+    "V05_CHAIR_LEATHER": {
+      "name": "V05_CHAIR_LEATHER",
+      "color": [
+        0.012000000104308128,
+        0.013000000268220901,
+        0.014000000432133675,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.3199999928474426,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.1599999964237213,
+      "coatRoughness": 0.30000001192092896,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V05_CHROME": {
+      "name": "V05_CHROME",
+      "color": [
+        0.6800000071525574,
+        0.7200000286102295,
+        0.7599999904632568,
+        1.0
+      ],
+      "metallic": 1.0,
+      "roughness": 0.12999999523162842,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V05_FIGURED_WALNUT": {
+      "name": "V05_FIGURED_WALNUT",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.2800000011920929,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.2199999988079071,
+      "coatRoughness": 0.25999999046325684,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "BOX",
+      "mapping": {
+        "kind": "Object",
+        "anchor": "V03_TEXTURE_METRES",
+        "steps": [
+          {
+            "type": "mapping",
+            "location": [
+              -2.7586207389831543,
+              -1.08695650100708,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.3448275923728943,
+              0.43478259444236755,
+              0.3448275923728943
+            ]
+          }
+        ]
+      },
+      "sourceImage": "walnut_basecolor.png",
+      "albedo": "/materials/7037778849a3-color.png",
+      "normal": "/materials/7037778849a3-normal.png"
+    },
+    "V05_FRAME": {
+      "name": "V05_FRAME",
+      "color": [
+        0.012000000104308128,
+        0.014000000432133675,
+        0.014000000432133675,
+        1.0
+      ],
+      "metallic": 0.11999999731779099,
+      "roughness": 0.30000001192092896,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V05_INLAY_GOLD": {
+      "name": "V05_INLAY_GOLD",
+      "color": [
+        0.5299999713897705,
+        0.3400000035762787,
+        0.15000000596046448,
+        1.0
+      ],
+      "metallic": 0.8999999761581421,
+      "roughness": 0.1899999976158142,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V05_IVORY_LINEN": {
+      "name": "V05_IVORY_LINEN",
+      "color": [
+        0.6100000143051147,
+        0.5600000023841858,
+        0.4699999988079071,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.7599999904632568,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V05_MESH_FIBER": {
+      "name": "V05_MESH_FIBER",
+      "color": [
+        0.008999999612569809,
+        0.010999999940395355,
+        0.009999999776482582,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5299999713897705,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V05_OLIVE_SILVER": {
+      "name": "V05_OLIVE_SILVER",
+      "color": [
+        0.27000001072883606,
+        0.3100000023841858,
+        0.20000000298023224,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.6100000143051147,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V05_OLIVE_UPPER": {
+      "name": "V05_OLIVE_UPPER",
+      "color": [
+        0.0949999988079071,
+        0.13500000536441803,
+        0.06300000101327896,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V05_OLIVE_YOUNG": {
+      "name": "V05_OLIVE_YOUNG",
+      "color": [
+        0.18000000715255737,
+        0.2199999988079071,
+        0.09200000017881393,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5099999904632568,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V05_TABLE_EMPERADOR": {
+      "name": "V05_TABLE_EMPERADOR",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.125,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.25,
+      "coatRoughness": 0.1599999964237213,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "BOX",
+      "mapping": {
+        "kind": "Object",
+        "anchor": "V03_TEXTURE_METRES",
+        "steps": [
+          {
+            "type": "scale",
+            "value": 0.3571428656578064
+          }
+        ]
+      },
+      "sourceImage": "emperador_basecolor.png",
+      "albedo": "/materials/f515c7044386-color.png",
+      "normal": "/materials/f515c7044386-normal.png"
+    },
+    "V06_WALNUT_PBR_4K": {
+      "name": "V06_WALNUT_PBR_4K",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 1,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.18000000715255737,
+      "coatRoughness": 0.2800000011920929,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "V06_WALNUT_Diffuse",
+      "albedo": "/materials/692b5d578239-color.png",
+      "roughnessMap": "/materials/692b5d578239-rough.png",
+      "normal": "/materials/692b5d578239-normal.png"
+    },
+    "V07_DASHBOARD": {
+      "name": "V07_DASHBOARD",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.20000000298023224,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.10000000149011612,
+      "coatRoughness": 0.18000000715255737,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.6499999761581421,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "founder_dashboard.png",
+      "albedo": "/materials/55a2375b9769-color.png",
+      "emissionMap": "/materials/55a2375b9769-emission.png"
+    },
+    "V07_DISPLAY_CERAMIC_BLACK": {
+      "name": "V07_DISPLAY_CERAMIC_BLACK",
+      "color": [
+        0.00800000037997961,
+        0.010999999940395355,
+        0.014999999664723873,
+        1.0
+      ],
+      "metallic": 0.2199999988079071,
+      "roughness": 0.25999999046325684,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V07_DISPLAY_GRAPHITE_ALLOY": {
+      "name": "V07_DISPLAY_GRAPHITE_ALLOY",
+      "color": [
+        0.10999999940395355,
+        0.125,
+        0.14499999582767487,
+        1.0
+      ],
+      "metallic": 0.800000011920929,
+      "roughness": 0.27000001072883606,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V07_DISPLAY_PORT_RECESS": {
+      "name": "V07_DISPLAY_PORT_RECESS",
+      "color": [
+        0.0020000000949949026,
+        0.003000000026077032,
+        0.004000000189989805,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.5600000023841858,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V07_DISPLAY_SATIN_ALUMINIUM": {
+      "name": "V07_DISPLAY_SATIN_ALUMINIUM",
+      "color": [
+        0.3499999940395355,
+        0.38999998569488525,
+        0.4399999976158142,
+        1.0
+      ],
+      "metallic": 0.8999999761581421,
+      "roughness": 0.25,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.0,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V07_DISPLAY_STATUS_LED": {
+      "name": "V07_DISPLAY_STATUS_LED",
+      "color": [
+        0.25,
+        0.550000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.30000001192092896,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.0,
+      "coatRoughness": 0.029999999329447746,
+      "emission": [
+        0.25,
+        0.550000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "emissionStrength": 0.6000000238418579,
+      "procedural": false,
+      "normalStrength": 1
+    },
+    "V07_SCREEN_0": {
+      "name": "V07_SCREEN_0",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.20000000298023224,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.10000000149011612,
+      "coatRoughness": 0.18000000715255737,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.6499999761581421,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "creative_screen_0.png",
+      "albedo": "/materials/5757b7820f4e-color.png",
+      "emissionMap": "/materials/5757b7820f4e-emission.png"
+    },
+    "V07_SCREEN_1": {
+      "name": "V07_SCREEN_1",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.20000000298023224,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.10000000149011612,
+      "coatRoughness": 0.18000000715255737,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.6499999761581421,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "creative_screen_1.png",
+      "albedo": "/materials/42c44925b249-color.png",
+      "emissionMap": "/materials/42c44925b249-emission.png"
+    },
+    "V07_SCREEN_2": {
+      "name": "V07_SCREEN_2",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.20000000298023224,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.10000000149011612,
+      "coatRoughness": 0.18000000715255737,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.6499999761581421,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "creative_screen_2.png",
+      "albedo": "/materials/46a931f481d9-color.png",
+      "emissionMap": "/materials/46a931f481d9-emission.png"
+    },
+    "V07_SCREEN_3": {
+      "name": "V07_SCREEN_3",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.20000000298023224,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.10000000149011612,
+      "coatRoughness": 0.18000000715255737,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.6499999761581421,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "creative_screen_3.png",
+      "albedo": "/materials/916f4b819f23-color.png",
+      "emissionMap": "/materials/916f4b819f23-emission.png"
+    },
+    "V07_SCREEN_4": {
+      "name": "V07_SCREEN_4",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.20000000298023224,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.10000000149011612,
+      "coatRoughness": 0.18000000715255737,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.6499999761581421,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "creative_screen_4.png",
+      "albedo": "/materials/3898e4481cf2-color.png",
+      "emissionMap": "/materials/3898e4481cf2-emission.png"
+    },
+    "V07_SCREEN_5": {
+      "name": "V07_SCREEN_5",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.0,
+      "roughness": 0.20000000298023224,
+      "ior": 1.5,
+      "alpha": 1.0,
+      "coat": 0.10000000149011612,
+      "coatRoughness": 0.18000000715255737,
+      "emission": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissionStrength": 0.6499999761581421,
+      "procedural": true,
+      "normalStrength": 1,
+      "projection": "FLAT",
+      "mapping": {
+        "kind": "UV",
+        "steps": []
+      },
+      "sourceImage": "creative_screen_5.png",
+      "albedo": "/materials/a88235daaab6-color.png",
+      "emissionMap": "/materials/a88235daaab6-emission.png"
+    }
+  }
+}

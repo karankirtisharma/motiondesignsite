@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-09-15",
+  "backend": "WebGPU",
+  "view": "desktop",
+  "observed": {
+    "forwardWheel": true,
+    "reverseWheel": true,
+    "roomMenuContinuousTravel": [
+      "Founder\u2019s studio",
+      "Render hall"
+    ],
+    "lookAroundKeyboardAndReturn": true,
+    "endOfRoute": true,
+    "runtimeErrors": 0
+  },
+  "frameRateNote": "Observed engine readings above 80 FPS during the tested desktop interactions; hardware-specific, not a cross-device guarantee.",
+  "sourceMaterials": {
+    "imagesExtracted": 43,
+    "activeMaterials": 85,
+    "compiledMaps": 68,
+    "lightingResolution": 2048
+  },
+  "colorPipeline": "Linear HDR, bloom, one AgX display transform, then FXAA.",
+  "fallback": {
+    "backend": "WebGL2",
+    "sourceReceptionRendered": true,
+    "runtimeErrors": 0
+  }
+}

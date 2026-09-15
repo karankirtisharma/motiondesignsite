@@ -1,0 +1,3 @@
+import {init,importNavMesh,NavMeshQuery} from 'recast-navigation';
+import {Vector3} from '@babylonjs/core';
+export async function createNavigation(){await init();const bytes=new Uint8Array(await fetch('/navigation/reception.navmesh').then(r=>r.arrayBuffer()));const {navMesh}=importNavMesh(bytes);const query=new NavMeshQuery(navMesh);return {path:(from:Vector3,to:Vector3)=>{const result=query.computePath({x:from.x,y:.025,z:from.z},{x:to.x,y:.025,z:to.z});if(!result.success)throw Error('No clear route to the viewpoint');return result.path.map(p=>new Vector3(p.x,1.6,p.z))},dispose:()=>{query.destroy();navMesh.destroy()}}}

@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "releaseId": "md-hq-8ae6ccdeb2-review-1",
+  "coordinates": "RH_Y_UP_METRES",
+  "source": {
+    "source": "C:\\Users\\karan_z7alww2\\Documents\\Codex\\2026-09-12\\front-exterior-x20-x20-motion-gallery\\outputs\\MOTION_HQ\\16_RECEPTION_REBUILD\\MOTION_HQ_ARCH_v09_FINAL.blend",
+    "sha256": "8ae6ccdeb28674be7692aecc1f8fcc6d4f57c04247e406d107233f9c8487b9c7",
+    "blender": "5.2.0 LTS",
+    "executable": "D:\\Claude\\tools\\Blender-5.2\\blender.exe",
+    "executableSha256": "0060916d6921eb4d46c57254609d805a2ea711917399051391a52ba14beb6327",
+    "devices": [
+      [
+        "NVIDIA GeForce RTX 4070",
+        "CUDA",
+        false
+      ],
+      [
+        "13th Gen Intel Core i5-13600KF",
+        "CPU",
+        false
+      ],
+      [
+        "NVIDIA GeForce RTX 4070",
+        "OPTIX",
+        true
+      ]
+    ]
+  },
+  "assets": [
+    {
+      "id": "exterior",
+      "uri": "/assets/exterior.e3d2a3e322a2.glb",
+      "sha256": "e3d2a3e322a2b9a3729e5f91ce26088f4fdd77c6e9a3ff9d98312feadfa7d6f4",
+      "byteLength": 1231216,
+      "triangles": 59760,
+      "primitives": 11,
+      "materials": 11
+    },
+    {
+      "id": "reception",
+      "uri": "/assets/reception.84204ecd2c59.glb",
+      "sha256": "84204ecd2c592d316cadb77ec6f79b439ea15b28ece7b22953e96b10a553bbef",
+      "byteLength": 19948012,
+      "triangles": 1516577,
+      "primitives": 28,
+      "materials": 27
+    },
+    {
+      "id": "spine",
+      "uri": "/assets/spine.2113b645bee5.glb",
+      "sha256": "2113b645bee50a4d6081317bf109f9959af58ba92985403edeeeb57ea3ed2597",
+      "byteLength": 6820,
+      "triangles": 108,
+      "primitives": 1,
+      "materials": 1
+    },
+    {
+      "id": "founder",
+      "uri": "/assets/founder.f8fb92e48bd2.glb",
+      "sha256": "f8fb92e48bd250d8b25f03bc840d4525f9248b3fc86fb92552e388daffcb8d0a",
+      "byteLength": 5110348,
+      "triangles": 219940,
+      "primitives": 21,
+      "materials": 21
+    },
+    {
+      "id": "meeting",
+      "uri": "/assets/meeting.76d749d89c94.glb",
+      "sha256": "76d749d89c94637397ae2aaf679544e9608fbcd02aaf55dab0ddf30de150a084",
+      "byteLength": 2780092,
+      "triangles": 225300,
+      "primitives": 9,
+      "materials": 9
+    },
+    {
+      "id": "lounge",
+      "uri": "/assets/lounge.2b3a694526bb.glb",
+      "sha256": "2b3a694526bb449cc5c966b1d7c71d5856603cb43a0d259bfb07c3e7ddbe9429",
+      "byteLength": 6178132,
+      "triangles": 346480,
+      "primitives": 15,
+      "materials": 15
+    },
+    {
+      "id": "lab",
+      "uri": "/assets/lab.f1d68fe7ae02.glb",
+      "sha256": "f1d68fe7ae0219fb3f13d8c96a761a0522e0978d6be4bd02c74a22643fcf4e90",
+      "byteLength": 8813144,
+      "triangles": 474060,
+      "primitives": 21,
+      "materials": 21
+    },
+    {
+      "id": "motion-floor",
+      "uri": "/assets/motion-floor.af5e65455564.glb",
+      "sha256": "af5e65455564691ea3840d1308b994e6cedbcaab74d024292bd62bf450e549c7",
+      "byteLength": 30007572,
+      "triangles": 1708739,
+      "primitives": 24,
+      "materials": 24
+    },
+    {
+      "id": "render-hall",
+      "uri": "/assets/render-hall.0b17273fc3df.glb",
+      "sha256": "0b17273fc3df284826a93a1a25117afa2525ea8d9eeda462df51898e6e0c66ca",
+      "byteLength": 1741728,
+      "triangles": 61452,
+      "primitives": 15,
+      "materials": 15
+    }
+  ],
+  "status": "local-review"
+}

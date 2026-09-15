@@ -1,0 +1,15 @@
+{
+  "ocioVersion": "2.5.2",
+  "configSha256": "df5714c85d5afb5e9762281503a0c48a9f65dadb22d32a3aee50c454a0821f62",
+  "view": "AgX",
+  "look": "AgX - Medium High Contrast",
+  "display": "sRGB",
+  "input": "scene-linear Rec.709",
+  "log2Range": [
+    -12,
+    10
+  ],
+  "size": 64,
+  "packing": "red-x, green-y, blue-horizontal-slices",
+  "quantization": "8-bit display output; fixture comparison pending"
+}

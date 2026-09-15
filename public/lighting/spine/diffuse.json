@@ -1,0 +1,102 @@
+{
+  "sourceSha256": "8ae6ccdeb28674be7692aecc1f8fcc6d4f57c04247e406d107233f9c8487b9c7",
+  "samples": 64,
+  "encoding": "linear-rgba16f",
+  "normalHandling": "Evaluated source split normals",
+  "denoiser": "Blender OIDN",
+  "receivers": [
+    "SLAB_SPINE"
+  ],
+  "levels": [
+    {
+      "uri": "/lighting/spine/diffuse-0.bin.pack",
+      "width": 2048,
+      "height": 2048,
+      "byteLength": 33554432,
+      "sha256": "b8c3b0379d1a028f6d5d07bc6b8739c639c606f05df8f0ea1e0b7bfe720a3ba7",
+      "encoding": "gzip",
+      "transferBytes": 5283453
+    },
+    {
+      "uri": "/lighting/spine/diffuse-1.bin.pack",
+      "width": 1024,
+      "height": 1024,
+      "byteLength": 8388608,
+      "sha256": "e3eba5a4d9b841aa298e008eb1e2a048361de24c81a77be4cb5ac163963428d7",
+      "encoding": "gzip",
+      "transferBytes": 1892482
+    },
+    {
+      "uri": "/lighting/spine/diffuse-2.bin.pack",
+      "width": 512,
+      "height": 512,
+      "byteLength": 2097152,
+      "sha256": "7b7a40b36e80024bf55c7f750affbe11af68efb2048ba3b0185fab778f551c62",
+      "encoding": "gzip",
+      "transferBytes": 507736
+    },
+    {
+      "uri": "/lighting/spine/diffuse-3.bin.pack",
+      "width": 256,
+      "height": 256,
+      "byteLength": 524288,
+      "sha256": "ec966df164660570a4c6acb0e525a11f2fd781bda261fc8365af393dc2c73cbc",
+      "encoding": "gzip",
+      "transferBytes": 135261
+    },
+    {
+      "uri": "/lighting/spine/diffuse-4.bin.pack",
+      "width": 128,
+      "height": 128,
+      "byteLength": 131072,
+      "sha256": "1dd269c67f9f81afaba81345f67158c9309ecff2c00976015e5de6583b9af061",
+      "encoding": "gzip",
+      "transferBytes": 37278
+    },
+    {
+      "uri": "/lighting/spine/diffuse-5.bin.pack",
+      "width": 64,
+      "height": 64,
+      "byteLength": 32768,
+      "sha256": "d6a6cb290d38f4d7d7130513c80006c2e0a21c3594f8310e58694e2b24a4cb5b",
+      "encoding": "gzip",
+      "transferBytes": 10482
+    },
+    {
+      "uri": "/lighting/spine/diffuse-6.bin.pack",
+      "width": 32,
+      "height": 32,
+      "byteLength": 8192,
+      "sha256": "f6920692406f5318d1a965e73f0957f189dbef744dcba36afaff07b3b759a472",
+      "encoding": "gzip",
+      "transferBytes": 3033
+    },
+    {
+      "uri": "/lighting/spine/diffuse-7.bin.pack",
+      "width": 16,
+      "height": 16,
+      "byteLength": 2048,
+      "sha256": "2afc79ce9f24bb18f71b890971dfc4a20a4e09559dabaaa393e7bf8f8018d768",
+      "encoding": "gzip",
+      "transferBytes": 946
+    },
+    {
+      "uri": "/lighting/spine/diffuse-8.bin.pack",
+      "width": 8,
+      "height": 8,
+      "byteLength": 512,
+      "sha256": "949dea3d6de6421dea7f2d7d7b250afa79322bac8961528a90aad2b356f8d6c9",
+      "encoding": "gzip",
+      "transferBytes": 310
+    },
+    {
+      "uri": "/lighting/spine/diffuse-9.bin.pack",
+      "width": 4,
+      "height": 4,
+      "byteLength": 128,
+      "sha256": "21f53d440c43f3374d556bc056474539b9e1696a96c84438dcd1127d797bf4ec",
+      "encoding": "gzip",
+      "transferBytes": 120
+    }
+  ]
+}

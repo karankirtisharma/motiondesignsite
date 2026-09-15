@@ -1,0 +1,50 @@
+{
+  "checkedAt": "2026-09-15T15:44:42.894Z",
+  "results": [
+    {
+      "fps": 30,
+      "target": 0.005,
+      "settleSeconds": 0.8666666666666666
+    },
+    {
+      "fps": 30,
+      "target": 0.03,
+      "settleSeconds": 1.0666666666666667
+    },
+    {
+      "fps": 30,
+      "target": 1,
+      "settleSeconds": 6.866666666666652
+    },
+    {
+      "fps": 60,
+      "target": 0.005,
+      "settleSeconds": 0.850000000000001
+    },
+    {
+      "fps": 60,
+      "target": 0.03,
+      "settleSeconds": 1.0500000000000012
+    },
+    {
+      "fps": 60,
+      "target": 1,
+      "settleSeconds": 6.649999999999982
+    },
+    {
+      "fps": 120,
+      "target": 0.005,
+      "settleSeconds": 0.8499999999999994
+    },
+    {
+      "fps": 120,
+      "target": 0.03,
+      "settleSeconds": 1.0499999999999987
+    },
+    {
+      "fps": 120,
+      "target": 1,
+      "settleSeconds": 6.533333333333448
+    }
+  ]
+}
