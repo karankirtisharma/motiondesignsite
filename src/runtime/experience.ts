@@ -15,6 +15,7 @@ export class Experience {
   private environment!:StudioEnvironment;private lighting!:StudioLighting;
   private engine!:AbstractEngine;private scene!:Scene;private camera!:UniversalCamera;private assets!:AssetRegistry;
   private scrollRange=1;private velocity=0;private phase=0;private target=0;private ready=false;private receptionReady=false;private paused=false;private exploring=false;private seeking=false;private anchor=0;
+  private loadLimit=receptionPhase+.005;private waitingForRooms=false;
   private saved={phase:0,scroll:0};private lastTime=0;private pointer:{x:number;y:number;id:number}|null=null;private yaw=0;private pitch=0;
   private moving?:{from:Pose;to:Pose;elapsed:number;duration:number};private currentPose=poseAt(0);private mirror?:MirrorTexture;private pipeline?:ArchitecturalFinish;
   private looping=false;private renderFrame=()=>this.tick();private warmupFrames=8;private invalidated=true;private frameTimes:number[]=[];private slowFrames=0;private recovery=0;
@@ -32,35 +33,20 @@ export class Experience {
     this.scene.imageProcessingConfiguration.exposure=1.035;this.scene.imageProcessingConfiguration.contrast=1.1;
     this.camera=new UniversalCamera('journey',world([30,-45,5.2]),this.scene);this.camera.minZ=.05;this.camera.maxZ=5000;this.camera.fovMode=Camera.FOVMODE_HORIZONTAL_FIXED;
     this.scene.skipPointerMovePicking=true;this.scene.activeCamera=this.camera;this.applyPose(poseAt(0));this.setQuality(this.options.quality);
-    this.environment=new StudioEnvironment(this.scene);await this.environment.load();
-    this.lighting=await StudioLighting.create(this.scene);
-    const detail=await DetailMaterials.create(this.scene);
-    const release=await fetch('/release.json').then(r=>{if(!r.ok)throw Error('Release unavailable');return r.json()}) as Release;
+    this.environment=new StudioEnvironment(this.scene);
+    const [lighting,detail,release]=await Promise.all([
+      StudioLighting.create(this.scene),DetailMaterials.create(this.scene),
+      fetch('/release.json').then(r=>{if(!r.ok)throw Error('Release unavailable');return r.json()}) as Promise<Release>,
+      this.environment.load(),
+    ]);
+    this.lighting=lighting;
     if(release.schemaVersion!==1||release.coordinates!=='RH_Y_UP_METRES')throw Error('Unsupported release manifest');
     this.assets=new AssetRegistry(this.scene,release);
-    const exterior=await this.assets.load('exterior');exterior.addAllToScene();this.prepareMaterials(exterior,false);
-    for(const mesh of exterior.meshes)if(mesh.name.includes('ENV_GROUND'))mesh.setEnabled(false);
-    this.options.onStatus('Preparing reception');
-    const reception=await this.assets.load('reception');reception.addAllToScene();this.prepareMaterials(reception,true);
-    const containers=new Map<string,AssetContainer>([['exterior',exterior],['reception',reception]]);
-    for(const asset of release.assets){if(containers.has(asset.id))continue;this.options.onStatus('Preparing '+asset.id.replaceAll('-',' '));const container=await this.assets.load(asset.id);container.addAllToScene();this.prepareMaterials(container,true);containers.set(asset.id,container);}
-    for(const [id,container] of containers){
-      this.options.onStatus('Lighting '+id.replaceAll('-',' '));
-      const base='/lighting/'+id;
-      const diffuse=await loadDiffuse(this.scene,base+'/diffuse.json');
-      const roomReflection=id==='exterior'?this.environment.dusk:await new Promise<HDRCubeTexture>((resolve,reject)=>{const t=new HDRCubeTexture(base+'/reflection.hdr',this.scene,128,false,true,false,true,()=>resolve(t),reject);});
-      for(const mat of container.materials)if(mat instanceof PBRMaterial){
-        const glass=mat.name.toLowerCase().includes('glass');
-        mat.reflectionTexture=roomReflection;
-        mat.environmentIntensity=glass?1.0:id==='exterior'?.85:.65;
-        mat.specularIntensity=glass?0:mat.name.includes('__baked')?.5:1;
-        const detailed=detail.apply(mat);if(!detailed)throw Error('Source material missing: '+mat.name);
-        if(mat.name.includes('__baked')){
-
-          new SourceDiffusePlugin(mat,diffuse,undefined,id==='exterior'?1:0);
-        }
-      }
-    }
+    this.options.onStatus('Preparing arrival');
+    const containers=new Map<string,AssetContainer>();
+    const initial=['exterior','reception','spine'];
+    await Promise.all(initial.map(async id=>containers.set(id,await this.loadRoom(id,detail))));
+    const exterior=containers.get('exterior')!,reception=containers.get('reception')!;
     const floorMaterials=reception.materials.filter((m):m is PBRMaterial=>m instanceof PBRMaterial&&m.name.includes('V03_EMPERADOR'));
     this.mirror=new MirrorTexture('Polished reception stone',{ratio:.5},this.scene,true);this.mirror.gammaSpace=false;this.mirror.mirrorPlane=new Plane(0,-1,0,.025);this.mirror.level=1;this.mirror.blurKernel=6;
     this.mirror.renderList=[reception,exterior,containers.get('spine')!].flatMap(c=>c.meshes).filter(m=>!floorMaterials.includes(m.material as PBRMaterial));
@@ -76,8 +62,50 @@ export class Experience {
     this.navigationTask=import('./navigation').then(async m=>{this.navigation=await m.createNavigation()}).catch(e=>console.warn('Reception navigation unavailable',e));
     for(const container of containers.values())for(const mesh of container.meshes){mesh.isPickable=false;mesh.freezeWorldMatrix();}
     this.wake();
-    const review=new URLSearchParams(location.search).get('reviewCamera');if(review)await this.reviewCamera(review);
+    // Give the first interactive frame a chance to paint before decoding later rooms.
+    document.body.dataset.loadingStage='arrival-ready';
+    const remaining=release.assets.filter(a=>!initial.includes(a.id));
+    const finishRooms=async()=>{
+      await new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve())));
+      // Two workers bound concurrent decoding and GPU uploads on smaller devices.
+      const queue=[...remaining];
+      await Promise.all([0,1].map(async()=>{
+        while(queue.length){const asset=queue.shift()!;const container=await this.loadRoom(asset.id,detail);containers.set(asset.id,container);
+          this.environment.setReflectionMeshes([...containers.values()].flatMap(c=>c.meshes));
+          this.invalidated=true;this.wake();
+          await new Promise(resolve=>setTimeout(resolve,0));
+        }
+      }));
+      await this.scene.whenReadyAsync();
+      this.loadLimit=1;document.body.dataset.loadingStage='complete';document.body.dataset.allRoomsMs=performance.now().toFixed(0);
+      if(this.waitingForRooms){this.options.onStatus('');this.waitingForRooms=false;}
+      this.invalidated=true;this.wake();
+    };
+    const roomsReady=finishRooms();
+    void roomsReady.catch(error=>this.options.onFail(error));
+    const review=new URLSearchParams(location.search).get('reviewCamera');if(review){await roomsReady;await this.reviewCamera(review);}
+
     (window as unknown as {__MD:unknown}).__MD={getState:()=>({phase:this.phase,target:this.target,exploring:this.exploring,ready:this.ready,receptionReady:this.receptionReady,backend:this.engine instanceof WebGPUEngine?'webgpu':'webgl2',meshes:this.scene.meshes.length,materials:this.scene.materials.length,triangles:this.scene.meshes.reduce((n,m)=>n+m.getTotalIndices()/3,0),fps:this.engine.getFps(),frameTimes:this.frameTimes.slice()}),seek:(p:number)=>this.seek(p),reviewCamera:(n:string)=>this.reviewCamera(n)};
+  }
+  private async loadRoom(id:string,detail:DetailMaterials){
+    const base='/lighting/'+id;
+    const [container,diffuse,roomReflection]=await Promise.all([
+      this.assets.load(id),loadDiffuse(this.scene,base+'/diffuse.json'),
+      id==='exterior'?Promise.resolve(this.environment.dusk):new Promise<HDRCubeTexture>((resolve,reject)=>{
+        const t=new HDRCubeTexture(base+'/reflection.hdr',this.scene,128,false,true,false,true,()=>resolve(t),reject);
+      }),
+    ]);
+    this.prepareMaterials(container,id!=='exterior');
+    for(const mat of container.materials)if(mat instanceof PBRMaterial){
+      const glass=mat.name.toLowerCase().includes('glass');
+      mat.reflectionTexture=roomReflection;mat.environmentIntensity=glass?1:id==='exterior'?.85:.65;
+      mat.specularIntensity=glass?0:mat.name.includes('__baked')?.5:1;
+      if(!detail.apply(mat))throw Error('Source material missing: '+mat.name);
+      if(mat.name.includes('__baked'))new SourceDiffusePlugin(mat,diffuse,undefined,id==='exterior'?1:0);
+    }
+    container.addAllToScene();
+    for(const mesh of container.meshes){if(mesh.name.includes('ENV_GROUND'))mesh.setEnabled(false);mesh.isPickable=false;mesh.freezeWorldMatrix();}
+    return container;
   }
   private prepareMaterials(container:AssetContainer,interior:boolean){
     for(const mat of container.materials)if(mat instanceof PBRMaterial){
@@ -106,10 +134,12 @@ export class Experience {
   private applyLook(){this.camera.rotationQuaternion=null;this.camera.setTarget(this.currentPose.target);this.camera.rotation.y+=this.yaw;this.camera.rotation.x+=this.pitch;this.camera.rotation.z=0;this.invalidated=true;this.wake();}
   private tick(){const now=performance.now(),dt=Math.min(.05,Math.max(0,(now-this.lastTime)/1000||0));this.lastTime=now;if(document.hidden||this.paused||!this.ready)return;let changing=false;
     if(this.moving){const m=this.moving;m.elapsed+=dt;const t=Math.min(1,m.elapsed/m.duration),e=t*t*(3-2*t);this.applyPose({position:Vector3.Lerp(m.from.position,m.to.position,e),target:Vector3.Lerp(m.from.target,m.to.target,e),fov:m.from.fov+(m.to.fov-m.from.fov)*e,exposure:m.to.exposure});if(t===1)this.moving=undefined;changing=true}
-    else if(!this.exploring&&!this.seeking&&Math.abs(this.target-this.phase)>.000001){
-      const response=advanceScroll(this.phase,this.target,this.velocity,dt);this.velocity=response.velocity;
+    else if(!this.exploring&&!this.seeking&&Math.abs(Math.min(this.target,this.loadLimit)-this.phase)>.000001){
+      const response=advanceScroll(this.phase,Math.min(this.target,this.loadLimit),this.velocity,dt);this.velocity=response.velocity;
       this.phase=response.value;this.applyPose(poseAt(this.phase));this.emit();changing=true;
     }
+    const waiting=this.target>this.loadLimit&&this.phase>=this.loadLimit-.001;
+    if(waiting!==this.waitingForRooms){this.waitingForRooms=waiting;this.options.onStatus(waiting?'Preparing the next rooms':'');}
     this.environment.update(dt,this.camera.position,this.options.reduced);
     const lightsSettling=this.lighting.update(dt,this.camera.position,this.environment.inside);
     if(changing||this.invalidated||lightsSettling||(!this.options.reduced&&this.environment.inside<.999)||this.warmupFrames>0){this.scene.render();document.body.dataset.fps=this.engine.getFps().toFixed(1);this.warmupFrames--;this.invalidated=false;if(dt>0){this.frameTimes.push(dt*1000);if(this.frameTimes.length>1800)this.frameTimes.shift();if(dt>.04)this.slowFrames++;else this.slowFrames=Math.max(0,this.slowFrames-1);if(this.slowFrames>150&&this.options.quality!=='mobile'){this.setQuality('mobile');this.slowFrames=0}}}

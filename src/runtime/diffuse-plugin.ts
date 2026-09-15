@@ -31,8 +31,9 @@ export async function loadDiffuse(scene:Scene,path='/lighting/diffuse.json'){
   const manifest=await fetch(path).then(r=>{if(!r.ok)throw Error('Source lighting unavailable');return r.json()});
   const levels=manifest.levels as {uri:string;width:number;height:number}[];
   async function data(uri:string){try{const r=await fetch(uri);if(!r.ok)throw Error('HTTP '+r.status);const buffer=uri.endsWith('.pack')?await new Response(r.body!.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer():await r.arrayBuffer();return new Uint16Array(buffer)}catch(e){throw new Error(uri+': '+e)}}
-  const first=levels[0];if(first.width<1||first.height<1)throw Error('Invalid source lighting dimensions');const texture=new RawTexture(await data(first.uri),first.width,first.height,Constants.TEXTUREFORMAT_RGBA,scene,true,false,Texture.TRILINEAR_SAMPLINGMODE,Constants.TEXTURETYPE_HALF_FLOAT);
+  const mipData=await Promise.all(levels.map(level=>data(level.uri)));
+  const first=levels[0];if(first.width<1||first.height<1)throw Error('Invalid source lighting dimensions');const texture=new RawTexture(mipData[0],first.width,first.height,Constants.TEXTUREFORMAT_RGBA,scene,true,false,Texture.TRILINEAR_SAMPLINGMODE,Constants.TEXTURETYPE_HALF_FLOAT);
   texture.gammaSpace=false;texture.wrapU=texture.wrapV=Texture.CLAMP_ADDRESSMODE;texture.coordinatesIndex=1;
-  for(let i=1;i<levels.length;i++)texture.updateMipLevel(await data(levels[i].uri),i);
+  for(let i=1;i<levels.length;i++)texture.updateMipLevel(mipData[i],i);
   return texture;
 }

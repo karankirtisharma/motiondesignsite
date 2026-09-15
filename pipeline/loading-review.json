@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-09-15",
+  "initialRooms": [
+    "exterior",
+    "reception",
+    "spine"
+  ],
+  "geometryBytesBeforeFirstView": 21186048,
+  "previousGeometryBytesBeforeFirstView": 79117836,
+  "sameBrowserLocalWebGPU": {
+    "baselineReadyMs": 5544,
+    "stagedReadyMs": 2508,
+    "allRoomsReadyMs": 6609
+  },
+  "productionWebGL2": {
+    "readyMs": 3161,
+    "allRoomsReadyMs": 8815,
+    "consoleErrors": 0
+  },
+  "delayedRoomDownloads": {
+    "delayPerLaterRoomMs": 8000,
+    "arrivalReadyMs": 3741,
+    "allRoomsReadyMs": 28860,
+    "requestedDestination": "Render hall",
+    "safeWaitingPhase": 0.21138,
+    "safeWaitingCamera": [
+      1.399,
+      1.6,
+      -2.5
+    ],
+    "continuedAutomaticallyToPhase": 1,
+    "unloadedRoomEntered": false
+  },
+  "verification": [
+    "Production TypeScript/Vite build passed",
+    "Existing scroll response tests passed at 30/60/120 Hz",
+    "Arrival inspected in production WebGL2",
+    "Slow-download route gate and automatic continuation observed in WebGPU"
+  ],
+  "measurementScope": "Local desktop measurements, warm browser caches for before/after comparison; not a network or cross-device guarantee."
+}

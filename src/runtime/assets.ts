@@ -15,7 +15,8 @@ export class AssetRegistry {
     let failure:unknown;
     for(let attempt=0;attempt<3;attempt++){
       try{
-        const response=await fetch(asset.uri,{signal:this.controller.signal});if(!response.ok)throw Error(`${id}: HTTP ${response.status}`);
+        // Content-hashed URLs are immutable, so revisits can reuse downloaded rooms.
+        const response=await fetch(asset.uri,{signal:this.controller.signal,cache:'force-cache'});if(!response.ok)throw Error(`${id}: HTTP ${response.status}`);
         const bytes=await response.arrayBuffer();
         if(bytes.byteLength!==asset.byteLength)throw Error(`${id}: payload length mismatch`);
         const digest=await crypto.subtle.digest('SHA-256',bytes);const hash=Array.from(new Uint8Array(digest),v=>v.toString(16).padStart(2,'0')).join('');
