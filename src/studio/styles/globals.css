@@ -1,0 +1,91 @@
+@import "./fonts.css";
+@import "./preflight.css";
+@import "./tokens.css";
+@import "./glass.css";
+@import "./stage.css";
+@import "./views.css";
+@import "./overlays.css";
+@import "./pages.css";
+@import "./splash.css";
+
+#md-studio-root {
+  --font-instrument-serif: 'MD Studio Instrument Serif', 'MD Studio Instrument Serif Fallback';
+  --font-manrope: 'MD Studio Manrope', 'MD Studio Manrope Fallback';
+  position: fixed; inset: 0; width: 100%; height: 100%; overflow: hidden;
+  margin: 0; background: var(--walnut-950); color: var(--ink);
+  -webkit-font-smoothing: antialiased; color-scheme: normal;
+  caret-color: var(--gold-300); scrollbar-color: rgb(243 197 126 / .4) transparent;
+  accent-color: var(--gold-300); font-family: var(--font-ui);
+}
+#md-studio-root button { cursor: pointer; }
+#md-studio-root ::selection { background: rgb(243 197 126 / .45); color: #fffaf2; }
+#md-studio-root :focus-visible { outline-color: var(--gold-300); }
+#md-studio-root[data-suspended] *, #md-studio-root[data-suspended] *::before,
+#md-studio-root[data-suspended] *::after { animation-play-state: paused !important; }
+#md-studio-root .studio-lounge-link {
+  position: fixed; z-index: 80; left: max(16px, env(safe-area-inset-left));
+  bottom: max(12px, env(safe-area-inset-bottom)); font: 400 11px/1.5 var(--font-ui);
+  color: var(--ink-soft); padding: 6px 10px; border-radius: 20px;
+  background: rgb(14 8 5 / .5); border: 1px solid rgb(243 197 126 / .25);
+  text-decoration: none; cursor: pointer;
+}
+#md-studio-root .studio-lounge-link:focus-visible { outline: 2px solid var(--gold-300); outline-offset: 3px; }
+
+/* Live TV controls stay inside the same page when it expands. */
+#md-studio-root .studio-screen-controls { position: fixed; z-index: 80; left: max(16px, env(safe-area-inset-left)); right: max(16px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); display: flex; flex-wrap: wrap; gap: 8px; pointer-events: none; }
+#md-studio-root .studio-screen-controls .studio-lounge-link { position: static; pointer-events: auto; min-height: 44px; }
+#md-studio-root[data-tv] .studio-screen-controls { left: 3%; right: 3%; bottom: 6%; gap: 12px; }
+#md-studio-root[data-tv] .studio-screen-controls button { min-height: 60px; font-size: 20px; padding: 12px 22px; }
+/* TV interaction targets use their own readable scale, not the tiny card-stage
+   design unit. Keep every target inset from the curved display's physical bezel. */
+#md-studio-root[data-tv] :is(.topbar-grid,.topbar-controls,.topbar-search,.topbar-heart) { top: 30px; width: 64px; height: 64px; }
+#md-studio-root[data-tv] .topbar-grid { left: auto; right: 478px; }
+#md-studio-root[data-tv] .topbar-controls { left: auto; right: 398px; }
+#md-studio-root[data-tv] .topbar-search { left: auto; right: 318px; }
+#md-studio-root[data-tv] .topbar-heart { left: auto; right: 238px; }
+#md-studio-root[data-tv] .topbar-brief { left: auto; right: 48px; top: 30px; width: 174px; height: 64px; font-size: 20px; }
+#md-studio-root[data-tv] .rail-toggle { left: 48px; top: 30px; width: 232px; height: 64px; font-size: 16px; letter-spacing: .05em; }
+#md-studio-root[data-tv] .rail-toggle__lane { flex: 1; min-width: 0; text-align: left; }
+#md-studio-root[data-tv] .rail-toggle__lane .swap__item { white-space: normal; line-height: 1.15; }
+#md-studio-root[data-tv] .topbar-work { left: 296px; top: 30px; width: 176px; height: 64px; font-size: 20px; }
+#md-studio-root[data-tv] .icon-btn svg { width: 25px; height: 25px; }
+/* The room already carries the brand. Expansion removes data-tv and restores it. */
+#md-studio-root[data-tv] .wordmark { display: none; }
+
+
+/* The architectural TV is almost 3:1: use its height instead of a 16:9
+   screenshot layout, keeping the live controls and card labels readable. */
+@media (min-aspect-ratio: 5/2) {
+  #md-studio-root[data-tv]:has(.card-row[data-view="browse"]) { --u: min(100vw / 2000, 100dvh / 1000); }
+  /* Reserve a 32px optical safe area for the physical bezel. Move the header
+     and footer themselves; keep the large browsing cards and their hit areas. */
+  #md-studio-root[data-tv] .title-band { top: 36px; left: calc(50% - 250px); right: auto; width: 500px; padding: 0; }
+  #md-studio-root[data-tv] .title-band__title { font-size: clamp(28px, 2.25vw, 36px); }
+  #md-studio-root[data-tv] .title-band__meta { margin-top: 8px; font-size: 12px; flex-wrap: wrap; row-gap: 4px; }
+  /* Size only the browsing cards: shared chrome and expanded film layouts retain
+     their existing design scale. At 1600x558 the active card is 280x360px. */
+  #md-studio-root[data-tv] .card-row[data-view="browse"] { --u: min(100vw / 2000, (100dvh - 198px) / 475); translate: none; }
+  #md-studio-root[data-tv] .card-row[data-view="browse"] .card { top: calc(126px + (var(--y) - 340.5) * var(--u)); }
+  #md-studio-root[data-tv] .card__label { font-size: 16px; }
+  #md-studio-root[data-tv] .hint { font-size: 15px; top: auto; bottom: 38px; }
+  #md-studio-root[data-tv] .chrome[data-view="browse"] .hint { bottom: 32px; }
+  #md-studio-root[data-tv]:has(.card-row[data-view="browse"]) .studio-screen-controls { bottom: 32px; }
+  #md-studio-root[data-tv]:has(.card-row[data-view="browse"]) .studio-screen-controls button { min-height: 44px; padding: 7px 18px; font-size: 18px; }
+  /* Keep the map below neighbours even when the first or last film is focused. */
+  #md-studio-root[data-tv] .chrome[data-view="browse"] .minimap { left: auto; top: auto; right: 48px; bottom: 32px; width: 112px; height: 88px; }
+  #md-studio-root[data-tv] .chrome[data-view="browse"] .minimap__grid { left: 16px; right: 16px; top: 10px; height: 50px; }
+  #md-studio-root[data-tv] .chrome[data-view="browse"] .minimap__label { top: 68px; font-size: 12px; }
+}
+
+/* Native 3D display: no cross-surface backdrop reads inside a perspective iframe.
+   Chromium can invalidate those tiles as the parent WebGPU canvas composites.
+   The authored gold rings, image detail, gradients and shadows stay intact;
+   standalone/expanded Studio retains the original lensing. */
+#md-studio-root[data-tv] { isolation: isolate; contain: paint; }
+#md-studio-root[data-tv] .stage__backdrop { transform: translateZ(0); }
+#md-studio-root[data-tv] :is(.glass--frost, .rail, .minimap, .brief-map,
+  .segmented, .rail-toggle, .topbar-brief, .glass__edge, .overview__ring,
+  .overlay-scrim) {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}

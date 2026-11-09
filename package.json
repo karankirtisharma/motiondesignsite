@@ -1,30 +1,57 @@
 {
-  "name": "motion-design-site",
-  "private": true,
+  "name": "md-lounge-live",
   "version": "0.1.0",
-  "type": "module",
+  "private": true,
   "scripts": {
-    "dev": "vite --host 127.0.0.1",
-    "build": "tsc --noEmit && vite build",
-    "preview": "vite preview --host 127.0.0.1",
-    "assets:optimize": "node pipeline/optimize.mjs",
-    "validate": "node pipeline/validate.mjs"
-  },
-  "engines": {
-    "node": ">=22.12.0"
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "build:release": "node scripts/build-release.mjs",
+    "stage:release": "node scripts/stage-release.mjs",
+    "start": "next start --hostname 127.0.0.1",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test:interactions": "node --test qa/interaction.test.mjs",
+    "test:avatar": "node --test qa/avatar.test.mjs",
+    "test:controller": "node --test qa/controller-camera.test.mjs",
+    "test:cinematic": "node --test qa/cinematic.test.mjs",
+    "test:environment": "node --test qa/environment.test.mjs",
+    "test:runtime": "node --test qa/runtime.test.mjs",
+    "test:rendering": "node --test qa/rendering.test.mjs",
+    "test:scene-repair": "node --test qa/scene-repair.test.mjs",
+    "benchmark:collision": "node qa/benchmark-collision.mjs",
+    "prebuild": "node scripts/verify-assets.mjs && node scripts/verify-studio.mjs && node scripts/prepare-delivery.mjs",
+    "verify:assets": "node scripts/verify-assets.mjs",
+    "test": "node --test qa/*.test.mjs",
+    "prepare:delivery": "node scripts/prepare-delivery.mjs",
+    "predev": "node scripts/prepare-delivery.mjs",
+    "pretypecheck": "node scripts/prepare-delivery.mjs",
+    "verify:delivery": "node qa/verify-delivery-http.mjs",
+    "verify:images": "node qa/verify-image-delivery.mjs",
+    "verify:stairs": "node qa/stair-contact-audit.mjs",
+    "verify:studio": "node scripts/verify-studio.mjs"
   },
   "dependencies": {
-    "@babylonjs/core": "9.26.1",
-    "@babylonjs/loaders": "9.26.1",
-    "@fontsource-variable/manrope": "5.3.0",
-    "@gltf-transform/core": "4.5.0",
-    "@gltf-transform/functions": "4.5.0",
-    "meshoptimizer": "1.2.0",
-    "recast-navigation": "0.43.1"
+    "@dimforge/rapier3d-compat": "0.21.0",
+    "@radix-ui/react-dialog": "^1.3.1",
+    "cmdk": "^1.1.1",
+    "motion": "^14.6.0",
+    "next": "16.4.3",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "sonner": "^2.0.8",
+    "three": "0.186.1",
+    "vaul": "^1.1.2",
+    "zustand": "^5.0.16"
   },
   "devDependencies": {
-    "gltf-validator": "2.0.0-dev.3.10",
-    "typescript": "7.0.2",
-    "vite": "8.3.0"
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/three": "0.186.0",
+    "meshoptimizer": "1.1.1",
+    "sharp": "0.35.5",
+    "typescript": "~5.9.3"
+  },
+  "engines": {
+    "node": "24.x"
   }
 }
