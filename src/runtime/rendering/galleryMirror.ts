@@ -1,3 +1,4 @@
+import { prepareRenderSlices } from './prepareRenderSlices.ts';
 import { Box3, type DirectionalLight, Frustum, HalfFloatType, Matrix4, Mesh, Object3D, PerspectiveCamera, Plane, RenderTarget, Scene, Vector2, Vector3, Vector4, WebGLCoordinateSystem } from 'three';
 import { MeshBasicNodeMaterial, type WebGPURenderer } from 'three/webgpu';
 import { screenUV, texture, uniform } from 'three/tsl';
@@ -46,8 +47,8 @@ export const mirrorCamera = createMirrorCameraUpdater();
 
 type ReflectedVisitor = { root: Object3D; sun: DirectionalLight };
 
-function drawPreparedReflection(renderer: WebGPURenderer, scene: Scene, camera: PerspectiveCamera,
-  targets: readonly Mesh[], { root, sun }: ReflectedVisitor) {
+async function drawPreparedReflection(renderer: WebGPURenderer, scene: Scene, camera: PerspectiveCamera,
+  targets: readonly Mesh[], { root, sun }: ReflectedVisitor, signal?: AbortSignal) {
   const draws = new Set<Object3D>(targets);
   root.traverse(object => { if ('isSkinnedMesh' in object) draws.add(object); });
   const oldVisible = root.visible, oldFilter = renderer.getRenderObjectFunction(), oldClear = renderer.autoClear;
@@ -61,7 +62,10 @@ function drawPreparedReflection(renderer: WebGPURenderer, scene: Scene, camera: 
       if (!draws.has(args[0])) return;
       if (oldFilter) oldFilter.call(renderer, ...args); else renderer.renderObject(...args);
     });
-    renderer.render(scene, camera);
+    await prepareRenderSlices(renderer, scene, async () => {
+      sun.shadow.needsUpdate = true;
+      renderer.render(scene, camera);
+    }, signal);
   } finally {
     root.visible = oldVisible;
     renderer.setRenderObjectFunction(oldFilter);
@@ -169,11 +173,21 @@ export function createGalleryMirror(root: Object3D) {
       try {
         renderer.setMRT(null); renderer.setRenderTarget(target);
         return await warmOpeningTourShaders(renderer, scene, camera, signal, onProgress,
-          visitor ? targets => drawPreparedReflection(renderer, scene, camera, targets, visitor) : undefined);
+          visitor ? targets => drawPreparedReflection(renderer, scene, camera, targets, visitor, signal) : undefined);
       } finally {
         renderer.setRenderTarget(oldTarget); renderer.setMRT(oldMRT);
         panes.forEach((surface, i) => { surface.visible = visibility[i]; });
       }
+    },
+    async prepareFirstFrame(renderer: WebGPURenderer, scene: Scene, view: PerspectiveCamera,
+      signal?: AbortSignal) {
+      if (!prepareReflection(renderer, view)) return;
+      await prepareRenderSlices(renderer, scene, async () => {
+        frameCache.invalidate();
+        this.update(renderer, scene, view);
+        // Completion is fenced once after the complete opening frame.
+      }, signal);
+      frameCache.invalidate();
     },
     update(renderer: WebGPURenderer, scene: Scene, view: PerspectiveCamera, revision?: number) {
       if (!prepareReflection(renderer, view)) { frameCache.invalidate(); return; }

@@ -4,6 +4,7 @@ import { createScreenAperture } from './screenTexture.ts';
 import { projectScreenPlane } from './projection.ts';
 import { createNativeScreenInput } from './nativeScreenInput.ts';
 import { createCrmLifecycle } from './crmLifecycle.ts';
+import { createFrameReadiness } from './frameReadiness.ts';
 import { installCrmEmbedStyles } from './crmEmbedStyles.ts';
 
 export function crmCanvasSize(width: number, height: number) {
@@ -15,7 +16,7 @@ export function crmCanvasSize(width: number, height: number) {
 /** A single persistent native document, registered to the same measured plane as
  * its depth aperture. Reuses the proven presentation projection, not DOM slices. */
 export function createFounderCRM(options: {
-  scene: THREE.Object3D; camera: THREE.Camera; canvas: HTMLCanvasElement;
+  scene: THREE.Object3D; camera: THREE.Camera; canvas: HTMLCanvasElement; preview: THREE.Texture;
   onFocus: () => void; onRequestFocus?: () => void; isInView: (points: THREE.Vector3[]) => boolean;
 }) {
   const meshes: THREE.Mesh[] = [];
@@ -25,7 +26,7 @@ export function createFounderCRM(options: {
   });
   if (!meshes.length) return undefined;
   const panel = installFlatPanel(meshes);
-  const aperture = createScreenAperture(panel.face, options.camera, true);
+  const aperture = createScreenAperture(panel.face, options.camera, options.preview);
   const { corners, normal } = panel;
   const size = crmCanvasSize(corners[0].distanceTo(corners[1]), corners[0].distanceTo(corners[3]));
   const center = panel.point(.5, .5), samples = [[.5,.5],[.15,.2],[.85,.2]].map(([u,v]) => panel.point(u,v));
@@ -57,7 +58,7 @@ export function createFounderCRM(options: {
     },
   });
   function sync() {
-    const show = inspectionVisible && enabled && visible && ready && !doc.hidden;
+    const show = inspectionVisible && enabled && seated && visible && ready && !doc.hidden;
     const state = !ready ? 'loading' : show ? focused ? 'focused' : seated ? 'seated' : 'attract' : 'hidden';
     lifecycle.update(ready, show, seated);
     if (state === lastState) return;
@@ -70,18 +71,31 @@ export function createFounderCRM(options: {
     input.setEnabled(show && seated); aperture.setLive(show);
 
   }
+  const readiness = createFrameReadiness({
+    loadedGraceMs: 8000,
+    load: attempt => {
+      if (!frame || disposed) return;
+      host.dataset.crmAttempt = String(attempt);
+      host.dataset.crmLoaded = 'false';
+      frame.src = `/crm/index.html?w=${size.width}&h=${size.height}&quality=low&tour=0&attempt=${attempt}#/command`;
+    },
+    exhausted: () => { host.dataset.crmLoadFailed = 'true'; },
+  });
   function ensureFrame() {
     if (frame) return;
     frame = doc.createElement('iframe'); frame.title = "MotionDesign.ad Founder's Room CRM";
     Object.assign(frame.style,{width:size.width+'px',height:size.height+'px',border:'0',display:'block',background:'#000'});
-    frame.src = `/crm/index.html?w=${size.width}&h=${size.height}&quality=low&tour=0#/command`;
-    frame.addEventListener('load', () => { host.dataset.crmLoaded = 'true'; });
+    frame.addEventListener('load', () => { host.dataset.crmLoaded = 'true'; readiness.loaded(); });
+    // Navigate before insertion: avoid an about:blank load starting the boot deadline.
+    readiness.start();
     host.append(frame);
   }
-  function receive(event: MessageEvent) {
+  async function receive(event: MessageEvent) {
     if (!frame || event.source !== frame.contentWindow || event.origin !== win.location.origin) return;
     if (event.data?.type !== 'md:ready' || ready) return;
-    ready = true; dirty = true; input.refreshFrame();
+    readiness.ready();
+    host.dataset.crmLoadFailed = 'false';
+    input.refreshFrame();
     // Pause invisible CSS animation without changing the supplied static build,
     // user preferences, route, form state, or the persistent iframe instance.
     const child = frame.contentDocument;
@@ -92,6 +106,14 @@ export function createFounderCRM(options: {
       style.textContent = ':root[data-md-host-paused] *, :root[data-md-host-paused] *::before, :root[data-md-host-paused] *::after { animation-play-state: paused !important; }';
       child.head.append(style);
     }
+    // Ready announces app boot; keep the snapshot while fonts/images decode.
+    if (child) await Promise.all([
+      child.fonts.ready.catch(() => {}),
+      ...Array.from(child.images, image => image.decode().catch(() => {})),
+    ]);
+    await new Promise<void>(resolve => win.requestAnimationFrame(() => win.requestAnimationFrame(() => resolve())));
+    if (disposed || frame?.contentDocument !== child) return;
+    ready = true; dirty = true;
     sync();
     if (focused && enabled) frame.contentWindow?.focus();
   }
@@ -99,6 +121,7 @@ export function createFounderCRM(options: {
   win.addEventListener('message',receive); doc.addEventListener('visibilitychange',visibility);
   return {
     size, corners, center, collision: panel.collision,
+    prepare() { ensureFrame(); },
     setInspectionVisible(value: boolean) { inspectionVisible = value; dirty = true; sync(); },
     setSeated(next: boolean) {
       if (seated === next) return;
@@ -121,7 +144,8 @@ export function createFounderCRM(options: {
       options.camera.getWorldPosition(cameraPosition);
       const projection = projectScreenPlane(corners,options.camera,w,h,size.width,size.height);
       visible = !!projection?.visible && normal.dot(cameraPosition.clone().sub(center))>.005 && cameraPosition.distanceToSquared(center)<25**2 && options.isInView(samples);
-      if (visible && enabled) ensureFrame();
+      // The static preview owns exploration; the one live frame starts on sit.
+      if (enabled && seated) ensureFrame();
       if (projection && visible) {
         const nextTransform = `matrix3d(${projection.matrix.join(',')})`, nextClip = projection.clipPolygon ?? 'none';
         if (transform !== nextTransform) { transform = nextTransform; host.style.transform = transform; input.updateCamera(projection.matrix); }
@@ -130,7 +154,7 @@ export function createFounderCRM(options: {
       sync();return changed || aperture.takeDirty();
     },
     dispose() {
-      if(disposed)return;disposed=true;lifecycle.dispose();input.dispose();win.removeEventListener('message',receive);doc.removeEventListener('visibilitychange',visibility);
+      if(disposed)return;disposed=true;readiness.dispose();lifecycle.dispose();input.dispose();win.removeEventListener('message',receive);doc.removeEventListener('visibilitychange',visibility);
       host.remove();aperture.dispose();panel.dispose();if(viewport)viewport.style.zIndex=previousZ;
     },
   };

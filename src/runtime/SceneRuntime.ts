@@ -19,6 +19,7 @@ import { repairFounderExteriorWinding, installExteriorLighting } from './renderi
 import { repairStudioThreshold } from './rendering/floorThreshold';
 import { repairEntranceApron } from './rendering/entranceApron';
 import lightingSizes from '../generated/lighting-transfer-sizes.json';
+import textureSizes from '../generated/texture-transfer-sizes.json';
 import { createLightingReadAhead } from './rendering/lightingReadAhead';
 import { configureLighting } from './rendering/lighting';
 import { configureSourceColor } from './rendering/color';
@@ -220,7 +221,7 @@ export class SceneRuntime {
       // its visibility bounds; every cell then shares that same final shader.
       prepareSlimMonitorHousings(this.content);
       partitionSourceGeometry(this.content);
-      this.desert = await createDesertEnvironment(this.scene, { signal: this.abort.signal, sunDirection: this.manifest.sun?.position });
+      this.desert = await createDesertEnvironment(this.scene, { renderer: this.renderer, signal: this.abort.signal, sunDirection: this.manifest.sun?.position });
       if (this.disposed || this.abort.signal.aborted) return;
       this.setQuality(this.quality);
 
@@ -253,15 +254,16 @@ export class SceneRuntime {
       const uploadTextures = [...activeTextures].filter(texture => !texture.userData.mdSkipUpload);
       console.info('[MD warmup] texture upload started', { count: uploadTextures.length, visibility: document.visibilityState });
       this.callbacks.onProgress?.({ phase: 'Preparing textures', detail: `Uploading 0 of ${uploadTextures.length} textures to your graphics device`, progress: 0 });
-      let uploaded = 0;
+      let uploaded = 0, uploadSliceStarted = performance.now();
       for (const texture of uploadTextures) {
         this.renderer.initTexture(texture);
         uploaded++;
-        if (uploaded % 8 === 0 || uploaded === uploadTextures.length) {
+        if (performance.now() - uploadSliceStarted >= 8 || uploaded === uploadTextures.length) {
           this.callbacks.onProgress?.({ phase: 'Preparing textures', detail: `Uploaded ${uploaded} of ${uploadTextures.length} textures`, progress: uploaded / uploadTextures.length });
           console.info('[MD warmup] uploaded textures', { uploaded, total: uploadTextures.length, seconds: ((performance.now() - warmStarted) / 1000).toFixed(1) });
           // Upload preparation must finish even when the browser throttles animation frames.
           await new Promise<void>(resolve => setTimeout(resolve, 0));
+          uploadSliceStarted = performance.now();
         }
         this.abort.signal.throwIfAborted();
       }
@@ -282,9 +284,12 @@ export class SceneRuntime {
       // that needs the sun initializes it; the other pass reuses that map.
       this.lighting.sun.shadow.autoUpdate = false;
       this.lighting.sun.shadow.needsUpdate = true;
+      await this.galleryMirror?.prepareFirstFrame(this.renderer, this.scene, this.camera,
+        this.abort.signal);
       this.galleryMirror?.update(this.renderer, this.scene, this.camera, this.reflectionRevision);
       this.profiler?.phase('visitor and opening frame');
-      await this.temporal.renderOpeningFrame(this.controls.player, this.lighting.sun.shadow, this.abort.signal);
+      await this.temporal.renderOpeningFrame(this.controls.player, this.lighting.sun.shadow, this.abort.signal,
+        true);
       this.profiler?.phase('first GPU frame completion');
       await this.temporal.finishFirstFrame();
       console.info('[MD warmup] opening render passes ready', { seconds: ((performance.now() - compileStarted) / 1000).toFixed(1) });
@@ -314,7 +319,17 @@ export class SceneRuntime {
     const loader = new GLTFLoader(loadGuard.manager);
     const decoder = createMeshoptDecoder(this.abort.signal);
     loader.setMeshoptDecoder(decoder);
-    this.ktx2 = new SceneKTX2Loader(loadGuard.manager, this.abort.signal).setTranscoderPath(assetURL('/assets/basis/')).setWorkerLimit(2).detectSupport(this.renderer);
+    // Transfer only declared textures while GLB work is in progress. Keep
+    // encoded bytes bounded; KTX decoding stays in its existing two-worker pool.
+    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+    const sizes = textureSizes as Record<string, number>;
+    const urls = this.manifest.chunks.flatMap(chunk => chunk.textureURLs ?? []);
+    const textureDownloads = !saveData && !process.env.NEXT_PUBLIC_ASSET_BASE_URL?.trim()
+      ? createLightingReadAhead(Object.fromEntries(urls.filter(url => sizes[url] && url !== '/assets/v2/textures/gallery-architecture-base.ktx2')
+        .map(url => [new URL(assetURL(url), window.location.href).href, sizes[url]])),
+        (url, signal) => fetchBuffer(url, signal ?? this.abort.signal), this.abort.signal, 24 * 1024 * 1024, 2)
+      : undefined;
+    this.ktx2 = new SceneKTX2Loader(loadGuard.manager, this.abort.signal, textureDownloads?.read).setTranscoderPath(assetURL('/assets/basis/')).setWorkerLimit(2).detectSupport(this.renderer);
     loader.setKTX2Loader(this.ktx2);
     const chunks = [...this.manifest.chunks].sort((a, b) => (a.priority ?? 0) - (b.priority ?? 0));
     const bytes = new Map<string, number>();
@@ -352,7 +367,7 @@ export class SceneRuntime {
         }
       });
       loadGuard.assertLoaded();
-    } finally { decoder.dispose(); }
+    } finally { textureDownloads?.close(); decoder.dispose(); }
   }
 
   private prepareCamera() {
@@ -642,6 +657,29 @@ export class SceneRuntime {
     if (restart || this.mode !== 'tour') this.beginSceneTransition('tour', restart ? 0 : this.targetProgress);
     else { this.paused = false; this.referenceCamera = ''; this.applyTourCamera(0, true); }
   }
+  /** Commit the real spawn beneath the intro's own exit transition. */
+  prepareIntroArrival(destination: 'lounge' | 'motion-floor' = 'lounge', light: 'warm' | 'soft' = 'warm') {
+    if (!this.controls || this.mode === 'loading' || this.mode === 'error' || this.disposed) return false;
+    this.setCinematicPlaying(false);
+    this.sceneTransition = undefined; this.referenceCamera = '';
+    this.controls.exitExplore();
+    // The intro choice never teleports the visitor inside the building.
+    // Both choices begin at the authored entrance, facing the approach.
+    const spawn = this.manifest.spawn;
+    this.renderer.toneMappingExposure = Math.pow(2, (this.manifest.exposure ?? 0.1) + (light === 'soft' ? -0.25 : 0));
+    this.positionAtEntrance(spawn);
+    this.paused = true; this.temporal?.reset();
+    this.setStudioCovered(false);
+    return true;
+  }
+  private positionAtEntrance(spawn = this.manifest.spawn) {
+    const forward = new Vector3(-Math.sin(spawn.yaw), 0, -Math.cos(spawn.yaw));
+    this.camera.position.fromArray(spawn.position).addScaledVector(forward, -2.45).add(new Vector3(0, 1.85, 0));
+    this.camera.lookAt(new Vector3(...spawn.position).add(new Vector3(0, 1.35, 0)));
+    this.controls!.enterExplore(undefined, spawn);
+    this.controls!.update(0.001); this.controls!.setEnabled(false); this.setMode('explore');
+    if (this.lighting) this.lighting.sun.shadow.needsUpdate = true;
+  }
   exploreDirectly() {
     if (!this.controls || this.mode === 'loading' || this.mode === 'error' || this.disposed) return;
     this.setCinematicPlaying(false);
@@ -674,12 +712,7 @@ export class SceneRuntime {
         // Direct entry begins at the entrance. The completed cinematic retains
         // its separate upstairs handoff in explore(). Position the camera here
         // before revealing the scene, rather than blending across the building.
-        const spawn = this.manifest.spawn;
-        const forward = new Vector3(-Math.sin(spawn.yaw), 0, -Math.cos(spawn.yaw));
-        this.camera.position.fromArray(spawn.position).addScaledVector(forward, -2.45).add(new Vector3(0, 1.85, 0));
-        this.camera.lookAt(new Vector3(...spawn.position).add(new Vector3(0, 1.35, 0)));
-        this.controls.enterExplore(undefined, spawn);
-        this.controls.update(0.001); this.controls.setEnabled(false); this.setMode('explore');
+        this.positionAtEntrance();
       }
       if (this.lighting) this.lighting.sun.shadow.needsUpdate = true;
     }
