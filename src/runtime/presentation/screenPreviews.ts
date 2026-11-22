@@ -5,8 +5,8 @@ import { TextureLoader, SRGBColorSpace } from 'three';
 export async function loadScreenPreviews(signal?: AbortSignal) {
   signal?.throwIfAborted();
   const loader = new TextureLoader();
-  const results = await Promise.allSettled(['founder', 'presentation'].map(async name => {
-    const texture = await loader.loadAsync(`/screen-previews/${name}-v1.webp`);
+  const results = await Promise.allSettled(['founder-v1', 'presentation-cabinet-v1'].map(async name => {
+    const texture = await loader.loadAsync(`/screen-previews/${name}.webp`);
     texture.colorSpace = SRGBColorSpace; texture.anisotropy = 4; texture.flipY = false;
     return texture;
   }));

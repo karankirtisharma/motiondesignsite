@@ -1,11 +1,30 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import { brotliDecompressSync } from 'node:zlib';
+import { createHash } from 'node:crypto';
 import { Box3, Matrix4, PerspectiveCamera, Vector2, Vector3, Vector4, WebGLCoordinateSystem, WebGPUCoordinateSystem } from 'three';
 import { reflectionCrop, cropReflectionCamera } from '../src/runtime/rendering/reflectionCrop.ts';
 import { createLoadQueue } from '../src/runtime/rendering/loadQueue.ts';
-import { loadEXRInWorker } from '../src/runtime/rendering/exrDecode.ts';
+import { loadLightingInWorker } from '../src/runtime/rendering/exrDecode.ts';
 import { EXRLoader } from 'three/addons/loaders/EXRLoader.js';
+import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
+
+test('the locally served HDR transfers fewer bytes and decodes to the authored sky', async () => {
+  const { assetURL } = await import('../src/runtime/rendering/assets.ts');
+  const url = '/assets/environment/qwantani-sunset-2k.hdr';
+  const source = fs.readFileSync(new URL('../public'+url, import.meta.url));
+  const hash = createHash('sha256').update(source).digest('hex');
+  const delivery = assetURL(url);
+  if (process.env.NEXT_PUBLIC_ASSET_BASE_URL?.trim()) {
+    assert.equal(delivery, process.env.NEXT_PUBLIC_ASSET_BASE_URL.replace(/\/$/, '')+url);
+    return;
+  }
+  assert.equal(delivery, '/asset-delivery/'+hash+'.hdr.br');
+  const bytes = fs.readFileSync(new URL('../public'+delivery, import.meta.url));
+  assert.ok(bytes.length < source.length);
+  assert.ok(brotliDecompressSync(bytes).equals(source));
+});
 
 test('cropped reflection preserves UV projection and physical depth on both APIs', () => {
   for (const api of [WebGLCoordinateSystem, WebGPUCoordinateSystem]) for (const reversed of [false,true]) {
@@ -41,18 +60,21 @@ test('texture prefetch is bounded and failures do not strand later loads',async(
   const result=await Promise.allSettled(jobs);
   assert.equal(peak,2);assert.equal(result[1].status,'rejected');assert.equal(result[4].value,4);
 });
-test('background EXR preserves decoded half-float pixels and sampler semantics',async t=>{
-  const file=new URL('../public/assets/surface-v23/lighting/founder-floor-indirect.exr',import.meta.url);
+for (const [format, fileName, Loader] of [
+  ['exr', 'surface-v23/lighting/founder-floor-indirect.exr', EXRLoader],
+  ['hdr', 'environment/qwantani-sunset-2k.hdr', HDRLoader],
+]) test(`background ${format} preserves every decoded half-float pixel and sampler`,async t=>{
+  const file=new URL('../public/assets/'+fileName,import.meta.url);
   const bytes=fs.readFileSync(file),buffer=bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength);
   let terminated=0;
   class FakeWorker{
     terminate(){terminated++;}
-    postMessage(value){queueMicrotask(()=>this.onmessage({data:{result:new EXRLoader().parse(value)}}));}
+    postMessage(message){assert.equal(message.format,format);queueMicrotask(()=>this.onmessage({data:{result:new Loader().parse(message.buffer)}}));}
   }
   t.mock.method(globalThis,'fetch',async()=>new Response(buffer));
   const previous=globalThis.Worker;globalThis.Worker=FakeWorker;t.after(()=>{globalThis.Worker=previous;});
-  const texture=await loadEXRInWorker('/light.exr',new AbortController().signal);
-  const original=new EXRLoader().createDataTexture(buffer);
+  const texture=await loadLightingInWorker('/'+fileName,new AbortController().signal,undefined,format);
+  const original=new Loader().createDataTexture(buffer);
   assert.deepEqual(texture.image.data,original.image.data);
   for(const key of ['type','format','colorSpace','flipY','minFilter','magFilter','generateMipmaps'])assert.equal(texture[key],original[key],key);
   assert.equal(terminated,1);texture.dispose();original.dispose();
@@ -63,7 +85,7 @@ test('cancelling a lighting decode terminates its worker and rejects promptly',a
   class FakeWorker{terminate(){terminated++;}postMessage(){started();}}
   t.mock.method(globalThis,'fetch',async()=>new Response(new Uint8Array([1])));
   const previous=globalThis.Worker;globalThis.Worker=FakeWorker;t.after(()=>{globalThis.Worker=previous;});
-  const controller=new AbortController(),pending=loadEXRInWorker('/light.exr',controller.signal);
+  const controller=new AbortController(),pending=loadLightingInWorker('/light.exr',controller.signal);
   await start;controller.abort();
   await assert.rejects(pending,{name:'AbortError'});assert.equal(terminated,1);
 });

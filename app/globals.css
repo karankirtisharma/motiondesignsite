@@ -229,3 +229,17 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
   .experience-choice { padding: 13px 16px; }
   .welcome-panel .panel-note { margin-top: 15px; }
 }
+.cabinet-return {
+  position: fixed;
+  z-index: 1001;
+  inset-inline-start: max(12px, env(safe-area-inset-left));
+  inset-block-end: max(10px, env(safe-area-inset-bottom));
+  min-height: 38px;
+  padding: 0 16px;
+  border: 1px solid #ad8659;
+  border-radius: 22px;
+  background: #f6eddf;
+  color: #382519;
+  font: 500 13px system-ui, sans-serif;
+  cursor: pointer;
+}

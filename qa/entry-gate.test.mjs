@@ -5,6 +5,7 @@ import vm from 'node:vm';
 import { createRequire } from 'node:module';
 import ts from 'typescript';
 import { isAndroidPhone } from '../src/studio/lib/entryDevice.ts';
+import { PUBLIC_CABINET } from '../src/studio/lib/cabinet.ts';
 
 const require = createRequire(import.meta.url);
 const phone = 'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 Chrome/130.0 Mobile Safari/537.36';
@@ -17,7 +18,7 @@ function componentHarness(name, device, saved = '3d', search = '?mode=3d&debug=1
   const compiled = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText;
   const exported = {};
   const context = {
-    exports: exported, require, isAndroidPhone, MaquetteIntro: () => null, styles: {},
+    exports: exported, require, isAndroidPhone, PUBLIC_CABINET, MaquetteIntro: () => null, styles: {},
     navigator: device,
     location: { search, replace: url => replacements.push(url) },
     localStorage: { getItem() { storageReads++; return saved; } },
@@ -47,21 +48,15 @@ test('Android phones are direct studio visitors; Android tablets, iPads and desk
   assert.equal(isAndroidPhone({ userAgent: 'Mozilla/5.0 (Windows NT 10.0)' }), false);
 });
 
-test('saved preferences and old direct-3D URLs cannot mount the lounge before an explicit click', () => {
+test('desktop and tablet open the Living Maquette entry without a second version picker', () => {
   for (const saved of ['3d', 'light', null]) {
     for (const ua of [tablet, 'Mozilla/5.0 (Windows NT 10.0)']) {
       const h = componentHarness('LoungeEntry', { userAgent: ua }, saved);
       assert.notEqual(h.render(), h.child);
       h.flush();
-      const tree = h.render();
-      assert.notEqual(tree, h.child);
+      assert.equal(h.render(), h.child);
       assert.equal(h.storageReads, 0);
       assert.deepEqual(h.replacements, []);
-      assert.ok(elements(tree).some(e => e.type === 'a' && e.props.href === '/studio?entry=direct'));
-      const explore = elements(tree).find(e => e.type === 'button');
-      assert.ok(explore, 'desktop/tablet can opt into 3D');
-      explore.props.onClick();
-      assert.equal(h.render(), h.child, 'only the explicit click mounts the real lounge child');
     }
   }
 });
@@ -70,7 +65,7 @@ test('Android phone redirects before offering or mounting 3D, even with saved 3D
   const h = componentHarness('LoungeEntry', { userAgent: phone });
   assert.equal(elements(h.render()).some(e => e.type === 'button'), false);
   h.flush();
-  assert.deepEqual(h.replacements, ['/studio?entry=direct']);
+  assert.deepEqual(h.replacements, ['/projection-cabinet/site-web/index.html']);
   assert.notEqual(h.render(), h.child);
   assert.equal(elements(h.render()).some(e => e.type === 'button'), false);
   assert.equal(h.storageReads, 0);

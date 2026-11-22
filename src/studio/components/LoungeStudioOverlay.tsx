@@ -27,5 +27,6 @@ export default function LoungeStudioOverlay({ open, reducedMotion, onCovered, on
     if (!open) coveredRef.current(false);
     window.dispatchEvent(new CustomEvent('md-studio:layout', { detail: { open, reducedMotion } }));
   }, [open, reducedMotion]);
-  return null;
+  // Keep the exit accessible even when the embedded cabinet is retrying.
+  return open ? <button type="button" className="cabinet-return" onClick={onClose}>Back to TV</button> : null;
 }

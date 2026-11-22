@@ -1,9 +1,12 @@
+import type { ModelCapture } from './studioModelCache.ts';
+
 type DownloadOptions = {
   signal?: AbortSignal;
   expectedBytes?: number;
   retryUrl?: string;
   /** Hash of the full decoded content served by the static retry URL. */
   resumeSHA256?: string;
+  captureFullBody?: () => ModelCapture | undefined;
   headers?: HeadersInit;
   credentials?: RequestCredentials;
   onProgress?: (loaded: number, total: number, headers: Headers) => void;
@@ -60,6 +63,7 @@ export async function fetchAssetBuffer(url: string, options: DownloadOptions = {
     signal?.addEventListener('abort', abort, { once: true });
     let timer: ReturnType<typeof setTimeout> | undefined;
     let reader: ReadableStreamDefaultReader<Uint8Array> | undefined;
+    let capture: ModelCapture | undefined;
     const pulse = () => {
       clearTimeout(timer);
       timer = setTimeout(() => controller.abort(new TransferFailure(`No data received for ${Math.round(stallMs / 1000)} seconds`, true)), stallMs);
@@ -110,6 +114,7 @@ export async function fetchAssetBuffer(url: string, options: DownloadOptions = {
         return await network(response.arrayBuffer());
       }
       reader = response.body.getReader();
+      if (response.status === 200 && !response.redirected) capture = options.captureFullBody?.();
       // Raw source sizes are allocation hints; only a decoded-length header or
       // the content-addressed delivery manifest is authoritative.
       const declared = exactBytes || Number(response.headers.get('x-asset-decoded-length')) || 0;
@@ -133,6 +138,7 @@ export async function fetchAssetBuffer(url: string, options: DownloadOptions = {
         }
         loaded += value.byteLength;
         received = loaded;
+        capture?.write(value);
         onProgress?.(loaded, total, response.headers);
       }
       if (declared && loaded !== declared) throw new TransferFailure(`Incomplete download (${loaded} of ${declared} bytes)`, true);
@@ -143,6 +149,7 @@ export async function fetchAssetBuffer(url: string, options: DownloadOptions = {
         const hash = Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, '0')).join('');
         if (hash !== options.resumeSHA256) throw new TransferFailure('Model digest mismatch after byte range', true);
       }
+      capture?.finish();
       if (direct) return loaded === direct.length ? direct.buffer : direct.buffer.slice(0, loaded);
       const bytes = new Uint8Array(loaded);
       let offset = 0;
@@ -150,6 +157,7 @@ export async function fetchAssetBuffer(url: string, options: DownloadOptions = {
       return bytes.buffer;
     } catch (error) { failure = error; }
     finally {
+      capture?.cancel();
       clearTimeout(timer);
       signal?.removeEventListener('abort', abort);
       // Cancelling an errored reader is harmless; it also releases a stalled body.

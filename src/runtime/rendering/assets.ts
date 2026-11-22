@@ -3,18 +3,23 @@ import rawRevisions from '../../generated/immutable-scene-assets.json' with { ty
 import { versionedAssetPath } from '../../server/assetRevision.ts';
 import type { SceneDeliverySize } from './loadingProgress.ts';
 import { fetchAssetBuffer } from './fetchAsset.ts';
+import { studioModelCache } from './studioModelCache.ts';
 import { TextureLoader, Texture, NoColorSpace, SRGBColorSpace, LinearSRGBColorSpace, EquirectangularReflectionMapping } from 'three';
 import { EXRLoader } from 'three/addons/loaders/EXRLoader.js';
 import type { ReadLightingBytes } from './lightingReadAhead.ts';
-import { loadEXRInWorker } from './exrDecode.ts';
+import { loadLightingInWorker } from './exrDecode.ts';
 import { decodeScalarImage } from './scalarImage.ts';
-import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
 
 /** Use a public object-storage origin for large deployments; local assets work unchanged. */
 export function assetURL(path: string): string {
   if (/^(https?:|blob:|data:)/.test(path)) return path;
   const origin = process.env.NEXT_PUBLIC_ASSET_BASE_URL?.replace(/\/$/, '') ?? '';
   const normalized = path.startsWith('/') ? path : `/${path}`;
+  if (!origin && normalized.endsWith('.hdr')) {
+    const hash = (rawRevisions as Record<string, string>)[normalized];
+    if (hash) return `/asset-delivery/${hash}.hdr.br`;
+  }
   return origin ? origin + normalized : versionedAssetPath(normalized, delivery, rawRevisions);
 }
 
@@ -46,7 +51,19 @@ export async function fetchBuffer(url: string, signal: AbortSignal, onBytes?: (l
   // decoded GLB, addressed by SHA-256, on an origin that supports byte ranges.
   const resumeSHA256 = entry && entry.decodedBytes >= 64 * 1024 * 1024
     ? entry.identity?.match(/^\/asset-delivery\/([a-f0-9]{64})\.glb$/)?.[1] : undefined;
+  const studio = process.env.NODE_ENV === 'production' && url === '/assets/architecture-v16/studio.glb' &&
+    entry && resumeSHA256 && typeof Worker !== 'undefined' && typeof window !== 'undefined' && window.isSecureContext
+    ? studioModelCache(resumeSHA256, entry.decodedBytes, signal) : undefined;
+  if (studio) {
+    const bytes = await studio.read();
+    signal.throwIfAborted();
+    if (bytes) {
+      onBytes?.(bytes.byteLength, bytes.byteLength, { encodedBytes: 0, decodedBytes: bytes.byteLength, encoding: 'identity' });
+      return bytes;
+    }
+  }
   return fetchAssetBuffer(assetURL(url), { signal, retryUrl: entry?.identity, resumeSHA256,
+    captureFullBody: studio?.capture,
     expectedBytes: entry?.decodedBytes ?? expectedBytes, onProgress: onBytes ? (loaded, total, headers) => {
     onBytes(loaded, total, { encodedBytes: Number(headers.get('x-scene-encoded-length')) || 0,
       decodedBytes: Number(headers.get('x-scene-decoded-length')) || 0, encoding: headers.get('content-encoding') || 'identity' });
@@ -58,15 +75,13 @@ export async function loadTexture(url: string, usage: 'color' | 'linear' | 'data
   const resolved = assetURL(url);
   const extension = url.split('?')[0].toLowerCase();
   let texture: Texture;
-  if (extension.endsWith('.exr')) {
+  if (extension.endsWith('.exr') || extension.endsWith('.hdr')) {
+    // Expand the 4.17 MB entrance sky into 2048 × 1024 half-float pixels off the UI thread.
+    const format = extension.endsWith('.hdr') ? 'hdr' : 'exr';
     const source = readBytes ? await readBytes(url, signal) : undefined;
     texture = typeof Worker === 'undefined'
-      ? new EXRLoader().createDataTexture(source ?? await fetchAssetBuffer(resolved, { signal }))
-      : await loadEXRInWorker(resolved, signal, source);
-  } else if (extension.endsWith('.hdr')) {
-    const bytes = readBytes ? await readBytes(url, signal) : await fetchAssetBuffer(resolved, { signal });
-    signal?.throwIfAborted();
-    texture = new RGBELoader().createDataTexture(bytes);
+      ? (format === 'hdr' ? new HDRLoader() : new EXRLoader()).createDataTexture(source ?? await fetchAssetBuffer(resolved, { signal }))
+      : await loadLightingInWorker(resolved, signal, source, format);
   } else {
     const bytes = await fetchAssetBuffer(resolved, { signal });
     signal?.throwIfAborted();

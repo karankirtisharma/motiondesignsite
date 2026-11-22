@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import styles from './MaquetteIntro.module.css';
+import { PUBLIC_CABINET } from '@/studio/lib/cabinet';
 
 type Preferences = { light: 'warm' | 'soft'; reduced: boolean };
 const PreferencesContext = createContext<Preferences & { setLight: (light: 'warm' | 'soft') => void; setReduced: (reduced: boolean) => void }>({ light: 'warm', reduced: false, setLight: (_: 'warm' | 'soft') => {}, setReduced: (_: boolean) => {} });
@@ -62,7 +63,7 @@ export default function MaquetteIntro({ state, choices, error, onRetry }: Maquet
               <div className={styles.choices}>
                 {failed ? <button className={styles.primary} onClick={onRetry} type="button">Try again <span aria-hidden="true">↻</span></button>
                   : <span className={styles.selected}>3D environment <span aria-hidden="true">✓</span></span>}
-                <a className={styles.secondary} href="/studio?entry=direct">Light version <span aria-hidden="true">↗</span></a>
+                <a className={styles.secondary} href={PUBLIC_CABINET}>Light version <span aria-hidden="true">↗</span></a>
               </div>
             </>}
             <button className={styles.textLink} type="button" onClick={() => setStudiesOpen(true)}>Explore studies <span aria-hidden="true">↗</span></button>

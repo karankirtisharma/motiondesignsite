@@ -27,7 +27,8 @@ class Element extends EventTarget {
 }
 class Doc extends EventTarget {
   defaultView=new TestWindow(); animations=[]; hidden=false; pointerLockElement=null;
-  constructor(){super();this.body=new Element('body',this);this.activeElement=this.body;}
+  constructor(){super();this.head=new Element('head',this);this.body=new Element('body',this);this.activeElement=this.body;}
+  querySelector(selector){return selector==='#app .stage .ui'?this.body:null;}
   hasFocus(){return true;}
   createElement(name){
     const e=new Element(name,this);
@@ -40,20 +41,20 @@ function send(target,type,values={},eventTarget=target){
   const event=new Event(type,{cancelable:true});
   Object.assign(event,values);Object.defineProperty(event,'target',{value:eventTarget});target.dispatchEvent(event);return event;
 }
-const matrix=screenHomography([{x:50,y:50},{x:740,y:100},{x:680,y:430},{x:118,y:380}],1600,558);
+const matrix=screenHomography([{x:50,y:50},{x:740,y:100},{x:680,y:430},{x:118,y:380}],1728,608);
 const pause=()=>new Promise(resolve=>setTimeout(resolve,0));
 function fixture(t) {
   const doc=new Doc(),win=doc.defaultView,previous=Object.getOwnPropertyDescriptor(globalThis,'window');
   Object.defineProperty(globalThis,'window',{value:win,configurable:true});
   const viewport=doc.createElement('div'),canvas=doc.createElement('canvas');viewport.append(canvas);doc.body.append(viewport);
   const aperture=[],rays=[];let clear=true,opens=0,focuses=0;
-  const surface=createLiveStudioSurface({canvas,aspect:1600/558,onAperture:live=>aperture.push(live),onExpand:()=>{opens++;},onFocus:()=>{focuses++;doc.pointerLockElement=null;},
+  const surface=createLiveStudioSurface({canvas,onAperture:live=>aperture.push(live),onExpand:()=>{opens++;},onFocus:()=>{focuses++;doc.pointerLockElement=null;},
     sampleSurface:(x,y)=>{rays.push([x,y]);return clear?{u:.5,v:.5}:null;}});
   const host=doc.body.childNodes.find(e=>Object.hasOwn(e.dataset,'liveStudio'));
   const frame=()=>host.childNodes.find(e=>e.tagName==='IFRAME');
-  function message(type,origin=win.location.origin,source=frame()?.contentWindow){return send(win,'message',{origin,source,data:{type}});}
+  function message(type,origin=win.location.origin,source=frame()?.contentWindow,attempt=Number(host.dataset.studioAttempt)){return send(win,'message',{origin,source,data:{type,attempt}});}
   function ready(){
-    surface.setInteractive(true);surface.update(true,matrix);send(frame(),'load');message('md-studio:ready');return frame();
+    surface.setEngaged(true);surface.setInteractive(true);surface.update(true,matrix);send(frame(),'load');message('md-studio:ready');return frame();
   }
   t.after(()=>{surface.dispose();if(previous)Object.defineProperty(globalThis,'window',previous);else delete globalThis.window;});
   return {doc,win,host,viewport,canvas,frame,ready,message,surface,aperture,rays,setClear:v=>{clear=v;},opens:()=>opens,focuses:()=>focuses,
@@ -62,12 +63,14 @@ function fixture(t) {
 }
 
 test('one visible native frame registers the same planar corners as world ray coordinates',t=>{
-  const f=fixture(t);f.surface.update(false,null);assert.ok(f.frame());
+  const f=fixture(t);f.surface.update(false,null);assert.equal(f.frame(),undefined);
+  f.surface.prepare();
   f.surface.setInteractive(true);f.surface.update(true,matrix);const frame=f.frame();
-  assert.equal(frame.src,'/studio?embed=lounge&display=tv&f=1&i=3&attempt=1');
+  assert.equal(frame.src,'/projection-cabinet/site/index.html');
   assert.equal(f.host.style.visibility,'hidden');assert.deepEqual(f.aperture,[]);
   f.message('md-studio:ready','https://other.test');assert.equal(f.host.style.visibility,'hidden');
   f.ready();assert.equal(f.host.style.visibility,'visible');assert.equal(f.viewport.style.zIndex,'1');
+  assert.equal(frame.contentDocument.head.childNodes.at(-1).src,'/projection-cabinet/lounge-bridge.js');
   assert.equal(f.host.style.zIndex,'0');assert.equal(f.host.style.transform,'matrix3d('+matrix.join(',')+')');
   assert.deepEqual(f.aperture,[true]);assert.equal(frame.assignments,1);
   const clip='polygon(0px 40px, 1600px 0px, 1600px 558px, 0px 558px)';
@@ -76,9 +79,12 @@ test('one visible native frame registers the same planar corners as world ray co
   assert.equal(f.canvas.style.pointerEvents,'none');assert.equal(frame.assignments,1);
 });
 
-test('Studio prepares before its first visible view and remains suspended without duplicate frames',t=>{
-  const f=fixture(t),frame=f.frame();
-  assert.ok(frame,'preload starts during screen construction, not first camera visibility');
+test('Studio spends no network on a walk-by, preloads on chair approach, and resumes one frame on seat arrival',t=>{
+  const f=fixture(t);
+  f.surface.update(true,matrix);
+  assert.equal(f.frame(),undefined);
+  f.surface.prepare();
+  const frame=f.frame();
   assert.equal(frame.assignments,1);
   assert.equal(f.host.style.visibility,'hidden');
   assert.equal(frame.tabIndex,-1);
@@ -87,7 +93,7 @@ test('Studio prepares before its first visible view and remains suspended withou
   assert.deepEqual(f.aperture,[]);
   for(let i=0;i<3;i++) f.surface.update(false,null);
   assert.equal(frame.assignments,1);
-  f.surface.update(true,matrix);
+  f.surface.update(true,matrix);f.surface.setEngaged(true);
   assert.equal(f.host.style.visibility,'visible');
   assert.equal(frame.contentWindow.messages.at(-1)[0].type,'md-studio:resume');
   assert.deepEqual(f.aperture,[true]);
@@ -108,10 +114,18 @@ test('camera motion preserves native DOM and hides/reveals the aperture without 
 test('expanding and returning keep the same real page, focus, form state and screen registration',async t=>{
   const f=fixture(t),frame=f.ready(),field=frame.contentDocument.createElement('input');frame.contentDocument.body.append(field);field.value='Draft';
   send(f.win,'md-studio:layout',{detail:{open:true,reducedMotion:false}});f.doc.animations.at(-1).finish();await pause();
-  assert.equal(f.host.style.width,'100vw');assert.equal(f.host.getAttribute('aria-modal'),'true');assert.equal(f.frame(),frame);
+  assert.equal(f.host.style.width,'1728px');assert.equal(f.host.style.height,'608px');
+  assert.equal(f.host.getAttribute('aria-modal'),'true');assert.equal(f.frame(),frame);
+  const backdrop=f.doc.body.childNodes.find(el=>Object.hasOwn(el.dataset,'cabinetBackdrop'));
+  assert.equal(backdrop.style.inset,'0');assert.equal(backdrop.style.opacity,'1');
+  const scale=f.win.innerWidth/1728;
+  assert.deepEqual(f.host.style.transform,'matrix3d('+[scale,0,0,0,0,scale,0,0,0,0,1,0,0,(600-608*scale)/2,0,1].join(',')+')');
+  f.win.innerWidth=2000;f.win.innerHeight=608;send(f.win,'resize');
+  assert.equal(f.host.style.transform,'matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,136,0,0,1)');
   assert.deepEqual(f.aperture,[true,false]);assert.equal(f.doc.activeElement,frame);
   send(f.win,'md-studio:layout',{detail:{open:false,reducedMotion:false}});f.doc.animations.at(-1).finish();await pause();
   assert.equal(f.host.style.zIndex,'0');assert.equal(f.host.style.transform,'matrix3d('+matrix.join(',')+')');
+  assert.equal(backdrop.style.visibility,'hidden');
   assert.equal(f.frame(),frame);assert.equal(frame.assignments,1);assert.equal(field.value,'Draft');assert.equal(f.doc.activeElement,f.canvas);
   assert.deepEqual(f.aperture,[true,false,true]);
 });
@@ -122,7 +136,7 @@ test('an occluding chair keeps pointer input on the scene and stale transitions 
   assert.equal(f.child('click').defaultPrevented,true);assert.equal(f.child('click',{detail:0}).defaultPrevented,false);
   f.setClear(true);f.move(300,220);const hud=f.doc.createElement('button');f.move(300,220,hud);assert.equal(f.canvas.style.pointerEvents,'');
   for(const open of [true,false,true])send(f.win,'md-studio:layout',{detail:{open,reducedMotion:true}});
-  f.doc.animations.at(-1).finish();await pause();assert.equal(f.host.style.width,'100vw');assert.equal(frame.assignments,1);
+  f.doc.animations.at(-1).finish();await pause();assert.equal(f.host.getAttribute('aria-modal'),'true');assert.equal(frame.assignments,1);
 });
 
 test('native drag finishes before the renderer reclaims the cursor and return-to-room restores keyboard ownership',async t=>{
@@ -152,11 +166,14 @@ test('only the actual same-origin Studio may request expansion; teardown restore
 
 test('failed Studio hydration retries once and a ready page is never reloaded',t=>{
   t.mock.timers.enable({apis:['setTimeout']});
-  const f=fixture(t),frame=f.frame();
+  const f=fixture(t);f.surface.prepare();const frame=f.frame();
   send(frame,'load');
   t.mock.timers.tick(7999);assert.equal(frame.assignments,1);
   t.mock.timers.tick(1);assert.equal(frame.assignments,2);
+  assert.equal(frame.src,'/projection-cabinet/site/index.html?attempt=2');
   assert.equal(f.host.dataset.studioAttempt,'2');
+  f.message('md-studio:ready',f.win.location.origin,frame.contentWindow,1);
+  assert.equal(f.host.dataset.studioState,'loading');
   f.message('md-studio:ready');
   t.mock.timers.tick(90000);assert.equal(frame.assignments,2);
   assert.equal(f.host.dataset.studioState,'live');

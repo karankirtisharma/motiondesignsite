@@ -31,6 +31,7 @@ export interface LoungeInterfaceProps {
   onMenu?: () => void;
   onInteract?: () => void;
   onLeaveSeat?: () => void;
+  onExpandPresentation?: () => void;
   interactionLabel?: string | null;
   seatedChair?: string | number;
   error?: string;
@@ -164,6 +165,7 @@ export function LoungeInterface(props: LoungeInterfaceProps) {
       <div className="exploration-status"><span className="status-dot" /><span>{usingComputer ? 'At the studio computer' : mode === 'seated' ? seatedChair === 'founder-desk' ? 'At the founder’s desk' : `Presentation view${seatedChair ? ` · ${typeof seatedChair === 'number' ? `Chair ${seatedChair}` : seatedChair}` : ''}` : 'Your own perspective'}</span></div>
       {(mode === 'explore' || seatedChair === 'founder-desk') && <div className="view-controls">{onToggleCameraView && <button type="button" className="button button-small button-quiet" onClick={onToggleCameraView}><Icon name="look" size={15} />{cameraView === 'thirdPerson' ? 'First person' : 'Third person'}{!isTouch && <Key>V</Key>}</button>}{mode === 'explore' && !isTouch && onTogglePointerLock && <button type="button" className="button button-small button-quiet" onClick={onTogglePointerLock}><Icon name="mouse" size={15} />Cursor<Key>L</Key></button>}</div>}
       {!isTouch && mode === 'explore' && <div className="aim-point" aria-hidden="true" />}
+      {mode === 'seated' && props.onExpandPresentation && <div className="view-controls"><button type="button" className="button button-small button-quiet" onClick={props.onExpandPresentation}><Icon name="fullscreen" size={15} />Expand screen</button></div>}
       {!isTouch && !usingComputer && interactionLabel && <button type="button" className={`interaction-prompt${mode === 'seated' ? ' interaction-prompt-seated' : ''}`} onClick={onInteract}><Key>E</Key><span>{interactionLabel.replace(/^E\s*[—–-]\s*/i, '')}</span></button>}
       {mode === 'seated' && onLeaveSeat && <button type="button" className="leave-seat button button-small button-quiet" onClick={onLeaveSeat}><Icon name="back" size={16} />Stand up</button>}
       {!isTouch && <div className="explore-help"><button type="button" className="help-toggle" onClick={() => setHelpOpen(open => !open)} aria-expanded={helpOpen} aria-controls="movement-help">{helpOpen ? 'Hide controls' : 'Controls'}<span>?</span></button>{helpOpen && <div className="controls-popover" id="movement-help"><ControlInstructions /></div>}</div>}

@@ -19,7 +19,7 @@ const provenance = [
   'character/Rocketbox-PROVENANCE.json', 'character/Mixamo-PROVENANCE.md', 'environment/PROVENANCE.md',
   'source-walls/provenance.json', 'source-walls/floor-provenance.json', 'surface-v5/bronze-provenance.json',
 ];
-const hashName = /^[a-f0-9]{64}(?:\.glb|\.(?:q9\.)?glb\.(?:br|gz)|\.webp|\.exr)$/;
+const hashName = /^[a-f0-9]{64}(?:\.glb|\.(?:q9\.)?glb\.(?:br|gz)|\.hdr\.br|\.webp|\.exr)$/;
 
 function publicFile(root,url) {
   if (!url.startsWith('/') || /[\\?#%]/.test(url) || url.split('/').some(p=>p==='.' || p==='..')) throw Error('Unsafe public asset path: '+url);
@@ -114,17 +114,7 @@ export async function stageReleasePublic(publicDir,destination,entries,{dryRun=f
   if (!dryRun) await fs.mkdir(dest); // Refuse to merge into any existing directory.
   const result={files:0,bytes:0,omittedModelBytes:0,unselectedAssetBytes:0,oldHashBytes:0};
   const current=new Set(Object.values(entries).flatMap(e=>[e.identity,e.gzip,e.br].filter(Boolean)));
-  let packets=new Set();
-  try {
-    const roomIndex=JSON.parse(await fs.readFile(path.join(root,'room-stream/index.json'),'utf8'));
-    packets=new Set(Object.values(roomIndex).flatMap(room=>[room.base,...room.details]).map(p=>p.url));
-    for(const url of packets){
-      if(!/^\/room-stream\/[a-f0-9]{64}\.glb\.br$/.test(url))throw Error('Invalid room packet path');
-      if(await digest(publicFile(root,url),createBrotliDecompress())!==path.basename(url).slice(0,64))throw Error('Invalid room packet: '+url);
-    }
-  } catch(error){if(error.code!=='ENOENT'||await fs.stat(path.join(root,'room-stream')).catch(()=>null))throw error;}
   for await(const url of files(root)) {
-    if(url.startsWith('/room-stream/')&&!packets.has(url))continue;
     const name=publicFile(root,url),size=(await fs.stat(name)).size;
     if (omittedModels.has(url)) {result.omittedModelBytes+=size;continue;}
     if (url.startsWith('/assets/') && !keep.has(url)) {result.unselectedAssetBytes+=size;continue;}

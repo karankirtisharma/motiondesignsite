@@ -1,14 +1,9 @@
-# Screen1 studio port
+# MotionDesign.ad Projection Cabinet
 
-Copied from `D:\Claude\Ideation and Prototype\MotionMD Screen1\web` on 2026-10-31. The source project was not edited.
+The Lite Version opens `public/projection-cabinet/site-web/index.html`. The presentation room opens `public/projection-cabinet/site/index.html` at its authored 1728 × 608 resolution. Both folders can be served by any static HTTP server. Hashes such as `#ui/search` work on direct visits and refreshes.
 
-- Route: `/studio`; embedded route: `/studio?embed=lounge`.
-- Source component, store, data and animation structure retained. Imports and media paths are namespaced under `studio`.
-- Source custom CSS and its existing Tailwind 4.3.3 preflight/utilities are scoped to `#md-studio-root`; dialog/drawer portals stay inside that boundary. This avoids adding Tailwind to the lounge build. Keyframe names are namespaced.
-- Instrument Serif and Manrope are the exact cached WOFF2 assets from the source build, with original fallback metrics. They load only through the studio layout. Upstream OFL notices are beside the font files.
-- Only referenced media is copied. Raw PNG backups are excluded; the optional `?ref=50`/`?ref=diff` screenshot is retained at `/studio/media/reference/K01.jpg`.
-- The All 50 focus ring clips overflow to its existing rounded corners.
+`/studio` redirects existing visitors to the responsive edition. Existing format, industry, film, theater, case study and brief links resolve to the corresponding cabinet pages. The lounge uses a poster until its TV iframe is ready. Its room-only controls live in `src/runtime/presentation/LiveStudioSurface.ts` and `public/projection-cabinet/lounge-bridge.js`.
 
-The embedded bridge validates same-origin parent messages. `md-studio:suspend` stops the simulated player clock, pauses media and CSS animation; `md-studio:resume` restores browsing without autoplay. Top-level Escape and the back button send `md-studio:exit`. Inner dialogs and film views consume Escape first.
+Edit the catalogue and settings in `scripts/projection-cabinet/data/`, then run `npm run cabinet:build` to regenerate both copies of `js/content.generated.js`. Apply changes to shared JS, CSS, vendors and art to both editions. Only the browser edition links `css/web.css`, after the shared styles. Run `node scripts/projection-cabinet/build.mjs --check` to check parity, catalogue links and asset hydration.
 
-Source prototype limitations are deliberately unchanged: film playback uses posters and a simulated clock, briefs use `mailto:`, AURELLE is the only project with dedicated case frames, and the language control changes its label rather than translating content. These need real content/services before describing the studio as a full video portfolio.
+The supplied catalogue contains 50 concept films. Playback and brief submission use the media URLs and brief endpoint configured in the data. The included settings have no remote submission endpoint.

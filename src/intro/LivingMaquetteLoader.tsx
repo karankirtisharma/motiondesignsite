@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { createWorldIntroHost } from './worldIntroHost.mjs';
 import './living-maquette/src/ui/intro.css';
 import { useIntroPrepared } from './IntroPreparation';
+import { PUBLIC_CABINET } from '@/studio/lib/cabinet';
 
 type Props = {
   host: ReturnType<typeof createWorldIntroHost>;
@@ -53,6 +54,6 @@ export default function LivingMaquetteLoader({ host, initialReducedMotion, onExi
   }, [host, initialReducedMotion, markPrepared]);
   return <div data-testid="living-maquette-loader" style={{ position: 'fixed', inset: 0, zIndex: 200, background: '#f6efe5', overflow: 'hidden' }}>
     <div ref={element} style={{ position: 'absolute', inset: 0 }} />
-    {failed && <div role="alert" style={{ padding: 32, color: '#352416' }}>The arrival screen could not load. <button onClick={() => location.reload()}>Try again</button> <a href="/studio?entry=direct">Use Lite Version</a></div>}
+    {failed && <div role="alert" style={{ padding: 32, color: '#352416' }}>The arrival screen could not load. <button onClick={() => location.reload()}>Try again</button> <a href={PUBLIC_CABINET}>Use Lite Version</a></div>}
   </div>;
 }

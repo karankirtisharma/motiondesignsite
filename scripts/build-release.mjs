@@ -31,6 +31,7 @@ if(hosted) {
     await fs.rename(master,publicDir);
   }
 }
+run(path.join(root,'scripts','projection-cabinet','build.mjs'),['--check']);
 for(const script of ['verify-assets','verify-studio','prepare-delivery']) run(path.join(root,'scripts',script+'.mjs'));
 if(hosted) {
   const temp=await fs.mkdtemp(path.join(work,'stage-')),staged=path.join(temp,'public');

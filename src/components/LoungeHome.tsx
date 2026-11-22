@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import LivingMaquetteLoader from '@/intro/LivingMaquetteLoader';
+import { PUBLIC_CABINET } from '@/studio/lib/cabinet';
 import { createWorldIntroHost } from '@/intro/worldIntroHost.mjs';
 import { useMaquettePreferences } from '@/components/maquette/MaquetteIntro';
 import { createPortal } from 'react-dom';
@@ -62,7 +63,7 @@ export default function LoungeHome() {
       runtime.current?.setReducedMotion(preferences.reducedMotion);
     },
     retry: () => { setGeneration(value => value + 1); },
-    light: () => { location.assign('/studio?entry=direct'); },
+    light: () => { location.assign(PUBLIC_CABINET); },
     enter: (preferences: { reducedMotion: boolean; destinationId: 'lounge' | 'motion-floor'; lightMode: 'warm' | 'soft' }, scope: { signal: AbortSignal }) => {
       if (!runtime.current || scope.signal.aborted) return false;
       runtime.current.setReducedMotion(preferences.reducedMotion);
@@ -227,6 +228,7 @@ export default function LoungeHome() {
       onExploreDirect={exploreDirect}
       onRetry={() => { loadingPublisher.current?.dispose(); resume(); setGeneration(value => value + 1); }}
       onInteract={() => runtime.current?.interact()} onLeaveSeat={() => runtime.current?.stand()}
+      onExpandPresentation={screenActive ? () => runtime.current?.setScreenAction('open') : undefined}
       interactionLabel={hint?.text} seatedChair={mode === 'seated' ? hint?.target : undefined}
       error={error} quality={quality} qualityLabel={qualityLabel} onQualityChange={changeQuality}
       reducedMotion={reducedMotion} onReducedMotionChange={value => { setReducedMotion(value); runtime.current?.setReducedMotion(value); }}
@@ -281,7 +283,7 @@ export default function LoungeHome() {
       </details>}
       {debug && runtime.current?.getInteractionState()?.deskStage && <details><summary>Chair inspection</summary><output style={{ display: 'block', maxWidth: 320, overflowWrap: 'anywhere' }}>{JSON.stringify(runtime.current?.getInteractionState())}</output>{(['third-person', 'side', 'front'] as const).map(view => <button key={view} onClick={() => runtime.current?.inspectDeskView(view)}>Chair {view} view</button>)}</details>}
     </aside>}
-    {(menu || mode === 'error') && menuActions && createPortal(<a className="button button-quiet" href="/studio?entry=direct">Switch to light version</a>, menuActions)}
+    {(menu || mode === 'error') && menuActions && createPortal(<a className="button button-quiet" href={PUBLIC_CABINET}>Switch to light version</a>, menuActions)}
   </main>
   <LoungeStudioOverlay sceneElement={viewport.current} open={studioOpen} bounds={studioBounds} reducedMotion={reducedMotion} onCovered={coverStudio} onClose={closeStudio} /></>;
 }

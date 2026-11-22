@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { brotliCompressSync, brotliDecompressSync, constants } from 'node:zlib';
 import { createReadStream } from 'node:fs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -27,7 +28,24 @@ export async function immutableSceneAssetHashes(publicRoot, urls) {
 
 export async function writeImmutableSceneAssetHashes(root, generated, enabled) {
   const publicRoot = path.join(root, 'public');
-  const hashes = enabled ? await immutableSceneAssetHashes(publicRoot, await releaseSourceAssets(publicRoot)) : {};
+  const urls = enabled ? await releaseSourceAssets(publicRoot) : [];
+  const hashes = await immutableSceneAssetHashes(publicRoot, urls);
+  for (const url of urls) {
+    if (!url.endsWith('.hdr')) continue;
+    const source = await fs.readFile(path.join(publicRoot, url));
+    if (!source.subarray(0, 2).equals(Buffer.from('#?'))) throw Error('Invalid or unhydrated HDR sky: ' + url);
+    const hash = createHash('sha256').update(source).digest('hex');
+    const packed = brotliCompressSync(source, { params: { [constants.BROTLI_PARAM_QUALITY]: 6 } });
+    if (!brotliDecompressSync(packed).equals(source)) throw Error('HDR compression roundtrip failed: ' + url);
+    const target = path.join(publicRoot, 'asset-delivery', hash + '.hdr.br');
+    const previous = await fs.readFile(target).catch(error => { if (error.code !== 'ENOENT') throw error; });
+    if (!previous?.equals(packed)) {
+      const temporary = target + '.' + process.pid + '.tmp';
+      await fs.writeFile(temporary, packed);
+      await fs.rename(temporary, target);
+    }
+    hashes[url] = hash;
+  }
   const sizes = {};
   for (const url of Object.keys(hashes)) if (url.endsWith('.ktx2')) sizes[url] = (await fs.stat(path.join(publicRoot, url))).size;
   await fs.writeFile(path.join(generated, 'texture-transfer-sizes.json'), JSON.stringify(sizes) + '\n');

@@ -1,0 +1,1502 @@
+[
+  {
+    "id": "home",
+    "name": "Featured work",
+    "kind": "home",
+    "group": "Discovery",
+    "parent": null,
+    "record": null,
+    "url": "#ui/home",
+    "picture": "reference/pages/home.webp"
+  },
+  {
+    "id": "work",
+    "name": "Browse work",
+    "kind": "work",
+    "group": "Discovery",
+    "parent": "home",
+    "record": null,
+    "url": "#ui/work",
+    "picture": "reference/pages/work.webp"
+  },
+  {
+    "id": "formats",
+    "name": "Film formats",
+    "kind": "formats",
+    "group": "Discovery",
+    "parent": "work",
+    "record": null,
+    "url": "#ui/formats",
+    "picture": "reference/pages/formats.webp"
+  },
+  {
+    "id": "industries",
+    "name": "Industries",
+    "kind": "industries",
+    "group": "Discovery",
+    "parent": "work",
+    "record": null,
+    "url": "#ui/industries",
+    "picture": "reference/pages/industries.webp"
+  },
+  {
+    "id": "index",
+    "name": "All 50 films",
+    "kind": "index",
+    "group": "Discovery",
+    "parent": "work",
+    "record": null,
+    "url": "#ui/index",
+    "picture": "reference/pages/index.webp"
+  },
+  {
+    "id": "search",
+    "name": "Search the collection",
+    "kind": "search",
+    "group": "Discovery",
+    "parent": "work",
+    "record": null,
+    "url": "#ui/search",
+    "picture": "reference/pages/search.webp"
+  },
+  {
+    "id": "reel",
+    "name": "Launch sequence",
+    "kind": "reel",
+    "group": "Discovery",
+    "parent": "home",
+    "record": null,
+    "url": "#ui/reel",
+    "picture": "reference/pages/reel.webp"
+  },
+  {
+    "id": "format/product-launch",
+    "name": "Product Launch",
+    "kind": "format",
+    "group": "Format collections",
+    "parent": "formats",
+    "record": "product-launch",
+    "url": "#ui/format/product-launch",
+    "picture": "reference/pages/format~product-launch.webp"
+  },
+  {
+    "id": "format/brand-film",
+    "name": "Brand Film",
+    "kind": "format",
+    "group": "Format collections",
+    "parent": "formats",
+    "record": "brand-film",
+    "url": "#ui/format/brand-film",
+    "picture": "reference/pages/format~brand-film.webp"
+  },
+  {
+    "id": "format/explainer",
+    "name": "Explainer",
+    "kind": "format",
+    "group": "Format collections",
+    "parent": "formats",
+    "record": "explainer",
+    "url": "#ui/format/explainer",
+    "picture": "reference/pages/format~explainer.webp"
+  },
+  {
+    "id": "format/social-ads",
+    "name": "Social Ads",
+    "kind": "format",
+    "group": "Format collections",
+    "parent": "formats",
+    "record": "social-ads",
+    "url": "#ui/format/social-ads",
+    "picture": "reference/pages/format~social-ads.webp"
+  },
+  {
+    "id": "format/cgi-product",
+    "name": "CGI Product",
+    "kind": "format",
+    "group": "Format collections",
+    "parent": "formats",
+    "record": "cgi-product",
+    "url": "#ui/format/cgi-product",
+    "picture": "reference/pages/format~cgi-product.webp"
+  },
+  {
+    "id": "format/app-ui",
+    "name": "App & UI",
+    "kind": "format",
+    "group": "Format collections",
+    "parent": "formats",
+    "record": "app-ui",
+    "url": "#ui/format/app-ui",
+    "picture": "reference/pages/format~app-ui.webp"
+  },
+  {
+    "id": "format/motion-identity",
+    "name": "Motion Identity",
+    "kind": "format",
+    "group": "Format collections",
+    "parent": "formats",
+    "record": "motion-identity",
+    "url": "#ui/format/motion-identity",
+    "picture": "reference/pages/format~motion-identity.webp"
+  },
+  {
+    "id": "format/event-keynote",
+    "name": "Event & Keynote",
+    "kind": "format",
+    "group": "Format collections",
+    "parent": "formats",
+    "record": "event-keynote",
+    "url": "#ui/format/event-keynote",
+    "picture": "reference/pages/format~event-keynote.webp"
+  },
+  {
+    "id": "format/data-stories",
+    "name": "Data Stories",
+    "kind": "format",
+    "group": "Format collections",
+    "parent": "formats",
+    "record": "data-stories",
+    "url": "#ui/format/data-stories",
+    "picture": "reference/pages/format~data-stories.webp"
+  },
+  {
+    "id": "format/title-design",
+    "name": "Title Design",
+    "kind": "format",
+    "group": "Format collections",
+    "parent": "formats",
+    "record": "title-design",
+    "url": "#ui/format/title-design",
+    "picture": "reference/pages/format~title-design.webp"
+  },
+  {
+    "id": "industry/saas",
+    "name": "SaaS",
+    "kind": "industry",
+    "group": "Industry collections",
+    "parent": "industries",
+    "record": "saas",
+    "url": "#ui/industry/saas",
+    "picture": "reference/pages/industry~saas.webp"
+  },
+  {
+    "id": "industry/consumer-tech",
+    "name": "Consumer Tech",
+    "kind": "industry",
+    "group": "Industry collections",
+    "parent": "industries",
+    "record": "consumer-tech",
+    "url": "#ui/industry/consumer-tech",
+    "picture": "reference/pages/industry~consumer-tech.webp"
+  },
+  {
+    "id": "industry/beauty-fragrance",
+    "name": "Beauty & Fragrance",
+    "kind": "industry",
+    "group": "Industry collections",
+    "parent": "industries",
+    "record": "beauty-fragrance",
+    "url": "#ui/industry/beauty-fragrance",
+    "picture": "reference/pages/industry~beauty-fragrance.webp"
+  },
+  {
+    "id": "industry/automotive",
+    "name": "Automotive",
+    "kind": "industry",
+    "group": "Industry collections",
+    "parent": "industries",
+    "record": "automotive",
+    "url": "#ui/industry/automotive",
+    "picture": "reference/pages/industry~automotive.webp"
+  },
+  {
+    "id": "industry/food-beverage",
+    "name": "Food & Beverage",
+    "kind": "industry",
+    "group": "Industry collections",
+    "parent": "industries",
+    "record": "food-beverage",
+    "url": "#ui/industry/food-beverage",
+    "picture": "reference/pages/industry~food-beverage.webp"
+  },
+  {
+    "id": "film/northlane-launch-film",
+    "name": "Northlane Launch Film",
+    "kind": "film",
+    "group": "Product Launch · films",
+    "parent": "format/product-launch",
+    "record": "northlane-launch-film",
+    "url": "#ui/film/northlane-launch-film",
+    "picture": "reference/pages/film~northlane-launch-film.webp"
+  },
+  {
+    "id": "view/northlane-launch-film",
+    "name": "Northlane Launch Film · motion preview",
+    "kind": "view",
+    "group": "Product Launch · films",
+    "parent": "film/northlane-launch-film",
+    "record": "northlane-launch-film",
+    "url": "#ui/view/northlane-launch-film",
+    "picture": "reference/pages/view~northlane-launch-film.webp"
+  },
+  {
+    "id": "study/northlane-launch-film",
+    "name": "Northlane Launch Film · frame study",
+    "kind": "study",
+    "group": "Product Launch · films",
+    "parent": "film/northlane-launch-film",
+    "record": "northlane-launch-film",
+    "url": "#ui/study/northlane-launch-film",
+    "picture": "reference/pages/study~northlane-launch-film.webp"
+  },
+  {
+    "id": "film/kairo-launch-film",
+    "name": "Kairo Launch Film",
+    "kind": "film",
+    "group": "Product Launch · films",
+    "parent": "format/product-launch",
+    "record": "kairo-launch-film",
+    "url": "#ui/film/kairo-launch-film",
+    "picture": "reference/pages/film~kairo-launch-film.webp"
+  },
+  {
+    "id": "view/kairo-launch-film",
+    "name": "Kairo Launch Film · motion preview",
+    "kind": "view",
+    "group": "Product Launch · films",
+    "parent": "film/kairo-launch-film",
+    "record": "kairo-launch-film",
+    "url": "#ui/view/kairo-launch-film",
+    "picture": "reference/pages/view~kairo-launch-film.webp"
+  },
+  {
+    "id": "study/kairo-launch-film",
+    "name": "Kairo Launch Film · frame study",
+    "kind": "study",
+    "group": "Product Launch · films",
+    "parent": "film/kairo-launch-film",
+    "record": "kairo-launch-film",
+    "url": "#ui/study/kairo-launch-film",
+    "picture": "reference/pages/study~kairo-launch-film.webp"
+  },
+  {
+    "id": "film/aurelle-launch-film",
+    "name": "AURELLE Launch Film",
+    "kind": "film",
+    "group": "Product Launch · films",
+    "parent": "format/product-launch",
+    "record": "aurelle-launch-film",
+    "url": "#ui/film/aurelle-launch-film",
+    "picture": "reference/pages/film~aurelle-launch-film.webp"
+  },
+  {
+    "id": "view/aurelle-launch-film",
+    "name": "AURELLE Launch Film · motion preview",
+    "kind": "view",
+    "group": "Product Launch · films",
+    "parent": "film/aurelle-launch-film",
+    "record": "aurelle-launch-film",
+    "url": "#ui/view/aurelle-launch-film",
+    "picture": "reference/pages/view~aurelle-launch-film.webp"
+  },
+  {
+    "id": "study/aurelle-launch-film",
+    "name": "AURELLE Launch Film · frame study",
+    "kind": "study",
+    "group": "Product Launch · films",
+    "parent": "film/aurelle-launch-film",
+    "record": "aurelle-launch-film",
+    "url": "#ui/study/aurelle-launch-film",
+    "picture": "reference/pages/study~aurelle-launch-film.webp"
+  },
+  {
+    "id": "film/vanta-launch-film",
+    "name": "Vanta Launch Film",
+    "kind": "film",
+    "group": "Product Launch · films",
+    "parent": "format/product-launch",
+    "record": "vanta-launch-film",
+    "url": "#ui/film/vanta-launch-film",
+    "picture": "reference/pages/film~vanta-launch-film.webp"
+  },
+  {
+    "id": "view/vanta-launch-film",
+    "name": "Vanta Launch Film · motion preview",
+    "kind": "view",
+    "group": "Product Launch · films",
+    "parent": "film/vanta-launch-film",
+    "record": "vanta-launch-film",
+    "url": "#ui/view/vanta-launch-film",
+    "picture": "reference/pages/view~vanta-launch-film.webp"
+  },
+  {
+    "id": "study/vanta-launch-film",
+    "name": "Vanta Launch Film · frame study",
+    "kind": "study",
+    "group": "Product Launch · films",
+    "parent": "film/vanta-launch-film",
+    "record": "vanta-launch-film",
+    "url": "#ui/study/vanta-launch-film",
+    "picture": "reference/pages/study~vanta-launch-film.webp"
+  },
+  {
+    "id": "film/product-launch-food-beverage",
+    "name": "Food & Beverage Launch Film",
+    "kind": "film",
+    "group": "Product Launch · films",
+    "parent": "format/product-launch",
+    "record": "product-launch-food-beverage",
+    "url": "#ui/film/product-launch-food-beverage",
+    "picture": "reference/pages/film~product-launch-food-beverage.webp"
+  },
+  {
+    "id": "view/product-launch-food-beverage",
+    "name": "Food & Beverage Launch Film · motion preview",
+    "kind": "view",
+    "group": "Product Launch · films",
+    "parent": "film/product-launch-food-beverage",
+    "record": "product-launch-food-beverage",
+    "url": "#ui/view/product-launch-food-beverage",
+    "picture": "reference/pages/view~product-launch-food-beverage.webp"
+  },
+  {
+    "id": "study/product-launch-food-beverage",
+    "name": "Food & Beverage Launch Film · frame study",
+    "kind": "study",
+    "group": "Product Launch · films",
+    "parent": "film/product-launch-food-beverage",
+    "record": "product-launch-food-beverage",
+    "url": "#ui/study/product-launch-food-beverage",
+    "picture": "reference/pages/study~product-launch-food-beverage.webp"
+  },
+  {
+    "id": "film/northlane-brand-film",
+    "name": "Northlane Brand Film",
+    "kind": "film",
+    "group": "Brand Film · films",
+    "parent": "format/brand-film",
+    "record": "northlane-brand-film",
+    "url": "#ui/film/northlane-brand-film",
+    "picture": "reference/pages/film~northlane-brand-film.webp"
+  },
+  {
+    "id": "view/northlane-brand-film",
+    "name": "Northlane Brand Film · motion preview",
+    "kind": "view",
+    "group": "Brand Film · films",
+    "parent": "film/northlane-brand-film",
+    "record": "northlane-brand-film",
+    "url": "#ui/view/northlane-brand-film",
+    "picture": "reference/pages/view~northlane-brand-film.webp"
+  },
+  {
+    "id": "film/brand-film-consumer-tech",
+    "name": "Consumer Tech · Brand Film",
+    "kind": "film",
+    "group": "Brand Film · films",
+    "parent": "format/brand-film",
+    "record": "brand-film-consumer-tech",
+    "url": "#ui/film/brand-film-consumer-tech",
+    "picture": "reference/pages/film~brand-film-consumer-tech.webp"
+  },
+  {
+    "id": "view/brand-film-consumer-tech",
+    "name": "Consumer Tech · Brand Film · motion preview",
+    "kind": "view",
+    "group": "Brand Film · films",
+    "parent": "film/brand-film-consumer-tech",
+    "record": "brand-film-consumer-tech",
+    "url": "#ui/view/brand-film-consumer-tech",
+    "picture": "reference/pages/view~brand-film-consumer-tech.webp"
+  },
+  {
+    "id": "film/fragrance-brand-film",
+    "name": "Fragrance Brand Film",
+    "kind": "film",
+    "group": "Brand Film · films",
+    "parent": "format/brand-film",
+    "record": "fragrance-brand-film",
+    "url": "#ui/film/fragrance-brand-film",
+    "picture": "reference/pages/film~fragrance-brand-film.webp"
+  },
+  {
+    "id": "view/fragrance-brand-film",
+    "name": "Fragrance Brand Film · motion preview",
+    "kind": "view",
+    "group": "Brand Film · films",
+    "parent": "film/fragrance-brand-film",
+    "record": "fragrance-brand-film",
+    "url": "#ui/view/fragrance-brand-film",
+    "picture": "reference/pages/view~fragrance-brand-film.webp"
+  },
+  {
+    "id": "film/brand-film-automotive",
+    "name": "Automotive · Brand Film",
+    "kind": "film",
+    "group": "Brand Film · films",
+    "parent": "format/brand-film",
+    "record": "brand-film-automotive",
+    "url": "#ui/film/brand-film-automotive",
+    "picture": "reference/pages/film~brand-film-automotive.webp"
+  },
+  {
+    "id": "view/brand-film-automotive",
+    "name": "Automotive · Brand Film · motion preview",
+    "kind": "view",
+    "group": "Brand Film · films",
+    "parent": "film/brand-film-automotive",
+    "record": "brand-film-automotive",
+    "url": "#ui/view/brand-film-automotive",
+    "picture": "reference/pages/view~brand-film-automotive.webp"
+  },
+  {
+    "id": "film/brand-film-food-beverage",
+    "name": "Food & Beverage · Brand Film",
+    "kind": "film",
+    "group": "Brand Film · films",
+    "parent": "format/brand-film",
+    "record": "brand-film-food-beverage",
+    "url": "#ui/film/brand-film-food-beverage",
+    "picture": "reference/pages/film~brand-film-food-beverage.webp"
+  },
+  {
+    "id": "view/brand-film-food-beverage",
+    "name": "Food & Beverage · Brand Film · motion preview",
+    "kind": "view",
+    "group": "Brand Film · films",
+    "parent": "film/brand-film-food-beverage",
+    "record": "brand-film-food-beverage",
+    "url": "#ui/view/brand-film-food-beverage",
+    "picture": "reference/pages/view~brand-film-food-beverage.webp"
+  },
+  {
+    "id": "film/northlane-explainer",
+    "name": "Northlane Explainer",
+    "kind": "film",
+    "group": "Explainer · films",
+    "parent": "format/explainer",
+    "record": "northlane-explainer",
+    "url": "#ui/film/northlane-explainer",
+    "picture": "reference/pages/film~northlane-explainer.webp"
+  },
+  {
+    "id": "view/northlane-explainer",
+    "name": "Northlane Explainer · motion preview",
+    "kind": "view",
+    "group": "Explainer · films",
+    "parent": "film/northlane-explainer",
+    "record": "northlane-explainer",
+    "url": "#ui/view/northlane-explainer",
+    "picture": "reference/pages/view~northlane-explainer.webp"
+  },
+  {
+    "id": "film/explainer-consumer-tech",
+    "name": "Consumer Tech · Explainer",
+    "kind": "film",
+    "group": "Explainer · films",
+    "parent": "format/explainer",
+    "record": "explainer-consumer-tech",
+    "url": "#ui/film/explainer-consumer-tech",
+    "picture": "reference/pages/film~explainer-consumer-tech.webp"
+  },
+  {
+    "id": "view/explainer-consumer-tech",
+    "name": "Consumer Tech · Explainer · motion preview",
+    "kind": "view",
+    "group": "Explainer · films",
+    "parent": "film/explainer-consumer-tech",
+    "record": "explainer-consumer-tech",
+    "url": "#ui/view/explainer-consumer-tech",
+    "picture": "reference/pages/view~explainer-consumer-tech.webp"
+  },
+  {
+    "id": "film/explainer-beauty-fragrance",
+    "name": "Beauty & Fragrance · Explainer",
+    "kind": "film",
+    "group": "Explainer · films",
+    "parent": "format/explainer",
+    "record": "explainer-beauty-fragrance",
+    "url": "#ui/film/explainer-beauty-fragrance",
+    "picture": "reference/pages/film~explainer-beauty-fragrance.webp"
+  },
+  {
+    "id": "view/explainer-beauty-fragrance",
+    "name": "Beauty & Fragrance · Explainer · motion preview",
+    "kind": "view",
+    "group": "Explainer · films",
+    "parent": "film/explainer-beauty-fragrance",
+    "record": "explainer-beauty-fragrance",
+    "url": "#ui/view/explainer-beauty-fragrance",
+    "picture": "reference/pages/view~explainer-beauty-fragrance.webp"
+  },
+  {
+    "id": "film/explainer-automotive",
+    "name": "Automotive · Explainer",
+    "kind": "film",
+    "group": "Explainer · films",
+    "parent": "format/explainer",
+    "record": "explainer-automotive",
+    "url": "#ui/film/explainer-automotive",
+    "picture": "reference/pages/film~explainer-automotive.webp"
+  },
+  {
+    "id": "view/explainer-automotive",
+    "name": "Automotive · Explainer · motion preview",
+    "kind": "view",
+    "group": "Explainer · films",
+    "parent": "film/explainer-automotive",
+    "record": "explainer-automotive",
+    "url": "#ui/view/explainer-automotive",
+    "picture": "reference/pages/view~explainer-automotive.webp"
+  },
+  {
+    "id": "film/explainer-food-beverage",
+    "name": "Food & Beverage · Explainer",
+    "kind": "film",
+    "group": "Explainer · films",
+    "parent": "format/explainer",
+    "record": "explainer-food-beverage",
+    "url": "#ui/film/explainer-food-beverage",
+    "picture": "reference/pages/film~explainer-food-beverage.webp"
+  },
+  {
+    "id": "view/explainer-food-beverage",
+    "name": "Food & Beverage · Explainer · motion preview",
+    "kind": "view",
+    "group": "Explainer · films",
+    "parent": "film/explainer-food-beverage",
+    "record": "explainer-food-beverage",
+    "url": "#ui/view/explainer-food-beverage",
+    "picture": "reference/pages/view~explainer-food-beverage.webp"
+  },
+  {
+    "id": "film/northlane-social-ad",
+    "name": "Northlane Social Ad",
+    "kind": "film",
+    "group": "Social Ads · films",
+    "parent": "format/social-ads",
+    "record": "northlane-social-ad",
+    "url": "#ui/film/northlane-social-ad",
+    "picture": "reference/pages/film~northlane-social-ad.webp"
+  },
+  {
+    "id": "view/northlane-social-ad",
+    "name": "Northlane Social Ad · motion preview",
+    "kind": "view",
+    "group": "Social Ads · films",
+    "parent": "film/northlane-social-ad",
+    "record": "northlane-social-ad",
+    "url": "#ui/view/northlane-social-ad",
+    "picture": "reference/pages/view~northlane-social-ad.webp"
+  },
+  {
+    "id": "film/social-ads-consumer-tech",
+    "name": "Consumer Tech · Social Ads",
+    "kind": "film",
+    "group": "Social Ads · films",
+    "parent": "format/social-ads",
+    "record": "social-ads-consumer-tech",
+    "url": "#ui/film/social-ads-consumer-tech",
+    "picture": "reference/pages/film~social-ads-consumer-tech.webp"
+  },
+  {
+    "id": "view/social-ads-consumer-tech",
+    "name": "Consumer Tech · Social Ads · motion preview",
+    "kind": "view",
+    "group": "Social Ads · films",
+    "parent": "film/social-ads-consumer-tech",
+    "record": "social-ads-consumer-tech",
+    "url": "#ui/view/social-ads-consumer-tech",
+    "picture": "reference/pages/view~social-ads-consumer-tech.webp"
+  },
+  {
+    "id": "film/aurelle-social-cut",
+    "name": "AURELLE Social Cut",
+    "kind": "film",
+    "group": "Social Ads · films",
+    "parent": "format/social-ads",
+    "record": "aurelle-social-cut",
+    "url": "#ui/film/aurelle-social-cut",
+    "picture": "reference/pages/film~aurelle-social-cut.webp"
+  },
+  {
+    "id": "view/aurelle-social-cut",
+    "name": "AURELLE Social Cut · motion preview",
+    "kind": "view",
+    "group": "Social Ads · films",
+    "parent": "film/aurelle-social-cut",
+    "record": "aurelle-social-cut",
+    "url": "#ui/view/aurelle-social-cut",
+    "picture": "reference/pages/view~aurelle-social-cut.webp"
+  },
+  {
+    "id": "film/social-ads-automotive",
+    "name": "Automotive · Social Ads",
+    "kind": "film",
+    "group": "Social Ads · films",
+    "parent": "format/social-ads",
+    "record": "social-ads-automotive",
+    "url": "#ui/film/social-ads-automotive",
+    "picture": "reference/pages/film~social-ads-automotive.webp"
+  },
+  {
+    "id": "view/social-ads-automotive",
+    "name": "Automotive · Social Ads · motion preview",
+    "kind": "view",
+    "group": "Social Ads · films",
+    "parent": "film/social-ads-automotive",
+    "record": "social-ads-automotive",
+    "url": "#ui/view/social-ads-automotive",
+    "picture": "reference/pages/view~social-ads-automotive.webp"
+  },
+  {
+    "id": "film/sola-social-ad",
+    "name": "SOLA Social Ad",
+    "kind": "film",
+    "group": "Social Ads · films",
+    "parent": "format/social-ads",
+    "record": "sola-social-ad",
+    "url": "#ui/film/sola-social-ad",
+    "picture": "reference/pages/film~sola-social-ad.webp"
+  },
+  {
+    "id": "view/sola-social-ad",
+    "name": "SOLA Social Ad · motion preview",
+    "kind": "view",
+    "group": "Social Ads · films",
+    "parent": "film/sola-social-ad",
+    "record": "sola-social-ad",
+    "url": "#ui/view/sola-social-ad",
+    "picture": "reference/pages/view~sola-social-ad.webp"
+  },
+  {
+    "id": "film/northlane-cgi-film",
+    "name": "Northlane CGI Film",
+    "kind": "film",
+    "group": "CGI Product · films",
+    "parent": "format/cgi-product",
+    "record": "northlane-cgi-film",
+    "url": "#ui/film/northlane-cgi-film",
+    "picture": "reference/pages/film~northlane-cgi-film.webp"
+  },
+  {
+    "id": "view/northlane-cgi-film",
+    "name": "Northlane CGI Film · motion preview",
+    "kind": "view",
+    "group": "CGI Product · films",
+    "parent": "film/northlane-cgi-film",
+    "record": "northlane-cgi-film",
+    "url": "#ui/view/northlane-cgi-film",
+    "picture": "reference/pages/view~northlane-cgi-film.webp"
+  },
+  {
+    "id": "film/cgi-product-consumer-tech",
+    "name": "Consumer Tech · CGI Product",
+    "kind": "film",
+    "group": "CGI Product · films",
+    "parent": "format/cgi-product",
+    "record": "cgi-product-consumer-tech",
+    "url": "#ui/film/cgi-product-consumer-tech",
+    "picture": "reference/pages/film~cgi-product-consumer-tech.webp"
+  },
+  {
+    "id": "view/cgi-product-consumer-tech",
+    "name": "Consumer Tech · CGI Product · motion preview",
+    "kind": "view",
+    "group": "CGI Product · films",
+    "parent": "film/cgi-product-consumer-tech",
+    "record": "cgi-product-consumer-tech",
+    "url": "#ui/view/cgi-product-consumer-tech",
+    "picture": "reference/pages/view~cgi-product-consumer-tech.webp"
+  },
+  {
+    "id": "film/beauty-cgi-macro",
+    "name": "Beauty CGI Macro",
+    "kind": "film",
+    "group": "CGI Product · films",
+    "parent": "format/cgi-product",
+    "record": "beauty-cgi-macro",
+    "url": "#ui/film/beauty-cgi-macro",
+    "picture": "reference/pages/film~beauty-cgi-macro.webp"
+  },
+  {
+    "id": "view/beauty-cgi-macro",
+    "name": "Beauty CGI Macro · motion preview",
+    "kind": "view",
+    "group": "CGI Product · films",
+    "parent": "film/beauty-cgi-macro",
+    "record": "beauty-cgi-macro",
+    "url": "#ui/view/beauty-cgi-macro",
+    "picture": "reference/pages/view~beauty-cgi-macro.webp"
+  },
+  {
+    "id": "film/cgi-product-automotive",
+    "name": "Automotive · CGI Product",
+    "kind": "film",
+    "group": "CGI Product · films",
+    "parent": "format/cgi-product",
+    "record": "cgi-product-automotive",
+    "url": "#ui/film/cgi-product-automotive",
+    "picture": "reference/pages/film~cgi-product-automotive.webp"
+  },
+  {
+    "id": "view/cgi-product-automotive",
+    "name": "Automotive · CGI Product · motion preview",
+    "kind": "view",
+    "group": "CGI Product · films",
+    "parent": "film/cgi-product-automotive",
+    "record": "cgi-product-automotive",
+    "url": "#ui/view/cgi-product-automotive",
+    "picture": "reference/pages/view~cgi-product-automotive.webp"
+  },
+  {
+    "id": "film/cgi-product-food-beverage",
+    "name": "Food & Beverage · CGI Product",
+    "kind": "film",
+    "group": "CGI Product · films",
+    "parent": "format/cgi-product",
+    "record": "cgi-product-food-beverage",
+    "url": "#ui/film/cgi-product-food-beverage",
+    "picture": "reference/pages/film~cgi-product-food-beverage.webp"
+  },
+  {
+    "id": "view/cgi-product-food-beverage",
+    "name": "Food & Beverage · CGI Product · motion preview",
+    "kind": "view",
+    "group": "CGI Product · films",
+    "parent": "film/cgi-product-food-beverage",
+    "record": "cgi-product-food-beverage",
+    "url": "#ui/view/cgi-product-food-beverage",
+    "picture": "reference/pages/view~cgi-product-food-beverage.webp"
+  },
+  {
+    "id": "film/northlane-app-film",
+    "name": "Northlane App Film",
+    "kind": "film",
+    "group": "App & UI · films",
+    "parent": "format/app-ui",
+    "record": "northlane-app-film",
+    "url": "#ui/film/northlane-app-film",
+    "picture": "reference/pages/film~northlane-app-film.webp"
+  },
+  {
+    "id": "view/northlane-app-film",
+    "name": "Northlane App Film · motion preview",
+    "kind": "view",
+    "group": "App & UI · films",
+    "parent": "film/northlane-app-film",
+    "record": "northlane-app-film",
+    "url": "#ui/view/northlane-app-film",
+    "picture": "reference/pages/view~northlane-app-film.webp"
+  },
+  {
+    "id": "film/app-ui-consumer-tech",
+    "name": "Consumer Tech · App & UI",
+    "kind": "film",
+    "group": "App & UI · films",
+    "parent": "format/app-ui",
+    "record": "app-ui-consumer-tech",
+    "url": "#ui/film/app-ui-consumer-tech",
+    "picture": "reference/pages/film~app-ui-consumer-tech.webp"
+  },
+  {
+    "id": "view/app-ui-consumer-tech",
+    "name": "Consumer Tech · App & UI · motion preview",
+    "kind": "view",
+    "group": "App & UI · films",
+    "parent": "film/app-ui-consumer-tech",
+    "record": "app-ui-consumer-tech",
+    "url": "#ui/view/app-ui-consumer-tech",
+    "picture": "reference/pages/view~app-ui-consumer-tech.webp"
+  },
+  {
+    "id": "film/app-ui-beauty-fragrance",
+    "name": "Beauty & Fragrance · App & UI",
+    "kind": "film",
+    "group": "App & UI · films",
+    "parent": "format/app-ui",
+    "record": "app-ui-beauty-fragrance",
+    "url": "#ui/film/app-ui-beauty-fragrance",
+    "picture": "reference/pages/film~app-ui-beauty-fragrance.webp"
+  },
+  {
+    "id": "view/app-ui-beauty-fragrance",
+    "name": "Beauty & Fragrance · App & UI · motion preview",
+    "kind": "view",
+    "group": "App & UI · films",
+    "parent": "film/app-ui-beauty-fragrance",
+    "record": "app-ui-beauty-fragrance",
+    "url": "#ui/view/app-ui-beauty-fragrance",
+    "picture": "reference/pages/view~app-ui-beauty-fragrance.webp"
+  },
+  {
+    "id": "film/app-ui-automotive",
+    "name": "Automotive · App & UI",
+    "kind": "film",
+    "group": "App & UI · films",
+    "parent": "format/app-ui",
+    "record": "app-ui-automotive",
+    "url": "#ui/film/app-ui-automotive",
+    "picture": "reference/pages/film~app-ui-automotive.webp"
+  },
+  {
+    "id": "view/app-ui-automotive",
+    "name": "Automotive · App & UI · motion preview",
+    "kind": "view",
+    "group": "App & UI · films",
+    "parent": "film/app-ui-automotive",
+    "record": "app-ui-automotive",
+    "url": "#ui/view/app-ui-automotive",
+    "picture": "reference/pages/view~app-ui-automotive.webp"
+  },
+  {
+    "id": "film/app-ui-food-beverage",
+    "name": "Food & Beverage · App & UI",
+    "kind": "film",
+    "group": "App & UI · films",
+    "parent": "format/app-ui",
+    "record": "app-ui-food-beverage",
+    "url": "#ui/film/app-ui-food-beverage",
+    "picture": "reference/pages/film~app-ui-food-beverage.webp"
+  },
+  {
+    "id": "view/app-ui-food-beverage",
+    "name": "Food & Beverage · App & UI · motion preview",
+    "kind": "view",
+    "group": "App & UI · films",
+    "parent": "film/app-ui-food-beverage",
+    "record": "app-ui-food-beverage",
+    "url": "#ui/view/app-ui-food-beverage",
+    "picture": "reference/pages/view~app-ui-food-beverage.webp"
+  },
+  {
+    "id": "film/northlane-identity",
+    "name": "Northlane Identity",
+    "kind": "film",
+    "group": "Motion Identity · films",
+    "parent": "format/motion-identity",
+    "record": "northlane-identity",
+    "url": "#ui/film/northlane-identity",
+    "picture": "reference/pages/film~northlane-identity.webp"
+  },
+  {
+    "id": "view/northlane-identity",
+    "name": "Northlane Identity · motion preview",
+    "kind": "view",
+    "group": "Motion Identity · films",
+    "parent": "film/northlane-identity",
+    "record": "northlane-identity",
+    "url": "#ui/view/northlane-identity",
+    "picture": "reference/pages/view~northlane-identity.webp"
+  },
+  {
+    "id": "film/motion-identity-consumer-tech",
+    "name": "Consumer Tech · Motion Identity",
+    "kind": "film",
+    "group": "Motion Identity · films",
+    "parent": "format/motion-identity",
+    "record": "motion-identity-consumer-tech",
+    "url": "#ui/film/motion-identity-consumer-tech",
+    "picture": "reference/pages/film~motion-identity-consumer-tech.webp"
+  },
+  {
+    "id": "view/motion-identity-consumer-tech",
+    "name": "Consumer Tech · Motion Identity · motion preview",
+    "kind": "view",
+    "group": "Motion Identity · films",
+    "parent": "film/motion-identity-consumer-tech",
+    "record": "motion-identity-consumer-tech",
+    "url": "#ui/view/motion-identity-consumer-tech",
+    "picture": "reference/pages/view~motion-identity-consumer-tech.webp"
+  },
+  {
+    "id": "film/motion-identity-beauty-fragrance",
+    "name": "Beauty & Fragrance · Motion Identity",
+    "kind": "film",
+    "group": "Motion Identity · films",
+    "parent": "format/motion-identity",
+    "record": "motion-identity-beauty-fragrance",
+    "url": "#ui/film/motion-identity-beauty-fragrance",
+    "picture": "reference/pages/film~motion-identity-beauty-fragrance.webp"
+  },
+  {
+    "id": "view/motion-identity-beauty-fragrance",
+    "name": "Beauty & Fragrance · Motion Identity · motion preview",
+    "kind": "view",
+    "group": "Motion Identity · films",
+    "parent": "film/motion-identity-beauty-fragrance",
+    "record": "motion-identity-beauty-fragrance",
+    "url": "#ui/view/motion-identity-beauty-fragrance",
+    "picture": "reference/pages/view~motion-identity-beauty-fragrance.webp"
+  },
+  {
+    "id": "film/motion-identity-automotive",
+    "name": "Automotive · Motion Identity",
+    "kind": "film",
+    "group": "Motion Identity · films",
+    "parent": "format/motion-identity",
+    "record": "motion-identity-automotive",
+    "url": "#ui/film/motion-identity-automotive",
+    "picture": "reference/pages/film~motion-identity-automotive.webp"
+  },
+  {
+    "id": "view/motion-identity-automotive",
+    "name": "Automotive · Motion Identity · motion preview",
+    "kind": "view",
+    "group": "Motion Identity · films",
+    "parent": "film/motion-identity-automotive",
+    "record": "motion-identity-automotive",
+    "url": "#ui/view/motion-identity-automotive",
+    "picture": "reference/pages/view~motion-identity-automotive.webp"
+  },
+  {
+    "id": "film/motion-identity-food-beverage",
+    "name": "Food & Beverage · Motion Identity",
+    "kind": "film",
+    "group": "Motion Identity · films",
+    "parent": "format/motion-identity",
+    "record": "motion-identity-food-beverage",
+    "url": "#ui/film/motion-identity-food-beverage",
+    "picture": "reference/pages/film~motion-identity-food-beverage.webp"
+  },
+  {
+    "id": "view/motion-identity-food-beverage",
+    "name": "Food & Beverage · Motion Identity · motion preview",
+    "kind": "view",
+    "group": "Motion Identity · films",
+    "parent": "film/motion-identity-food-beverage",
+    "record": "motion-identity-food-beverage",
+    "url": "#ui/view/motion-identity-food-beverage",
+    "picture": "reference/pages/view~motion-identity-food-beverage.webp"
+  },
+  {
+    "id": "film/northlane-keynote-opener",
+    "name": "Northlane Keynote Opener",
+    "kind": "film",
+    "group": "Event & Keynote · films",
+    "parent": "format/event-keynote",
+    "record": "northlane-keynote-opener",
+    "url": "#ui/film/northlane-keynote-opener",
+    "picture": "reference/pages/film~northlane-keynote-opener.webp"
+  },
+  {
+    "id": "view/northlane-keynote-opener",
+    "name": "Northlane Keynote Opener · motion preview",
+    "kind": "view",
+    "group": "Event & Keynote · films",
+    "parent": "film/northlane-keynote-opener",
+    "record": "northlane-keynote-opener",
+    "url": "#ui/view/northlane-keynote-opener",
+    "picture": "reference/pages/view~northlane-keynote-opener.webp"
+  },
+  {
+    "id": "film/event-keynote-consumer-tech",
+    "name": "Consumer Tech · Event & Keynote",
+    "kind": "film",
+    "group": "Event & Keynote · films",
+    "parent": "format/event-keynote",
+    "record": "event-keynote-consumer-tech",
+    "url": "#ui/film/event-keynote-consumer-tech",
+    "picture": "reference/pages/film~event-keynote-consumer-tech.webp"
+  },
+  {
+    "id": "view/event-keynote-consumer-tech",
+    "name": "Consumer Tech · Event & Keynote · motion preview",
+    "kind": "view",
+    "group": "Event & Keynote · films",
+    "parent": "film/event-keynote-consumer-tech",
+    "record": "event-keynote-consumer-tech",
+    "url": "#ui/view/event-keynote-consumer-tech",
+    "picture": "reference/pages/view~event-keynote-consumer-tech.webp"
+  },
+  {
+    "id": "film/event-keynote-beauty-fragrance",
+    "name": "Beauty & Fragrance · Event & Keynote",
+    "kind": "film",
+    "group": "Event & Keynote · films",
+    "parent": "format/event-keynote",
+    "record": "event-keynote-beauty-fragrance",
+    "url": "#ui/film/event-keynote-beauty-fragrance",
+    "picture": "reference/pages/film~event-keynote-beauty-fragrance.webp"
+  },
+  {
+    "id": "view/event-keynote-beauty-fragrance",
+    "name": "Beauty & Fragrance · Event & Keynote · motion preview",
+    "kind": "view",
+    "group": "Event & Keynote · films",
+    "parent": "film/event-keynote-beauty-fragrance",
+    "record": "event-keynote-beauty-fragrance",
+    "url": "#ui/view/event-keynote-beauty-fragrance",
+    "picture": "reference/pages/view~event-keynote-beauty-fragrance.webp"
+  },
+  {
+    "id": "film/event-keynote-automotive",
+    "name": "Automotive · Event & Keynote",
+    "kind": "film",
+    "group": "Event & Keynote · films",
+    "parent": "format/event-keynote",
+    "record": "event-keynote-automotive",
+    "url": "#ui/film/event-keynote-automotive",
+    "picture": "reference/pages/film~event-keynote-automotive.webp"
+  },
+  {
+    "id": "view/event-keynote-automotive",
+    "name": "Automotive · Event & Keynote · motion preview",
+    "kind": "view",
+    "group": "Event & Keynote · films",
+    "parent": "film/event-keynote-automotive",
+    "record": "event-keynote-automotive",
+    "url": "#ui/view/event-keynote-automotive",
+    "picture": "reference/pages/view~event-keynote-automotive.webp"
+  },
+  {
+    "id": "film/event-keynote-food-beverage",
+    "name": "Food & Beverage · Event & Keynote",
+    "kind": "film",
+    "group": "Event & Keynote · films",
+    "parent": "format/event-keynote",
+    "record": "event-keynote-food-beverage",
+    "url": "#ui/film/event-keynote-food-beverage",
+    "picture": "reference/pages/film~event-keynote-food-beverage.webp"
+  },
+  {
+    "id": "view/event-keynote-food-beverage",
+    "name": "Food & Beverage · Event & Keynote · motion preview",
+    "kind": "view",
+    "group": "Event & Keynote · films",
+    "parent": "film/event-keynote-food-beverage",
+    "record": "event-keynote-food-beverage",
+    "url": "#ui/view/event-keynote-food-beverage",
+    "picture": "reference/pages/view~event-keynote-food-beverage.webp"
+  },
+  {
+    "id": "film/northlane-data-story",
+    "name": "Northlane Data Story",
+    "kind": "film",
+    "group": "Data Stories · films",
+    "parent": "format/data-stories",
+    "record": "northlane-data-story",
+    "url": "#ui/film/northlane-data-story",
+    "picture": "reference/pages/film~northlane-data-story.webp"
+  },
+  {
+    "id": "view/northlane-data-story",
+    "name": "Northlane Data Story · motion preview",
+    "kind": "view",
+    "group": "Data Stories · films",
+    "parent": "film/northlane-data-story",
+    "record": "northlane-data-story",
+    "url": "#ui/view/northlane-data-story",
+    "picture": "reference/pages/view~northlane-data-story.webp"
+  },
+  {
+    "id": "film/kairo-data-story",
+    "name": "Kairo Data Story",
+    "kind": "film",
+    "group": "Data Stories · films",
+    "parent": "format/data-stories",
+    "record": "kairo-data-story",
+    "url": "#ui/film/kairo-data-story",
+    "picture": "reference/pages/film~kairo-data-story.webp"
+  },
+  {
+    "id": "view/kairo-data-story",
+    "name": "Kairo Data Story · motion preview",
+    "kind": "view",
+    "group": "Data Stories · films",
+    "parent": "film/kairo-data-story",
+    "record": "kairo-data-story",
+    "url": "#ui/view/kairo-data-story",
+    "picture": "reference/pages/view~kairo-data-story.webp"
+  },
+  {
+    "id": "film/data-stories-beauty-fragrance",
+    "name": "Beauty & Fragrance · Data Stories",
+    "kind": "film",
+    "group": "Data Stories · films",
+    "parent": "format/data-stories",
+    "record": "data-stories-beauty-fragrance",
+    "url": "#ui/film/data-stories-beauty-fragrance",
+    "picture": "reference/pages/film~data-stories-beauty-fragrance.webp"
+  },
+  {
+    "id": "view/data-stories-beauty-fragrance",
+    "name": "Beauty & Fragrance · Data Stories · motion preview",
+    "kind": "view",
+    "group": "Data Stories · films",
+    "parent": "film/data-stories-beauty-fragrance",
+    "record": "data-stories-beauty-fragrance",
+    "url": "#ui/view/data-stories-beauty-fragrance",
+    "picture": "reference/pages/view~data-stories-beauty-fragrance.webp"
+  },
+  {
+    "id": "film/data-stories-automotive",
+    "name": "Automotive · Data Stories",
+    "kind": "film",
+    "group": "Data Stories · films",
+    "parent": "format/data-stories",
+    "record": "data-stories-automotive",
+    "url": "#ui/film/data-stories-automotive",
+    "picture": "reference/pages/film~data-stories-automotive.webp"
+  },
+  {
+    "id": "view/data-stories-automotive",
+    "name": "Automotive · Data Stories · motion preview",
+    "kind": "view",
+    "group": "Data Stories · films",
+    "parent": "film/data-stories-automotive",
+    "record": "data-stories-automotive",
+    "url": "#ui/view/data-stories-automotive",
+    "picture": "reference/pages/view~data-stories-automotive.webp"
+  },
+  {
+    "id": "film/data-stories-food-beverage",
+    "name": "Food & Beverage · Data Stories",
+    "kind": "film",
+    "group": "Data Stories · films",
+    "parent": "format/data-stories",
+    "record": "data-stories-food-beverage",
+    "url": "#ui/film/data-stories-food-beverage",
+    "picture": "reference/pages/film~data-stories-food-beverage.webp"
+  },
+  {
+    "id": "view/data-stories-food-beverage",
+    "name": "Food & Beverage · Data Stories · motion preview",
+    "kind": "view",
+    "group": "Data Stories · films",
+    "parent": "film/data-stories-food-beverage",
+    "record": "data-stories-food-beverage",
+    "url": "#ui/view/data-stories-food-beverage",
+    "picture": "reference/pages/view~data-stories-food-beverage.webp"
+  },
+  {
+    "id": "film/title-design-saas",
+    "name": "SaaS · Title Design",
+    "kind": "film",
+    "group": "Title Design · films",
+    "parent": "format/title-design",
+    "record": "title-design-saas",
+    "url": "#ui/film/title-design-saas",
+    "picture": "reference/pages/film~title-design-saas.webp"
+  },
+  {
+    "id": "view/title-design-saas",
+    "name": "SaaS · Title Design · motion preview",
+    "kind": "view",
+    "group": "Title Design · films",
+    "parent": "film/title-design-saas",
+    "record": "title-design-saas",
+    "url": "#ui/view/title-design-saas",
+    "picture": "reference/pages/view~title-design-saas.webp"
+  },
+  {
+    "id": "film/title-design-consumer-tech",
+    "name": "Consumer Tech · Title Design",
+    "kind": "film",
+    "group": "Title Design · films",
+    "parent": "format/title-design",
+    "record": "title-design-consumer-tech",
+    "url": "#ui/film/title-design-consumer-tech",
+    "picture": "reference/pages/film~title-design-consumer-tech.webp"
+  },
+  {
+    "id": "view/title-design-consumer-tech",
+    "name": "Consumer Tech · Title Design · motion preview",
+    "kind": "view",
+    "group": "Title Design · films",
+    "parent": "film/title-design-consumer-tech",
+    "record": "title-design-consumer-tech",
+    "url": "#ui/view/title-design-consumer-tech",
+    "picture": "reference/pages/view~title-design-consumer-tech.webp"
+  },
+  {
+    "id": "film/title-design-beauty-fragrance",
+    "name": "Beauty & Fragrance · Title Design",
+    "kind": "film",
+    "group": "Title Design · films",
+    "parent": "format/title-design",
+    "record": "title-design-beauty-fragrance",
+    "url": "#ui/film/title-design-beauty-fragrance",
+    "picture": "reference/pages/film~title-design-beauty-fragrance.webp"
+  },
+  {
+    "id": "view/title-design-beauty-fragrance",
+    "name": "Beauty & Fragrance · Title Design · motion preview",
+    "kind": "view",
+    "group": "Title Design · films",
+    "parent": "film/title-design-beauty-fragrance",
+    "record": "title-design-beauty-fragrance",
+    "url": "#ui/view/title-design-beauty-fragrance",
+    "picture": "reference/pages/view~title-design-beauty-fragrance.webp"
+  },
+  {
+    "id": "film/title-design-automotive",
+    "name": "Automotive · Title Design",
+    "kind": "film",
+    "group": "Title Design · films",
+    "parent": "format/title-design",
+    "record": "title-design-automotive",
+    "url": "#ui/film/title-design-automotive",
+    "picture": "reference/pages/film~title-design-automotive.webp"
+  },
+  {
+    "id": "view/title-design-automotive",
+    "name": "Automotive · Title Design · motion preview",
+    "kind": "view",
+    "group": "Title Design · films",
+    "parent": "film/title-design-automotive",
+    "record": "title-design-automotive",
+    "url": "#ui/view/title-design-automotive",
+    "picture": "reference/pages/view~title-design-automotive.webp"
+  },
+  {
+    "id": "film/title-design-food-beverage",
+    "name": "Food & Beverage · Title Design",
+    "kind": "film",
+    "group": "Title Design · films",
+    "parent": "format/title-design",
+    "record": "title-design-food-beverage",
+    "url": "#ui/film/title-design-food-beverage",
+    "picture": "reference/pages/film~title-design-food-beverage.webp"
+  },
+  {
+    "id": "view/title-design-food-beverage",
+    "name": "Food & Beverage · Title Design · motion preview",
+    "kind": "view",
+    "group": "Title Design · films",
+    "parent": "film/title-design-food-beverage",
+    "record": "title-design-food-beverage",
+    "url": "#ui/view/title-design-food-beverage",
+    "picture": "reference/pages/view~title-design-food-beverage.webp"
+  },
+  {
+    "id": "studio",
+    "name": "Studio",
+    "kind": "studio",
+    "group": "Studio",
+    "parent": "home",
+    "record": null,
+    "url": "#ui/studio",
+    "picture": "reference/pages/studio.webp"
+  },
+  {
+    "id": "offers",
+    "name": "Project packages",
+    "kind": "offers",
+    "group": "Studio",
+    "parent": "studio",
+    "record": null,
+    "url": "#ui/offers",
+    "picture": "reference/pages/offers.webp"
+  },
+  {
+    "id": "offer/launch-film",
+    "name": "Launch film",
+    "kind": "offer",
+    "group": "Studio",
+    "parent": "offers",
+    "record": "launch-film",
+    "url": "#ui/offer/launch-film",
+    "picture": "reference/pages/offer~launch-film.webp"
+  },
+  {
+    "id": "offer/social-pack",
+    "name": "Social pack",
+    "kind": "offer",
+    "group": "Studio",
+    "parent": "offers",
+    "record": "social-pack",
+    "url": "#ui/offer/social-pack",
+    "picture": "reference/pages/offer~social-pack.webp"
+  },
+  {
+    "id": "offer/brand-motion",
+    "name": "Brand motion system",
+    "kind": "offer",
+    "group": "Studio",
+    "parent": "offers",
+    "record": "brand-motion",
+    "url": "#ui/offer/brand-motion",
+    "picture": "reference/pages/offer~brand-motion.webp"
+  },
+  {
+    "id": "services",
+    "name": "Capabilities",
+    "kind": "services",
+    "group": "Studio",
+    "parent": "studio",
+    "record": null,
+    "url": "#ui/services",
+    "picture": "reference/pages/services.webp"
+  },
+  {
+    "id": "service/direction",
+    "name": "Creative direction",
+    "kind": "service",
+    "group": "Studio",
+    "parent": "services",
+    "record": "direction",
+    "url": "#ui/service/direction",
+    "picture": "reference/pages/service~direction.webp"
+  },
+  {
+    "id": "service/design",
+    "name": "Design & illustration",
+    "kind": "service",
+    "group": "Studio",
+    "parent": "services",
+    "record": "design",
+    "url": "#ui/service/design",
+    "picture": "reference/pages/service~design.webp"
+  },
+  {
+    "id": "service/animation",
+    "name": "2D motion",
+    "kind": "service",
+    "group": "Studio",
+    "parent": "services",
+    "record": "animation",
+    "url": "#ui/service/animation",
+    "picture": "reference/pages/service~animation.webp"
+  },
+  {
+    "id": "service/cgi",
+    "name": "3D & product CGI",
+    "kind": "service",
+    "group": "Studio",
+    "parent": "services",
+    "record": "cgi",
+    "url": "#ui/service/cgi",
+    "picture": "reference/pages/service~cgi.webp"
+  },
+  {
+    "id": "service/edit",
+    "name": "Edit & finishing",
+    "kind": "service",
+    "group": "Studio",
+    "parent": "services",
+    "record": "edit",
+    "url": "#ui/service/edit",
+    "picture": "reference/pages/service~edit.webp"
+  },
+  {
+    "id": "process",
+    "name": "Production process",
+    "kind": "process",
+    "group": "Studio",
+    "parent": "studio",
+    "record": null,
+    "url": "#ui/process",
+    "picture": "reference/pages/process.webp"
+  },
+  {
+    "id": "saved",
+    "name": "My shortlist",
+    "kind": "saved",
+    "group": "Shortlist",
+    "parent": "home",
+    "record": null,
+    "url": "#ui/saved",
+    "picture": "reference/pages/saved.webp"
+  },
+  {
+    "id": "shared",
+    "name": "Shared shortlist",
+    "kind": "shared",
+    "group": "Shortlist",
+    "parent": "saved",
+    "record": null,
+    "url": "#ui/shared",
+    "picture": "reference/pages/shared.webp"
+  },
+  {
+    "id": "brief/format",
+    "name": "Choose a format",
+    "kind": "brief",
+    "group": "Project brief",
+    "parent": "home",
+    "record": "format",
+    "url": "#ui/brief/format",
+    "picture": "reference/pages/brief~format.webp"
+  },
+  {
+    "id": "brief/industry",
+    "name": "Choose an industry",
+    "kind": "brief",
+    "group": "Project brief",
+    "parent": "brief/format",
+    "record": "industry",
+    "url": "#ui/brief/industry",
+    "picture": "reference/pages/brief~industry.webp"
+  },
+  {
+    "id": "brief/runtime",
+    "name": "Set a runtime",
+    "kind": "brief",
+    "group": "Project brief",
+    "parent": "brief/industry",
+    "record": "runtime",
+    "url": "#ui/brief/runtime",
+    "picture": "reference/pages/brief~runtime.webp"
+  },
+  {
+    "id": "brief/timeline",
+    "name": "Set a timeline",
+    "kind": "brief",
+    "group": "Project brief",
+    "parent": "brief/runtime",
+    "record": "timeline",
+    "url": "#ui/brief/timeline",
+    "picture": "reference/pages/brief~timeline.webp"
+  },
+  {
+    "id": "brief/contact",
+    "name": "Add project details",
+    "kind": "brief",
+    "group": "Project brief",
+    "parent": "brief/timeline",
+    "record": "contact",
+    "url": "#ui/brief/contact",
+    "picture": "reference/pages/brief~contact.webp"
+  },
+  {
+    "id": "brief/review",
+    "name": "Review your brief",
+    "kind": "brief",
+    "group": "Project brief",
+    "parent": "brief/contact",
+    "record": "review",
+    "url": "#ui/brief/review",
+    "picture": "reference/pages/brief~review.webp"
+  },
+  {
+    "id": "brief/ready",
+    "name": "Your brief is ready",
+    "kind": "brief",
+    "group": "Project brief",
+    "parent": "brief/review",
+    "record": "ready",
+    "url": "#ui/brief/ready",
+    "picture": "reference/pages/brief~ready.webp"
+  },
+  {
+    "id": "unavailable",
+    "name": "Film preview unavailable",
+    "kind": "unavailable",
+    "group": "Recovery",
+    "parent": "film/aurelle-launch-film",
+    "record": null,
+    "url": "#ui/unavailable",
+    "picture": "reference/pages/unavailable.webp"
+  },
+  {
+    "id": "controls",
+    "name": "Control Center",
+    "kind": "controls",
+    "group": "Discovery",
+    "parent": "home",
+    "record": null,
+    "url": "#ui/controls",
+    "picture": "reference/pages/controls.webp"
+  }
+]

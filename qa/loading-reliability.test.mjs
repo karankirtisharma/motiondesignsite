@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { fetchAssetBuffer } from '../src/runtime/rendering/fetchAsset.ts';
-import { loadEXRInWorker } from '../src/runtime/rendering/exrDecode.ts';
+import { loadLightingInWorker } from '../src/runtime/rendering/exrDecode.ts';
 import { loadTexture } from '../src/runtime/rendering/assets.ts';
 import { Texture, TextureLoader, SRGBColorSpace } from 'three';
 
@@ -106,7 +106,7 @@ test('decode errors do not redownload a successfully transferred lighting file',
   const before = globalThis.Worker;
   globalThis.Worker = class { terminate() { terminated++; } postMessage() { queueMicrotask(() => this.onmessage({ data: { error: 'Invalid EXR signature' } })); } };
   t.after(() => { globalThis.Worker = before; });
-  await assert.rejects(loadEXRInWorker('/broken.exr'), /Invalid EXR signature/);
+  await assert.rejects(loadLightingInWorker('/broken.exr'), /Invalid EXR signature/);
   assert.equal(requests, 1); assert.equal(terminated, 1);
 });
 

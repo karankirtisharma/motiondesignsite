@@ -1,34 +1,25 @@
-import type { Metadata } from "next";
-import { cookies } from "next/headers";
-import { Experience } from "@/studio/components/Experience";
-import { SPLASH_COOKIE } from "@/studio/components/splash-cookie";
-import { RefOverlay } from "@/studio/components/RefOverlay";
-import { Stage } from "@/studio/components/Stage";
-import { cursorFromParams } from "@/studio/store/cursor";
+import { redirect } from 'next/navigation';
+import catalog from '../../scripts/projection-cabinet/data/catalog.json';
+import routes from '../../scripts/projection-cabinet/data/routes.json';
 
-type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
-const first = (value: string | string[] | undefined) => Array.isArray(value) ? value[0] : value;
+type Params = Record<string, string | string[] | undefined>;
 
-export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+/** Preserve bookmarked studio links while new visitors open the static document directly. */
+export default async function StudioPage({ searchParams }: { searchParams: Promise<Params> }) {
   const params = await searchParams;
-  const embedded = first(params.embed) === "lounge";
-  return {
-    title: "Motion Design — Studio",
-    description: "Explore Motion Design's films, formats, industries and creative studio.",
-    robots: { index: !embedded, follow: !embedded },
-  };
-}
+  const get = (key: string) => Array.isArray(params[key]) ? params[key][0] : params[key];
+  const edition = get('embed') === 'lounge' ? 'site' : 'site-web';
+  const document = '/projection-cabinet/' + edition + '/index.html' + (get('proof') !== undefined ? '?proof' : '');
+  const view = get('view');
+  if (view === 'studio') redirect(document + '#ui/studio');
+  if (view === 'brief') redirect(document + '#ui/brief/format');
+  if (!view && !get('f') && !get('i') && !get('axis')) redirect(document);
 
-export default async function StudioPage({ searchParams }: Props) {
-  const params = Object.fromEntries(Object.entries(await searchParams).map(([key, value]) => [key, first(value)]));
-  const embedded = params.embed === "lounge";
-  const deepLink = Object.keys(params).some((key) => key !== "ref" && key !== "splash");
-  const entered = (await cookies()).has(SPLASH_COOKIE);
-  const showSplash = !embedded && (params.splash === "1" || (!entered && !deepLink));
-  return (
-    <Stage>
-      <Experience initial={cursorFromParams(params)} showSplash={showSplash} railOpen={params.rail === "open"} embedded={embedded} tvDisplay={embedded && params.display === "tv"} />
-      <RefOverlay mode={params.ref} />
-    </Stage>
-  );
+  const format = (catalog.formats[Number(get('f')) - 1] ?? catalog.formats[0]).id;
+  const industry = (catalog.industries[Number(get('i')) - 1] ?? catalog.industries[2]).id;
+  const film = catalog.films.find(item => item.formatId === format && item.industryId === industry)!;
+  if (view === 'case' && routes.some(route => route.id === 'study/' + film.slug)) redirect(document + '#ui/study/' + film.slug);
+  if (view === 'theater') redirect(document + '#ui/view/' + film.slug);
+  if (get('axis') === 'industry' && (!view || view === 'browse')) redirect(document + '#ui/industry/' + industry);
+  redirect(document + '#ui/film/' + film.slug);
 }

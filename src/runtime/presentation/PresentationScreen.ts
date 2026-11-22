@@ -30,7 +30,6 @@ export function createPresentationScreen(options: Options) {
   const { corners, normal } = panel;
   const center = panel.point(.5, .5);
   const samples = [[.5,.5],[.1,.1],[.9,.1],[.1,.9],[.9,.9],[.1,.5],[.9,.5]].map(([u,v]) => panel.point(u,v));
-  const aspect = corners[0].distanceTo(corners[1]) / corners[0].distanceTo(corners[3]);
   const raycaster = new THREE.Raycaster(), pointer = new THREE.Vector2(), cameraPosition = new THREE.Vector3();
   let width = 0, height = 0, active = false, seated = false, visible = false, disposed = false, first = true;
   let bounds: ScreenBounds = { x: 0, y: 0, width: 0, height: 0 };
@@ -45,7 +44,7 @@ export function createPresentationScreen(options: Options) {
   }
   function open() { if (active && visible && !disposed) options.onOpen?.(bounds); }
   const surface = createLiveStudioSurface({
-    canvas: options.canvas, aspect, sampleSurface, onExpand: open,
+    canvas: options.canvas, sampleSurface, onExpand: open,
     onFocus: () => options.onFocus?.(), onAperture: aperture.setLive,
   });
   return {

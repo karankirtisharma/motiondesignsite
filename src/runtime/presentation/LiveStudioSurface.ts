@@ -2,7 +2,6 @@ import { createFrameReadiness } from './frameReadiness.ts';
 import { createNativeScreenInput } from './nativeScreenInput.ts';
 type Options = {
   canvas: HTMLCanvasElement;
-  aspect: number;
   sampleSurface: (x: number, y: number) => {
     u: number;
     v: number;
@@ -16,8 +15,14 @@ type Options = {
  * renderer. Both browser hit testing and the visual use the same plane matrix. */
 export function createLiveStudioSurface(options: Options) {
   const doc = options.canvas.ownerDocument, win = doc.defaultView!;
-  const width = 1600, height = Math.round(width / options.aspect);
+  // Map the authored 1728 × 608 stage to the measured four corners of the TV.
+  const width = 1728, height = 608;
   const host = doc.createElement('div');
+  const backdrop = doc.createElement('div');
+  backdrop.dataset.cabinetBackdrop = '';
+  backdrop.setAttribute('aria-hidden', 'true');
+  Object.assign(backdrop.style, { position: 'fixed', inset: '0', zIndex: '999', background: '#140f0d',
+    visibility: 'hidden', opacity: '0', pointerEvents: 'none' });
   host.dataset.liveStudio = '';
   Object.assign(host.style, { position: 'fixed', left: '0', top: '0', width: width + 'px', height: height + 'px',
     transformOrigin: '0 0', overflow: 'hidden', background: '#241b13', zIndex: '0', visibility: 'hidden', pointerEvents: 'none' });
@@ -29,7 +34,7 @@ export function createLiveStudioSurface(options: Options) {
   status.setAttribute('role', 'status');
   Object.assign(status.style, { position: 'absolute', inset: '0', display: 'grid', placeContent: 'center', background: '#241b13', color: '#f6efdf', font: '20px sans-serif' });
   host.append(status);
-  doc.body.append(host);
+  doc.body.append(backdrop, host);
   let frame: HTMLIFrameElement | undefined, matrix: number[] | undefined;
   let transform = '', clip = '', visible = false, ready = false, interactive = false, expanded = false, disposed = false;
   let engaged = false;
@@ -66,9 +71,15 @@ export function createLiveStudioSurface(options: Options) {
     host.style.transform = transform || 'none';
     host.style.clipPath = clip || 'none';
   }
+  function expandedTransform() {
+    const scale = Math.min(win.innerWidth / width, win.innerHeight / height);
+    const left = (win.innerWidth - width * scale) / 2;
+    const top = (win.innerHeight - height * scale) / 2;
+    return 'matrix3d(' + [scale, 0, 0, 0, 0, scale, 0, 0, 0, 0, 1, 0, left, top, 0, 1].join(',') + ')';
+  }
+  function resize() { if (expanded && !animation) host.style.transform = expandedTransform(); }
   const readiness = createFrameReadiness({
-    // Next hydration and first-paint image decoding need more time than the
-    // standalone CRM. Recovery remains bounded and never reloads a ready app.
+    // Keep the GPU poster visible through font loading and the first cabinet paint.
     loadedGraceMs: 8000,
     load: attempt => {
       if (!frame || disposed) return;
@@ -78,7 +89,7 @@ export function createLiveStudioSurface(options: Options) {
       host.dataset.studioAttempt = String(attempt);
       status.textContent = 'Opening the studio...';
       status.style.display = 'grid';
-      frame.src = `/studio?embed=lounge&display=tv&f=1&i=3&attempt=${attempt}`;
+      frame.src = '/projection-cabinet/site/index.html' + (attempt > 1 ? '?attempt=' + attempt : '');
       sync();
     },
     exhausted: () => {
@@ -95,10 +106,20 @@ export function createLiveStudioSurface(options: Options) {
       return;
     frame = doc.createElement('iframe');
     frame.dataset.liveStudioFrame = '';
-    frame.title = 'Interactive Motion Design Studio';
+    frame.title = 'MotionDesign.ad Projection Cabinet';
     frame.allowFullscreen = true;
     Object.assign(frame.style, { width: '100%', height: '100%', display: 'block', border: '0', background: '#241b13' });
-    frame.addEventListener('load', () => { readiness.loaded(); input.refreshFrame(); post('md-studio:display', { expanded }); });
+    frame.addEventListener('load', () => {
+      readiness.loaded();
+      input.refreshFrame();
+      // Install the room lifecycle only in our embedded copy. Both standalone
+      // editions keep their own document, script order and hash navigation.
+      const cabinet = frame?.contentDocument;
+      if (!cabinet?.querySelector('#app .stage .ui')) return;
+      const bridge = cabinet.createElement('script');
+      bridge.src = '/projection-cabinet/lounge-bridge.js';
+      cabinet.head.append(bridge);
+    });
     // Set src before insertion so about:blank cannot start a false boot deadline.
     readiness.start();
     host.prepend(frame);
@@ -107,6 +128,9 @@ export function createLiveStudioSurface(options: Options) {
     if (event.origin !== win.location.origin || event.source !== frame?.contentWindow || !frame)
       return;
     if (event.data?.type === 'md-studio:ready') {
+      // A retry keeps the same WindowProxy. A queued paint from the old
+      // document must never reveal the replacement while it is still loading.
+      if (event.data.attempt !== Number(host.dataset.studioAttempt)) return;
       readiness.ready();
       ready = true;
       suspended = undefined;
@@ -129,10 +153,14 @@ export function createLiveStudioSurface(options: Options) {
     if (!detail || disposed || expanded === detail.open)
       return;
     const version = ++generation;
-    const full = 'matrix3d(' + [win.innerWidth / width, 0, 0, 0, 0, win.innerHeight / height, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1].join(',') + ')';
+    const full = expandedTransform();
     const start = animation ? win.getComputedStyle(host).transform : (expanded ? full : transform || full);
     animation?.cancel();
     expanded = detail.open;
+    backdrop.style.transition = detail.reducedMotion ? 'none' : 'opacity 360ms ease-out';
+    backdrop.style.visibility = 'visible';
+    backdrop.style.opacity = expanded ? '1' : '0';
+    backdrop.style.pointerEvents = expanded ? 'auto' : 'none';
     ensureFrame();
     options.onFocus();
     input.setEnabled(false);
@@ -157,14 +185,15 @@ export function createLiveStudioSurface(options: Options) {
         return;
       animation = undefined;
       if (expanded) {
-        host.style.width = '100vw';
-        host.style.height = '100dvh';
-        host.style.transform = 'none';
+        // Keep the TV document at its native resolution throughout expansion.
+        // Reflowing or stretching it to the window also re-targets its glass.
+        host.style.transform = expandedTransform();
         host.style.clipPath = 'none';
         post('md-studio:display', { expanded: true });
         frame?.focus({ preventScroll: true });
       }
       else {
+        backdrop.style.visibility = 'hidden';
         worldLayout();
         input.focusRoom();
       }
@@ -175,13 +204,13 @@ export function createLiveStudioSurface(options: Options) {
   function openOnLoadingClick(event: MouseEvent) {
     if (!expanded && interactive && visible && matrix && options.sampleSurface(event.clientX, event.clientY)) {
       event.preventDefault();
-      engaged = true; ensureFrame(); sync();
-      if (ready) options.onExpand();
+      options.onExpand();
     }
   }
   function visibility() { sync(); }
   options.canvas.addEventListener('click', openOnLoadingClick);
   win.addEventListener('message', receive);
+  win.addEventListener('resize', resize);
   win.addEventListener('md-studio:layout', layout);
   doc.addEventListener('visibilitychange', visibility);
   // The GPU snapshot owns the idle display. Hydrate only on chair approach
@@ -236,9 +265,11 @@ export function createLiveStudioSurface(options: Options) {
       }
       options.canvas.removeEventListener('click', openOnLoadingClick);
       win.removeEventListener('message', receive);
+      win.removeEventListener('resize', resize);
       win.removeEventListener('md-studio:layout', layout);
       doc.removeEventListener('visibilitychange', visibility);
       host.remove();
+      backdrop.remove();
       if (viewport && viewport !== doc.body && viewport.style.zIndex === '1')
         viewport.style.zIndex = previousZ ?? '';
     }

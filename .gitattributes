@@ -15,3 +15,6 @@ public/crm/** -text
 # Preserve the supplied Living Maquette kit across checkouts.
 src/intro/living-maquette/** -text
 public/living-maquette/** -text
+
+# Each cabinet is independently deployable. Preserve its scripts, art and WAVs verbatim.
+public/projection-cabinet/** -text
