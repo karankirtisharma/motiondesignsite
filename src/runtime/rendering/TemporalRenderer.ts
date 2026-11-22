@@ -2,7 +2,7 @@ import { prepareRenderSlices } from './prepareRenderSlices.ts';
 import { type DirectionalLightShadow, type Object3D, PerspectiveCamera, RenderTarget, Scene, Vector2 } from 'three';
 import { RenderPipeline, type WebGPURenderer } from 'three/webgpu';
 import { mrt, output, pass, velocity, vec4, uniform, uv } from 'three/tsl';
-import { traa } from 'three/addons/tsl/display/TRAANode.js';
+import { sharpTraa as traa } from './SharpTRAANode.js';
 import { nativeScreenSampleOffset } from './nativeScreenSampleOffset.ts';
 
 /** Reproject live 3D samples, including the animated visitor's velocity.
