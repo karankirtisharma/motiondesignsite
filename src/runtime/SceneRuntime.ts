@@ -1,5 +1,5 @@
 import { prepareSlimMonitorHousings } from './interaction/monitorReturns.ts';
-import { AgXToneMapping, AnimationMixer, Box3, Clock, Group, Material, MathUtils, Mesh, Object3D, PCFShadowMap, PerspectiveCamera, Scene, SRGBColorSpace, Texture, Vector3 } from 'three';
+import { AgXToneMapping, AnimationMixer, Box3, Clock, Group, Material, MathUtils, Matrix4, Mesh, Object3D, PCFShadowMap, PerspectiveCamera, Quaternion, Scene, SRGBColorSpace, Texture, Vector3 } from 'three';
 import type { ScreenBounds } from './presentation/PresentationScreen';
 import { WebGPURenderer } from 'three/webgpu';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -22,6 +22,7 @@ import { repairStudioThreshold } from './rendering/floorThreshold';
 import { repairEntranceApron } from './rendering/entranceApron';
 import lightingSizes from '../generated/lighting-transfer-sizes.json';
 import textureSizes from '../generated/texture-transfer-sizes.json';
+import { createInteractionReadAhead } from './interaction/interactionGLB';
 import { createLightingReadAhead } from './rendering/lightingReadAhead';
 import { configureLighting } from './rendering/lighting';
 import { configureSourceColor } from './rendering/color';
@@ -42,12 +43,20 @@ import type { createInteractionController } from './interaction/InteractionContr
 
 import type { RuntimeProfiler } from './rendering/RuntimeProfiler';
 import { createFrameMeter } from './rendering/frameMeter';
+import { isolateFramebufferTextureSizes } from './rendering/framebufferTextureSize';
+import { separateTerraceBand } from './rendering/terraceBand';
+import { closeEntryStairJoint } from './rendering/entryStairJoint';
+import { stabiliseThinRods } from './rendering/thinRods';
+import { balanceFloorLight } from './rendering/floorLightBalance';
+import { enableStaticRefreshSkip } from './rendering/staticRefresh';
 
 // r186 TRAA retains 95% of history per static sample. 128 frames leave <0.15%
 // of the initial history before a genuinely frozen view stops drawing.
 const TEMPORAL_SETTLE_FRAMES = 128;
 
 type InteractionController = Awaited<ReturnType<typeof createInteractionController>>;
+// Arrival through the cloud: seconds, metres behind the follow camera, metres above it.
+const ARRIVAL_SECONDS = 3.8, ARRIVAL_BACK = 30, ARRIVAL_HEIGHT = 46;
 
 export class SceneRuntime {
   readonly scene = new Scene();
@@ -74,6 +83,7 @@ export class SceneRuntime {
   private staticTransforms?: ReturnType<typeof freezeArchitectureTransforms>;
   private reflectionRevision = 0;
   private staticSunShadowCache?: StaticSunShadowCache;
+  private staticRefresh?: ReturnType<typeof enableStaticRefreshSkip>;
   private auditBusy = false;
   private textures = new Set<Texture>();
   private ktx2?: SceneKTX2Loader;
@@ -98,6 +108,9 @@ export class SceneRuntime {
   private renderErrorReported = false;
   private sceneTransition?: { elapsed: number; moved: boolean; progress: number; destination: 'tour' | 'explore' };
   private paused = false;
+  // Arrival: the camera comes down through cloud onto the normal follow camera.
+  private arrival?: { t: number; rate: number; endP: Vector3; endQ: Quaternion; startQ: Quaternion; forward: Vector3 };
+  private arrivalEnabled = true;
   private studioCovered = false;
   private reducedMotion = false;
   private diagnostics?: RenderDiagnostics;
@@ -122,6 +135,7 @@ export class SceneRuntime {
 
   private async initialize(): Promise<void> {
     let lightingDownloads: ReturnType<typeof createLightingReadAhead> | undefined;
+    let interactionDownloads: ReturnType<typeof createInteractionReadAhead> | undefined;
     try {
       this.callbacks.onProgress?.({ phase: 'Preparing your visit', detail: 'Checking the graphics device' });
       const query = new URLSearchParams(window.location.search);
@@ -143,6 +157,7 @@ export class SceneRuntime {
         }));
       }
       const forceWebGL = this.inspectionEnabled && query.get('renderer') === 'webgl';
+      isolateFramebufferTextureSizes();
       this.renderer = new WebGPURenderer({ antialias: false, alpha: true, samples: 0, reversedDepthBuffer: true, forceWebGL });
       this.renderer.toneMapping = AgXToneMapping;
       this.renderer.outputColorSpace = SRGBColorSpace;
@@ -153,13 +168,17 @@ export class SceneRuntime {
         console.error('[MD device lost]', { api: info.api, reason: info.reason, message: info.message, textureMemoryBytes: this.renderer.info.memory.texturesSize, geometryMemoryBytes: this.renderer.info.memory.attributesSize });
         this.fail('The graphics device was interrupted. Reload the experience to continue.');
       };
+      // The 235 kB manifest is independent of GPU initialization. Start its one request
+      // now so a cold visit can overlap the network round trip with device setup.
+      const manifestDownload = fetchBuffer('/assets/scene-manifest.json', this.abort.signal);
+      void manifestDownload.catch(() => {}); // Awaited below; disposal can abort during renderer.init().
       await this.renderer.init();
       console.info('[MD depth]', { reversed: this.renderer.reversedDepthBuffer, near: this.camera.near, far: this.camera.far });
       this.rendererReady = true;
       if (this.disposed) return;
-      if (query.get('profile') === '1') {
-        this.frameMeter = createFrameMeter(this.renderer, (ms, at) => this.profiler?.gpuSample(ms, at));
-      }
+      // Always on (one timestamp sample every two seconds): automatic quality needs
+      // to know whether the graphics card is the limit before it lowers resolution.
+      this.frameMeter = createFrameMeter(this.renderer, (ms, at) => this.profiler?.gpuSample(ms, at));
       this.shaderValidation = guardShaderCompilation(this.renderer, message => this.fail(message));
       this.profiler?.attachRenderer(this.renderer);
       const canvas = this.renderer.domElement as HTMLCanvasElement;
@@ -172,7 +191,7 @@ export class SceneRuntime {
       this.resize();
       document.addEventListener('visibilitychange', this.onVisibility);
 
-      const manifestBytes = await fetchBuffer('/assets/scene-manifest.json', this.abort.signal);
+      const manifestBytes = await manifestDownload;
       this.manifest = JSON.parse(new TextDecoder().decode(manifestBytes)) as SceneManifest;
       this.validateManifest();
       // Fetch the physics/visitor chunk alongside geometry rather than parsing
@@ -180,18 +199,32 @@ export class SceneRuntime {
       const interactions = import('./interaction/InteractionController');
       void interactions.catch(() => {}); // Observed below after independent loading work.
       const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
-      if (!connection?.saveData && !process.env.NEXT_PUBLIC_ASSET_BASE_URL?.trim()) {
+      const allowReadAhead = !connection?.saveData && !process.env.NEXT_PUBLIC_ASSET_BASE_URL?.trim();
+      if (allowReadAhead) {
+        // The 4.17 MB sky took 37 s when requested after geometry on a cold Vercel visit.
         lightingDownloads = createLightingReadAhead({ [SKY_URL]: 4_171_959, ...lightingSizes }, (url, signal) => fetchBuffer(url, signal ?? this.abort.signal), this.abort.signal);
       }
       this.renderer.toneMappingExposure = Math.pow(2, this.manifest.exposure ?? 0.1);
-      const colorLUT = await configureSourceColor(this.renderer, this.manifest.colorPipeline, this.abort.signal);
-      if (colorLUT) this.textures.add(colorLUT);
       this.abort.signal.throwIfAborted();
       this.prepareCamera();
       this.applyTourCamera(1 / 60, true);
       this.profiler?.phase('geometry and embedded textures');
-      await this.loadSource();
+      // The 1.94 MB display LUT took 949 ms to transfer on the measured WAN run.
+      // Geometry imports do not draw; only the later material/lighting passes need the installed transform.
+      const color = configureSourceColor(this.renderer, this.manifest.colorPipeline, this.abort.signal).then(texture => {
+        if (texture) this.textures.add(texture);
+      });
+      const source = this.loadSource();
+      try {
+        await Promise.all([color, source]);
+      } catch (error) {
+        this.abort.abort(error);
+        // A GLTF parser already in flight may finish after cancellation. Wait for its cleanup before GPU teardown.
+        await Promise.allSettled([color, source]);
+        throw error;
+      }
       if (this.disposed) return;
+      if (allowReadAhead) interactionDownloads = createInteractionReadAhead(this.manifest, this.abort.signal);
       repairExteriorWinding(this.content);
       repairExteriorOverlap(this.content);
       repairExteriorGroove(this.content);
@@ -211,6 +244,8 @@ export class SceneRuntime {
       materialTextures.forEach(t => this.textures.add(t));
       const exteriorTextures = await installExteriorLighting(this.content, this.abort.signal, lightingDownloads?.read);
       exteriorTextures.forEach(t => this.textures.add(t));
+      separateTerraceBand(this.content);
+      closeEntryStairJoint(this.content);
       this.abort.signal.throwIfAborted();
       prepareSourceMaterials(this.content, this.renderer).forEach(t => this.textures.add(t));
       const bounds = new Box3().setFromObject(this.content);
@@ -234,7 +269,7 @@ export class SceneRuntime {
       this.abort.signal.throwIfAborted();
       this.controls = await createControls({
         scene: this.scene, camera: this.camera, renderer: this.renderer,
-        canvas, manifest: this.manifest, signal: this.abort.signal,
+        canvas, manifest: this.manifest, signal: this.abort.signal, readBytes: interactionDownloads?.read,
         onStateChange: (mode: 'explore' | 'seated') => this.setMode(mode),
         onPrompt: (hint: {text: string; target?: string} | null) => this.callbacks.onHint?.(hint),
         onScreenMode: (active: boolean) => this.callbacks.onScreenMode?.(active),
@@ -245,6 +280,9 @@ export class SceneRuntime {
       this.controls.setEnabled(false);
       this.lighting.refreshProbeLighting(this.controls.player, true);
       filterSourceSpecular(this.scene);
+      stabiliseThinRods(this.scene);
+      const floorBalance = balanceFloorLight(this.content);
+      if (floorBalance) this.textures.add(floorBalance);
       this.staticTransforms = freezeArchitectureTransforms(this.content, this.mixers.map(({ mixer }) => mixer.getRoot() as Object3D));
       console.info('[MD static transforms]', { cached: this.staticTransforms.count });
       this.staticSunShadowCache = new StaticSunShadowCache(this.lighting.sun, { isStatic: this.staticTransforms.has, enabled: query.get('shadowCache') !== '0', pruneStaticTraversal: !this.inspectionEnabled || query.get('shadowPrune') !== '0' });
@@ -301,6 +339,8 @@ export class SceneRuntime {
       console.info('[MD warmup] opening render passes ready', { seconds: ((performance.now() - compileStarted) / 1000).toFixed(1) });
       this.shaderValidation.assertCompiled();
       this.abort.signal.throwIfAborted();
+      this.arrivalEnabled = query.get('arrival') !== '0';
+      if (query.get('staticRefresh') !== '0') this.staticRefresh = enableStaticRefreshSkip(this.renderer, this.staticTransforms!.has);
       this.setMode('tour');
       this.callbacks.onProgress?.({ phase: 'Ready', progress: 1 });
       this.callbacks.onReady?.();
@@ -313,7 +353,7 @@ export class SceneRuntime {
           return studio <= founder ? 'studio' : 'founder';
         },
         root => this.staticTransforms?.include(root),
-        () => { this.staticSunShadowCache?.invalidate('streamed room'); this.lighting!.sun.shadow.needsUpdate=true; this.invalidate(); }
+        () => { this.galleryMirror?.invalidateGeometry(); this.staticSunShadowCache?.invalidate('streamed room'); this.lighting!.sun.shadow.needsUpdate=true; this.invalidateStatic(); }
       ).catch(error=>{ if(!this.disposed && !this.abort.signal.aborted) this.fail('Room download interrupted: '+String(error)); });
       this.profiler?.ready();
       this.clock.start();
@@ -322,7 +362,7 @@ export class SceneRuntime {
       if (this.disposed || (error instanceof DOMException && error.name === 'AbortError')) return;
       console.error('[MD scene]', error);
       this.fail(error instanceof Error ? error.message : 'The scene could not be loaded.');
-    } finally { lightingDownloads?.close(); }
+    } finally { lightingDownloads?.close(); interactionDownloads?.close(); }
   }
 
   private validateManifest() {
@@ -431,6 +471,7 @@ export class SceneRuntime {
     const dt = Math.min(elapsed, 0.05);
     let characterAdvanced = false;
     if (this.sceneTransition) this.updateSceneTransition(dt);
+    else if (this.arrival) { if (!this.paused) this.updateArrival(dt); }
     else if (!this.paused && !this.referenceCamera) {
       if (this.mode === 'tour') this.applyTourCamera(dt);
       else {
@@ -446,7 +487,7 @@ export class SceneRuntime {
     // Idle breathing and seated motion still cast changing shadows. Frozen reference
     // views, menus and fades reuse the map until an explicit scene change below.
     if (characterAdvanced && this.lighting) this.lighting.sun.shadow.needsUpdate = true;
-    if (characterAdvanced || this.sceneTransition || priorProgress !== this.progress || this.lighting?.sun.shadow.needsUpdate) this.invalidate();
+    if (characterAdvanced || this.sceneTransition || this.arrival || priorProgress !== this.progress || this.lighting?.sun.shadow.needsUpdate) this.invalidate();
     const shouldRender = this.settleFrames > 0;
     const simulationDone = this.profiler ? performance.now() : 0;
     let mirrorDone = simulationDone;
@@ -454,7 +495,8 @@ export class SceneRuntime {
       if (shouldRender) {
         this.frameMeter?.beginGPU(profileStart);
         this.settleFrames--;
-        this.galleryMirror?.update(this.renderer, this.scene, this.camera, this.reflectionRevision);
+        // From the air the mirror is a speck; its second scene pass waits for the ground.
+        if (!this.arrival) this.galleryMirror?.update(this.renderer, this.scene, this.camera, this.reflectionRevision);
         mirrorDone = this.profiler ? performance.now() : 0;
         if (this.temporal) this.temporal.render(); else this.renderer.render(this.scene, this.camera);
       }
@@ -472,7 +514,7 @@ export class SceneRuntime {
       catch { return; }
       const fps = this.statsFrames / this.statsTime;
       if (!qualifiesAdaptiveWindow(this.statsFrames, this.statsTime, this.statsLongGaps, this.statsLongGapTime)) this.slowWindows = this.fastWindows = 0;
-      else if (this.quality === 'auto' && !this.paused && shouldRender) this.adaptResolution(fps);
+      else if (this.quality === 'auto' && !this.paused && !this.arrival && shouldRender) this.adaptResolution(fps, this.frameMeter?.latestGPU());
       const samples = this.frameSamples.sort((a, b) => a - b);
       this.callbacks.onStats?.({ fps: Math.round(fps), ...this.frameMeter?.snapshot(this.statsTime), drawCalls: this.renderer.info.render.drawCalls, triangles: this.renderer.info.render.triangles, renderer: 'isWebGPUBackend' in this.renderer.backend ? 'WebGPU' : 'WebGL 2', quality: this.quality, resolutionScale: this.resolutionScale,
         frameP50Ms: samples[Math.floor(samples.length * .5)], frameP95Ms: samples[Math.floor(samples.length * .95)],
@@ -482,17 +524,24 @@ export class SceneRuntime {
     }
   };
 
-  private adaptResolution(fps: number) {
+  private adaptResolution(fps: number, gpuMs?: number) {
     // Auto should recover toward 60 Hz, rather than accepting sustained 40 Hz.
     // Separate thresholds and small changes avoid resolution oscillation.
-    this.slowWindows = fps < 55 ? this.slowWindows + 1 : 0;
-    // A 60 Hz display cannot reach 68 fps to restore detail after a startup stall.
-    this.fastWindows = fps >= 58 ? this.fastWindows + 1 : 0;
+    // Fewer pixels only help when the graphics card is what limits the frame. When
+    // the measured GPU time is a small part of the frame, a lower resolution would
+    // blur the image without making it any smoother, so leave (or restore) it.
+    const interval = 1000 / Math.max(fps, 1);
+    const gpuBound = gpuMs === undefined || gpuMs > interval * 0.45;
+    const gpuHeadroom = gpuMs !== undefined && gpuMs < interval * 0.3;
+    this.slowWindows = fps < 55 && gpuBound ? this.slowWindows + 1 : 0;
+    this.fastWindows = fps > 68 || gpuHeadroom ? this.fastWindows + 1 : 0;
     if (this.slowWindows >= 2 && this.resolutionScale > 0.65) { this.resolutionScale = Math.max(0.65, this.resolutionScale - 0.05); this.slowWindows = 0; this.resize(); }
     if (this.fastWindows >= 4 && this.resolutionScale < 1) { this.resolutionScale = Math.min(1, this.resolutionScale + 0.05); this.fastWindows = 0; this.resize(); }
   }
 
   private invalidate() { this.reflectionRevision++; this.settleFrames = TEMPORAL_SETTLE_FRAMES; }
+  /** A frozen object's inputs changed (target recreated, material edited): refresh everything once. */
+  private invalidateStatic() { this.staticRefresh?.invalidate(); this.invalidate(); }
 
   private resize() {
     if (!this.renderer || this.disposed || this.auditBusy) return;
@@ -502,7 +551,7 @@ export class SceneRuntime {
     const projectionChanged = this.camera.aspect !== width / height;
     if (!changed && !projectionChanged) return;
     this.camera.aspect = width / height; this.camera.updateProjectionMatrix();
-    this.invalidate();
+    this.invalidateStatic();
   }
   private onVisibility = () => {
     if (this.disposed) return;
@@ -518,6 +567,7 @@ export class SceneRuntime {
   private fail(message: string) {
     if (this.disposed || this.mode === 'error') return;
     this.abort.abort(); this.controls?.setEnabled(false);
+    this.endArrival(true);
     this.sceneTransition = undefined;
     if (this.renderer) (this.renderer.domElement as HTMLCanvasElement).style.opacity = '1';
     this.callbacks.onTransition?.(false);
@@ -587,6 +637,7 @@ export class SceneRuntime {
     if (!this.inspectionEnabled || !this.manifest) return;
     // Interactive furniture is reparented into the scene after loading.
     this.diagnostics?.setMode(mode);
+    this.staticRefresh?.invalidate();
     this.staticSunShadowCache?.invalidate('material diagnostic');
     // Keep the cached ShadowNode/render target alive when comparing modes.
     if (this.lighting) this.lighting.sun.shadow.intensity = mode === 'no-shadows' ? 0 : 1;
@@ -615,6 +666,7 @@ export class SceneRuntime {
     if (!this.inspectionEnabled || !this.controls || this.mode === 'loading' || this.mode === 'error' || this.sceneTransition) return;
     const positions = { 'studio-computer': [17.156, .03, -25.118], 'studio-computer-reverse': [17.05, .03, -34.282], 'hall-doorway': [19.9625, .03, -10.1], 'presentation-tv': [9.5, .03, -5.3], 'spiral-stair': [20.31, .7, -20.2], 'rounded-stair': [8.3, 3.675, -23], 'exterior-east': [23, -.01, -25], 'exterior-west': [-1.6, -.01, -28], 'lounge-chair': [11.9, 4.265, -3.8], entrance: [-8, -.355, -17.1], studio: [16.4, .03, -30.7], 'founder-lift': [13.35, .035, -3.35], bridge: [-1.3, 4.2, -17], gallery: [12, 3.675, -24.05], 'founder-room': [16, 4.23, -8.7], 'founder-balcony': [11, 4.23, -10.25], 'gallery-return': [8.14, 3.675, -24.48], 'founder-desk': [14.8, 4.265, -6.1] };
     const spawn = { position: positions[location] as [number, number, number], yaw: location === 'studio-computer' ? 0 : location === 'studio-computer-reverse' ? Math.PI : location === 'presentation-tv' || location === 'hall-doorway' ? 0 : location === 'rounded-stair' ? Math.PI / 2 : location === 'spiral-stair' ? Math.PI : location === 'founder-lift' ? Math.PI : location === 'gallery-return' ? -Math.PI / 2 : location === 'gallery' || location === 'founder-room' || location === 'founder-balcony' ? 0 : -Math.PI / 2 };
+    this.endArrival(true);
     this.inspectionRoute=undefined; this.inspectionWalkTime = 0; this.referenceCamera = ''; this.setDiagnosticMode('full'); this.setCinematicPlaying(false);
     this.controls.exitExplore(); this.paused = false;
     this.camera.position.fromArray(spawn.position).add(new Vector3(-2.45, 1.85, 0));
@@ -672,7 +724,7 @@ export class SceneRuntime {
     if (!value) this.invalidate();
     void this.renderer.setAnimationLoop(value || document.hidden ? null : this.tick);
   }
-  setPaused(value: boolean) { this.invalidate(); this.paused = value; this.controls?.setEnabled(!value && (this.mode === 'explore' || this.mode === 'seated')); }
+  setPaused(value: boolean) { this.invalidate(); this.paused = value; this.controls?.setEnabled(!value && !this.arrival && (this.mode === 'explore' || this.mode === 'seated')); }
   explore() {
     if (!this.controls || this.mode !== 'tour' || this.sceneTransition) return;
     if (this.progress < 0.999) { this.exploreDirectly(); return; }
@@ -689,6 +741,7 @@ export class SceneRuntime {
   /** Commit the real spawn beneath the intro's own exit transition. */
   prepareIntroArrival(destination: 'lounge' | 'motion-floor' = 'lounge', light: 'warm' | 'soft' = 'warm') {
     if (!this.controls || this.mode === 'loading' || this.mode === 'error' || this.disposed) return false;
+    this.endArrival(true);
     this.setCinematicPlaying(false);
     this.sceneTransition = undefined; this.referenceCamera = '';
     this.controls.exitExplore();
@@ -697,6 +750,7 @@ export class SceneRuntime {
     const spawn = this.manifest.spawn;
     this.renderer.toneMappingExposure = Math.pow(2, (this.manifest.exposure ?? 0.1) + (light === 'soft' ? -0.25 : 0));
     this.positionAtEntrance(spawn);
+    if (this.arrivalEnabled && !this.reducedMotion && this.temporal) this.beginArrival(spawn);
     this.paused = true; this.temporal?.reset();
     this.setStudioCovered(false);
     return true;
@@ -709,12 +763,58 @@ export class SceneRuntime {
     this.controls!.update(0.001); this.controls!.setEnabled(false); this.setMode('explore');
     if (this.lighting) this.lighting.sun.shadow.needsUpdate = true;
   }
+  /** The descent ends exactly on the pose positionAtEntrance() left, which is also
+   * where the controller's own follow blend starts: no pop, no controller change. */
+  private beginArrival(spawn: { position: number[]; yaw: number }) {
+    const forward = new Vector3(-Math.sin(spawn.yaw), 0, -Math.cos(spawn.yaw));
+    const endP = this.camera.position.clone(), endQ = this.camera.quaternion.clone();
+    const start = endP.clone().addScaledVector(forward, -ARRIVAL_BACK); start.y += ARRIVAL_HEIGHT;
+    const target = new Vector3().fromArray(spawn.position).addScaledVector(forward, 14).add(new Vector3(0, 1.35, 0));
+    const startQ = new Quaternion().setFromRotationMatrix(new Matrix4().lookAt(start, target, new Vector3(0, 1, 0)));
+    this.arrival = { t: 0, rate: 1, endP, endQ, startQ, forward };
+    // The follow camera's own field of view, so nothing changes at the hand-over.
+    this.camera.fov = 54; this.camera.updateProjectionMatrix();
+    this.poseArrival(1);
+    this.temporal!.cloud(1, 2.2, 0);
+    this.callbacks.onArrival?.(true);
+    if (typeof window !== 'undefined') { window.addEventListener('keydown', this.skipArrival); window.addEventListener('pointerdown', this.skipArrival); }
+  }
+  private poseArrival(remaining: number) {
+    const arrival = this.arrival!;
+    // Steep at the top, flat at the bottom: height falls with the square of what is left.
+    this.camera.position.copy(arrival.endP).addScaledVector(arrival.forward, -ARRIVAL_BACK * remaining);
+    this.camera.position.y += ARRIVAL_HEIGHT * remaining * remaining;
+    this.camera.quaternion.slerpQuaternions(arrival.startQ, arrival.endQ, 1 - remaining);
+  }
+  private updateArrival(dt: number) {
+    const arrival = this.arrival!;
+    arrival.t = Math.min(1, arrival.t + dt * arrival.rate / ARRIVAL_SECONDS);
+    this.poseArrival(1 - MathUtils.smootherstep(arrival.t, 0, 1));
+    // Solid at first, then the cloud opens outward while it streams upward past the camera.
+    this.temporal?.cloud(1 - MathUtils.smoothstep(arrival.t, .14, .58), MathUtils.lerp(2.2, .7, arrival.t), 1.5 * arrival.t);
+    if (arrival.t >= 1) this.endArrival();
+  }
+  /** Any key or click finishes the same path quickly instead of cutting. */
+  private skipArrival = (event: Event) => { if (this.arrival && !this.paused && !(event as KeyboardEvent).repeat) this.arrival.rate = 8; };
+  private endArrival(aborted = false) {
+    const arrival = this.arrival;
+    if (!arrival) return;
+    this.arrival = undefined;
+    if (typeof window !== 'undefined') { window.removeEventListener('keydown', this.skipArrival); window.removeEventListener('pointerdown', this.skipArrival); }
+    this.temporal?.cloud(0, 2.2, 0);
+    this.callbacks.onArrival?.(false);
+    if (aborted) { this.temporal?.reset(); return; }
+    this.camera.position.copy(arrival.endP); this.camera.quaternion.copy(arrival.endQ);
+    this.controls?.setEnabled(!this.paused && (this.mode === 'explore' || this.mode === 'seated'));
+    this.invalidate();
+  }
   exploreDirectly() {
     if (!this.controls || this.mode === 'loading' || this.mode === 'error' || this.disposed) return;
     this.setCinematicPlaying(false);
     this.beginSceneTransition('explore', 1);
   }
   private beginSceneTransition(destination: 'tour' | 'explore', progress: number) {
+    this.endArrival(true);
     this.sceneTransition = { elapsed: 0, moved: false, progress, destination };
     this.paused = true; this.referenceCamera = '';
     this.controls?.setEnabled(false);
@@ -766,7 +866,7 @@ export class SceneRuntime {
       if (this.lighting.sun.shadow.mapSize.x !== size) {
         this.lighting.sun.shadow.mapSize.set(size, size);
         this.lighting.sun.shadow.needsUpdate = true;
-        this.staticSunShadowCache?.invalidate('shadow quality'); this.invalidate();
+        this.staticSunShadowCache?.invalidate('shadow quality'); this.invalidateStatic();
       }
     }
     this.resize();
@@ -780,6 +880,7 @@ export class SceneRuntime {
   }
   dispose(): Promise<void> {
     if (this.disposal) return this.disposal;
+    this.endArrival(true);
     this.disposed = true; this.abort.abort(); this.observer?.disconnect();
     document.removeEventListener('visibilitychange', this.onVisibility);
     this.controls?.setEnabled(false);
@@ -788,7 +889,7 @@ export class SceneRuntime {
     // Aborting fetch/decode does not synchronously cancel a GLTF parse or GPU
     // compile. Releasing their resources early lets late continuations use a
     // disposed renderer. A replacement visit awaits this same promise.
-    this.disposal = Promise.allSettled([this.initialization, this.roomDelivery]).then(async () => {
+    this.disposal = Promise.allSettled([this.initialization, this.roomDelivery]).catch(() => {}).then(async () => {
       const release = (action: () => void) => {
         try { action(); } catch (error) { console.warn('[MD cleanup]', error); }
       };
@@ -796,6 +897,7 @@ export class SceneRuntime {
       release(() => this.frameMeter?.dispose());
       release(() => this.shaderValidation?.dispose());
       release(() => this.diagnostics?.dispose());
+      release(() => this.staticRefresh?.dispose());
       release(() => this.staticSunShadowCache?.dispose());
       release(() => this.staticTransforms?.restore());
       release(() => this.controls?.dispose());

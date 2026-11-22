@@ -2,8 +2,9 @@ import * as THREE from 'three';
 import type { ChairDefinition, SceneManifest, RuntimeHint } from '../../types';
 import { createCollisionWorld } from './CollisionWorld';
 import { createGlassLift } from './GlassLift';
+import type { ReadInteractionBytes } from './interactionGLB';
 import { loadAvatar } from './Avatar';
-import { applyLookInput, cameraLookDirection, cameraRelativeMove, cameraShortcut, damping, smoothEyeHeight, smoothSupportHeight, smootherStep, smoothAngle, locomotionHeading, turnSpeedFactor } from './movement';
+import { applyLookInput, cameraLookDirection, cameraRelativeMove, cameraShortcut, damping, smoothEyeHeight, smoothSupportHeight, smootherStep, smoothAngle, easedTurnRate, turnSpeedFactor } from './movement';
 import type { CameraView } from './movement';
 import { createPresentationScreen, type ScreenBounds } from '../presentation/PresentationScreen';
 import { createWorkstation, type Workstation } from './Workstation';
@@ -11,12 +12,15 @@ import { loadScreenPreviews } from '../presentation/screenPreviews.ts';
 import { createFounderCRM } from '../presentation/FounderCRM';
 import { createComputerScreens, type Computer } from './ComputerScreens';
 import { createStairSurfaces } from './StairSurfaces';
+import { flightTrail, locateFlight } from './stairFlights';
+import { GAIT, stairSpeed } from './locomotionClips';
 
 type ExtendedChair = ChairDefinition & { seatPosition?: [number, number, number]; forward?: [number, number, number] };
 type Options = {
   scene: THREE.Object3D; camera: THREE.PerspectiveCamera;
   renderer?: unknown; canvas: HTMLCanvasElement; manifest: SceneManifest;
   signal?: AbortSignal;
+  readBytes?: ReadInteractionBytes;
   onStateChange?: (mode: 'explore' | 'seated') => void;
   onPrompt?: (prompt: RuntimeHint | null) => void;
   onScreenMode?: (active: boolean) => void;
@@ -38,8 +42,8 @@ export async function createInteractionController(options: Options) {
   const cancelSibling = (reason: unknown): never => { transfers.abort(reason); throw reason; };
   options.signal?.addEventListener('abort', abortTransfers, { once: true });
   const resources = await Promise.allSettled([
-    createCollisionWorld(scene, manifest.collisions?.url, undefined, manifest.collisions?.additionalUrls, manifest.explorationBounds, transfers.signal).catch(cancelSibling),
-    loadAvatar(manifest.character?.url, transfers.signal).catch(cancelSibling),
+    createCollisionWorld(scene, manifest.collisions?.url, undefined, manifest.collisions?.additionalUrls, manifest.explorationBounds, transfers.signal, options.readBytes).catch(cancelSibling),
+    loadAvatar(manifest.character?.url, transfers.signal, options.readBytes).catch(cancelSibling),
     loadScreenPreviews(transfers.signal).catch(cancelSibling),
   ]).finally(() => options.signal?.removeEventListener('abort', abortTransfers));
   if (options.signal?.aborted || resources.some((result) => result.status === 'rejected')) {
@@ -102,10 +106,17 @@ export async function createInteractionController(options: Options) {
   let supportHeight = feet.y, previousSupportHeight = feet.y;
   const velocity = new THREE.Vector3();
   const displacement = new THREE.Vector3();
-  const stairAhead = new THREE.Vector3();
-  let stairWalkHold = 0;
+  const stairAhead = new THREE.Vector3(), stairStep = new THREE.Vector3();
+  let stairWalkHold = 0, stairPace = 0;
+  /** On or stepping onto a flight with a direction pressed: the way (body yaw) he walks along it. */
+  let stairFacing: number | undefined;
+  // On a flight the steps are shortened to about one tread each, so the pace drops too:
+  // 0.9 m/s is roughly 2.6 steps a second, Shift 1.2 m/s roughly 3.4. Flat-ground speed
+  // on those short steps would be a scramble.
+  // Stairs without a measured flight (none at present) keep these; measured flights walk at a cadence.
+  const STAIR_WALK_SPEED = 0.9, STAIR_SPRINT_SPEED = 1.2;
   const pivot = new THREE.Vector3(), desiredCamera = new THREE.Vector3();
-  const lookTarget = new THREE.Vector3(), desiredQuaternion = new THREE.Quaternion();
+  const lookTarget = new THREE.Vector3(), desiredQuaternion = new THREE.Quaternion(), cameraAhead = new THREE.Vector3();
   const cameraMatrix = new THREE.Matrix4();
   const up = new THREE.Vector3(0, 1, 0);
   let enabled = false, disposed = false, grounded = false;
@@ -113,7 +124,7 @@ export async function createInteractionController(options: Options) {
   let selected: Chair | undefined, nearest: Chair | undefined;
   const nearestSamplePosition = new THREE.Vector3(Infinity, Infinity, Infinity);
   let yaw = manifest.spawn.yaw ?? 0, pitch = 0.16, bodyYaw = yaw + Math.PI;
-  let previousBodyYaw = bodyYaw, renderBodyYaw = bodyYaw;
+  let previousBodyYaw = bodyYaw, renderBodyYaw = bodyYaw, turnRate = 0;
   let cameraView: CameraView = 'thirdPerson';
   let inspectionDistance: number | undefined;
   let cameraBoom: number | undefined;
@@ -355,21 +366,96 @@ export async function createInteractionController(options: Options) {
       velocity.set(0, 0, 0); actualSpeed = 0; verticalVelocity = 0; grounded = true; physics.place(feet); return;
     }
     let moveX = 0, moveY = 0, speed = 0;
+    stairFacing = undefined;
     if (mode === 'explore') {
       moveX = Number(keys.has('KeyD') || keys.has('ArrowRight')) - Number(keys.has('KeyA') || keys.has('ArrowLeft')) + virtual.x;
       moveY = Number(keys.has('KeyW') || keys.has('ArrowUp')) - Number(keys.has('KeyS') || keys.has('ArrowDown')) + virtual.y;
       const relative = cameraRelativeMove(moveX, moveY, yaw);
-      speed = keys.has('ShiftLeft') || keys.has('ShiftRight') || virtual.sprint ? 3.35 : 1.38;
+      // The speeds the walk and run clips are made for (feet stay planted at exactly these).
+      speed = keys.has('ShiftLeft') || keys.has('ShiftRight') || virtual.sprint ? GAIT.run : GAIT.walk;
       stairContact.sprint = !!(keys.has('ShiftLeft') || keys.has('ShiftRight') || virtual.sprint);
-      // Short treads need a walk, not the long airborne flat-ground run cycle.
-      // Look ahead before the first riser; retain the cap briefly over landings
-      // so adjacent tread boundaries cannot alternate walk/run every frame.
-      stairAhead.set(feet.x + relative.x * .45, feet.y, feet.z + relative.z * .45);
-      if (stairContact.sample.isStair(feet, feet.y) || stairContact.sample.isStair(stairAhead, feet.y)) stairWalkHold = .3;
-      else stairWalkHold = Math.max(0, stairWalkHold - STEP);
+      // Stair pace only on one of the three measured flights, moving along it, from just before its first riser to
+      // just past its last. (The stair-surface query also covers the entrance stone and landing floors: walking
+      // across those, or past a flight, dropped the visitor to stair pace — a slow-motion walk and no sprint.)
+      // Looking ahead 0.7 m (1.7 m running) lets the slowdown finish before the first riser (braking later reached
+      // the first step at 1 m/s, faster than the stair walk can take over: 4-7 cm of toe in the step).
+      const lookAhead = stairContact.sprint ? 1.7 : .7;
+      stairAhead.set(feet.x + relative.x * lookAhead, feet.y, feet.z + relative.z * lookAhead);
+      const flightAt = (p: THREE.Vector3) => {
+        const hit = locateFlight(p.x, p.y, p.z);
+        const along = hit ? relative.x * hit.uphillX + relative.z * hit.uphillZ : 0;
+        // Diagonally onto it counts (he is turned straight up or down it below); only walking past it does not.
+        if (!hit || Math.abs(along) < .2) return undefined;
+        const U = along > 0 ? hit.u : hit.treads - hit.u;   // tread coordinate along the way of travel
+        return U > -.4 && U < hit.treads + 1 ? hit : undefined;
+      };
+      // Checked along the whole look-ahead, not only at its end: 1.7 m ahead lies beyond the short gallery and
+      // entrance flights, so the run sped back up just before their first riser.
+      let flight = flightAt(feet);
+      for (let k = 1; k <= 4 && !flight; k++) flight = flightAt(stairAhead.set(feet.x + relative.x * lookAhead * k / 4, feet.y, feet.z + relative.z * lookAhead * k / 4));
+      // At the gallery wall the capsule slides along z = -24.53. The requested diagonal
+      // points through the wall and misses every look-ahead sample (2.9 m/s at the riser).
+      // Project the remaining run-up onto the stair normal when already against that edge.
+      if (!flight) {
+        const nearby = locateFlight(feet.x, feet.y, feet.z, 7);
+        if (nearby?.id === 'gallery') {
+          const trail = flightTrail(nearby, feet.x, feet.z);
+          const along = relative.x * nearby.uphillX + relative.z * nearby.uphillZ;
+          if (Math.abs(trail.offset) > .18 && trail.offset * relative.z > 0 && Math.abs(along) > .2) {
+            const distance = (along > 0 ? -nearby.u : nearby.u - nearby.treads) * nearby.going;
+            if (distance >= 0 && distance < lookAhead * Math.abs(along)) flight = nearby;
+          }
+        }
+      }
+      // Held 0.05 s, over a missed frame of the flight test only: held 0.3 s, the walk crossed the landing after
+      // every flight at stair pace (0.6 m/s on full-length steps, 0.7 steps a second: slow motion).
+      stairWalkHold = flight ? .05 : Math.max(0, stairWalkHold - STEP);
       stairContact.active = stairWalkHold > 0;
-      if (stairWalkHold > 0) speed = stairContact.sprint ? 1.65 : 1.38;
+      // Eased over 0.2 s, in and out, so entering a stair is not a jerk.
+      stairPace = THREE.MathUtils.clamp(stairPace + (stairWalkHold > 0 ? STEP : -STEP) / .2, 0, 1);
+      if (stairPace > 0) {
+        // On a flight: steps at a walking (or running) cadence, so deep treads are crossed faster than shallow ones.
+        const near = flight ?? locateFlight(feet.x, feet.y, feet.z);
+        const onStairs = near ? stairSpeed(near, stairContact.sprint) : stairContact.sprint ? STAIR_SPRINT_SPEED : STAIR_WALK_SPEED;
+        speed = THREE.MathUtils.lerp(speed, onStairs, stairPace * stairPace * (3 - 2 * stairPace));
+      }
       displacement.set(relative.x * speed, 0, relative.z * speed);
+      // On a flight, or stepping onto one, only up or down it. Off its treads the path eases from the pressed direction
+      // to straight up (or down) it over the last 0.6 tread before the first riser: walking in diagonally put a floor
+      // stride onto the steps (a shoe 12-15 cm into a riser) and jolted the body as the stair walk took over. On the
+      // treads, pressed straight left or right, he stays where he is. On the spiral he is eased back onto its middle
+      // trail; the gallery and entrance steps are the same all the way across and only keep him off their ends.
+      const onSteps = moveX || moveY ? flight ?? locateFlight(feet.x, feet.y, feet.z, 1.2) : undefined;
+      if (onSteps) {
+        const along = relative.x * onSteps.uphillX + relative.z * onSteps.uphillZ;
+        const sign = along < 0 ? -1 : 1, U = sign > 0 ? onSteps.u : onSteps.treads - onSteps.u;
+        const onTreads = onSteps.u > -.1 && onSteps.u < onSteps.treads + .1;
+        if (onTreads && Math.abs(along) < .2) displacement.set(0, 0, 0);
+        else if (Math.abs(along) >= .2 && U > -1.2 && U < onSteps.treads + .6) {
+          const trail = flightTrail(onSteps, feet.x, feet.z);
+          // Back onto the trail at up to 0.5 m/s across (about 1.2 s from the edge of the spiral's treads).
+          const pull = THREE.MathUtils.clamp(-trail.offset * 3, -.5, .5);
+          stairStep.set(onSteps.uphillX * sign * speed + trail.x * pull, 0, onSteps.uphillZ * sign * speed + trail.z * pull);
+          displacement.lerp(stairStep, onTreads ? 1 : THREE.MathUtils.smoothstep(U, -1.2, -.6));
+          stairFacing = Math.atan2(onSteps.uphillX * sign, onSteps.uphillZ * sign);
+          // Pressed the other way on a flight: he turns round where he stands, and sets off once he faces within
+          // about 80 deg of the new way. (He slid backwards down the steps while turning, with the stair walk playing in
+          // reverse, then swung round: a rushed stumble.)
+          if (cameraView === 'thirdPerson') {
+            const facing = Math.cos(stairFacing - bodyYaw);
+            displacement.multiplyScalar(THREE.MathUtils.clamp((facing - .2) / .6, 0, 1));
+            // Turning round on a tread his shoes stand together on it, so he eases back from the step above as he turns
+            // (at most 12 cm/s, usually a few cm): standing further forward, the toe that still pointed up the flight
+            // (25 cm ahead of him) reached up to 12 cm into the riser above. Heels and toes may overhang the edge below.
+            const room = Math.floor(onSteps.u) + Math.max(.05, 1 - .25 / onSteps.going) - onSteps.u;
+            if (onTreads && facing < .9 && room < 0)
+              displacement.addScaledVector(stairStep.set(-onSteps.uphillX, 0, -onSteps.uphillZ), Math.min(.12, -room * onSteps.going / .2));
+          }
+        }
+      }
+      // Letting go on a flight finishes the step under way, so both feet end on treads (not one in mid-air).
+      const settle = moveX === 0 && moveY === 0 && 'stairSettle' in avatar ? avatar.stairSettle : undefined;
+      if (settle && settle.distance > .005) displacement.set(settle.x, 0, settle.z).multiplyScalar(Math.min(settle.speed, settle.distance / .12));
       if (cameraView === 'thirdPerson' && displacement.lengthSq() > 0.001) {
         displacement.multiplyScalar(turnSpeedFactor(bodyYaw, Math.atan2(displacement.x, displacement.z)));
       }
@@ -412,8 +498,18 @@ export async function createInteractionController(options: Options) {
     const achievedSpeed = Math.hypot(feet.x - oldX, feet.z - oldZ) / STEP;
     // Millimetre contact corrections at a blocked wall are not a walking gait.
     actualSpeed = THREE.MathUtils.lerp(actualSpeed, achievedSpeed < 0.06 ? 0 : achievedSpeed, damping(16, STEP));
-    if (cameraView === 'bodyCam' && mode === 'explore') bodyYaw = smoothAngle(bodyYaw, yaw + Math.PI, damping(14, STEP));
-    else if (achievedSpeed > 0.06) bodyYaw = locomotionHeading(bodyYaw, Math.atan2(feet.x - oldX, feet.z - oldZ), achievedSpeed, STEP);
+    if (cameraView === 'bodyCam' && mode === 'explore') { bodyYaw = smoothAngle(bodyYaw, yaw + Math.PI, damping(14, STEP)); turnRate = 0; }
+    else if (stairFacing !== undefined) {
+      // On a flight he faces along it, turning round on the spot when he reverses: unhurried and eased (a quarter
+      // second to full rate, slowing over the last 50 deg), about a second for a half-turn. The walking turn
+      // (6 rad/s) spun him round on a step in under half a second.
+      const difference = Math.atan2(Math.sin(stairFacing - bodyYaw), Math.cos(stairFacing - bodyYaw));
+      turnRate += THREE.MathUtils.clamp(THREE.MathUtils.clamp(difference * 4, -3.6, 3.6) - turnRate, -14 * STEP, 14 * STEP);
+      bodyYaw += turnRate * STEP;
+    } else if (achievedSpeed > 0.06) {
+      turnRate = easedTurnRate(turnRate, bodyYaw, Math.atan2(feet.x - oldX, feet.z - oldZ), achievedSpeed, STEP);
+      bodyYaw += turnRate * STEP;
+    } else turnRate = 0;
     if (feet.y < -10) { feet.fromArray(manifest.spawn.position); feet.y = physics.groundAt(feet); physics.place(feet); previousFeet.copy(feet); renderFeet.copy(feet); previousSupportHeight = supportHeight = feet.y; verticalVelocity = 0; }
   }
   function updateCamera(dt: number) {
@@ -434,7 +530,13 @@ export async function createInteractionController(options: Options) {
       const direction = cameraLookDirection(yaw, pitch);
       // The camera sits at calibrated eye height, inside the capsule. It does not
       // inherit the animated head's bob/roll, so looking still stays still.
-      desiredCamera.copy(eyePosition).add(new THREE.Vector3(-Math.sin(yaw) * 0.075, 0, -Math.cos(yaw) * 0.075));
+      // Looking down, the eyes go forward and a little down with the head as it tips about the neck: from 7.5 cm in
+      // front of the body's centre the view looked straight down into the empty collar (the head is hidden here).
+      // At 63 deg down and below they are 22.5 cm forward, ahead of the collar, over the tie and shirt front.
+      // Plus the head's own forward lean (21 cm sprinting), smoothed over the stride so the view does not bob.
+      const lean = !seatedView && 'eyeLean' in avatar ? avatar.eyeLean : 0;
+      const tip = seatedView ? 0 : THREE.MathUtils.smoothstep(pitch, .2, 1.1), ahead = .075 + lean + .15 * tip;
+      desiredCamera.copy(eyePosition).add(new THREE.Vector3(-Math.sin(yaw) * ahead, -.05 * tip, -Math.cos(yaw) * ahead));
       lookTarget.copy(desiredCamera).add(new THREE.Vector3(direction.x, direction.y, direction.z));
       if (seatedView && selected && !(selected.workstation && !founderFocused)) lookTarget.copy(selected.computer?.center ?? selected.workstation?.screen ?? display?.getWorldCenter() ?? desiredCamera.clone().addScaledVector(selected.forward, 5));
     } else if (seatedView && selected && !selected.workstation) {
@@ -451,7 +553,9 @@ export async function createInteractionController(options: Options) {
       lookTarget.copy(computerView.center);
     }
     if (!firstPerson) {
-      const cameraDistance = physics.cameraDistance(pivot, desiredCamera);
+      // Seated cameras are authored around their chair and desk; only the walking boom
+      // also stops at drawn walls that have no collider.
+      const cameraDistance = physics.cameraDistance(pivot, desiredCamera, undefined, !seatedView);
       // Dampen boom recovery, not world-space position. Sideways position lag
       // cuts across wall corners and makes the camera trail behind a stair turn.
       cameraBoom = cameraBoom === undefined ? cameraDistance
@@ -459,6 +563,18 @@ export async function createInteractionController(options: Options) {
       // Preserve the offset before mutating desiredCamera: copying pivot first
       // would zero the offset and put the camera inside the visitor's body.
       const offset = desiredCamera.clone().sub(pivot).normalize();
+      // Backed against a guard or wall the boom can shrink to a few centimetres,
+      // and a camera left at chest height then sees only the back of the jacket.
+      // As the boom gets that short, rise to just above eye height and look ahead
+      // over the shoulder; the head hides itself once the camera is that close.
+      const squeeze = seatedView ? 0 : 1 - THREE.MathUtils.smoothstep(cameraBoom, .3, .75);
+      if (squeeze > 0) {
+        pivot.y = THREE.MathUtils.lerp(pivot.y, cameraFloor + eyeHeight + .06, squeeze);
+        // Look ahead with only a quarter of the boom's tilt: a steep downward look
+        // from just behind the head would show the collar instead of the room.
+        cameraAhead.copy(offset).negate(); cameraAhead.y *= .25;
+        lookTarget.lerp(cameraAhead.normalize().multiplyScalar(2.5).add(pivot), squeeze);
+      }
       desiredCamera.copy(pivot).addScaledVector(offset, cameraBoom);
     }
     cameraMatrix.lookAt(desiredCamera, lookTarget, up); desiredQuaternion.setFromRotationMatrix(cameraMatrix);
@@ -475,7 +591,7 @@ export async function createInteractionController(options: Options) {
     // Clamp the *smoothed* camera too, avoiding lag that slips behind furniture.
     // Collision retracts immediately; normal extension remains damped.
     if (!firstPerson || cameraBlend < 1) {
-      const safeDistance = physics.cameraDistance(pivot, camera.position);
+      const safeDistance = physics.cameraDistance(pivot, camera.position, undefined, !seatedView);
       const offset = camera.position.clone().sub(pivot);
       if (offset.length() > safeDistance) camera.position.copy(pivot).addScaledVector(offset.normalize(), safeDistance);
     }
@@ -692,7 +808,7 @@ export async function createInteractionController(options: Options) {
     if (disposed) return;
     founderFocused = false; deskCameraView = undefined; crm?.setSeated(false); desktop?.close();
     cameraStart.copy(pose?.position ?? camera.position); cameraStartQuaternion.copy(pose?.quaternion ?? camera.quaternion);
-    stairWalkHold = 0; stairContact.active = false;
+    stairWalkHold = 0; stairPace = 0; stairContact.active = false;
     cameraBlend = 0; cameraBoom = undefined; cameraBlendDuration = 1.15; mode = 'explore'; selected = undefined; display?.setActive(enabled); seatWeight = 0;
     physics.setDeskClearance(false); pendingNavigationClearance = false; deskStage = undefined; handWeight = 0; inspectionDistance = undefined;
     nearestSamplePosition.set(Infinity, Infinity, Infinity);
@@ -701,7 +817,7 @@ export async function createInteractionController(options: Options) {
     cameraFloor = feet.y;
     previousSupportHeight = supportHeight = feet.y;
     const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(cameraStartQuaternion);
-    yaw = inspectionSpawn?.yaw ?? Math.atan2(-direction.x, -direction.z); pitch = 0.16; bodyYaw = yaw + Math.PI;
+    yaw = inspectionSpawn?.yaw ?? Math.atan2(-direction.x, -direction.z); pitch = 0.16; bodyYaw = yaw + Math.PI; turnRate = 0;
     previousFeet.copy(feet); renderFeet.copy(feet); previousBodyYaw = renderBodyYaw = bodyYaw;
     avatar.root.position.copy(feet); avatar.root.rotation.y = bodyYaw;
     // Sample a fresh idle pose at the new support plane before the first visible frame.
