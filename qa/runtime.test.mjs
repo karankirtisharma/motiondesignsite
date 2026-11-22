@@ -198,6 +198,14 @@ test('runtime mirror revisions stay stable while settling and invalidate for eve
 });
 
 
+test('automatic quality restores native detail on a 60 Hz display', () => {
+  const { runtime } = fixture();
+  runtime.resolutionScale = 0.85;
+  runtime.resize = () => {};
+  for (let window = 0; window < 12; window++) runtime.adaptResolution(60);
+  assert.equal(runtime.resolutionScale, 1);
+});
+
 test('background callback gaps do not lower quality; active slow frames still adapt', () => {
   const { runtime, frames } = fixture();
   runtime.quality = 'auto';

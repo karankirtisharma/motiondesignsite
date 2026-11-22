@@ -36,3 +36,6 @@ src/generated/lighting-transfer-sizes.json
 src/generated/immutable-scene-assets.json
 
 src/generated/texture-transfer-sizes.json
+
+public/room-stream/
+src/generated/room-stream.json
